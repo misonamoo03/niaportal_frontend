@@ -1,0 +1,151 @@
+
+/*메인*/
+#wrap {background-image: url("../images/m_bg.jpg"); height: 100%; background-position: top center; background-repeat: no-repeat; }
+
+#header {height: 120px; line-height: 120px;  border-bottom:1px solid rgba(255, 255, 255, .2);}
+#header .container, #header .container a{color:#fff;}
+#header .container{position: relative;}
+#header .container h1{float:left; line-height: 0; margin-top:35px;}
+#header .container .gnb{float:right;}
+
+#header .container .util{float: right;}
+#header .container .util li{display: inline-block;}
+#header .container .util .util_bar{color:rgba(255, 255, 255, .4); padding:0 10px;}
+#header .container .util_search{margin:0 30px 0 50px;}
+
+
+#banner {height: 260px;}
+#banner .container{color:#fff; font-size: 20px; text-align:center;}
+#banner .container h1{padding-top:35px;}
+#banner .container p{margin-top:10px;}
+
+#contents {height: 600px;}
+#contents .container .m_golf, .container .m_soccer, .m_basketball{width:400px; float:left; position: relative; }
+#contents .container .m_golf{background-image: url("../images/golf.jpg"); height: 100%; background-position: top center; background-repeat: no-repeat;}
+#contents .container .m_soccer{background-image: url("../images/soccer.jpg"); height: 100%; background-position: top center; background-repeat: no-repeat;}
+#contents .container .m_basketball{background-image: url("../images/basketball.jpg"); height: 100%; background-position: top center; background-repeat: no-repeat; }
+
+#contents .container .m_golf:hover,
+#contents .container .m_soccer:hover,
+#contents .container .m_basketball:hover{
+	-webkit-transform:scale(1.1); /*  크롬 */
+    -moz-transform:scale(1.1); /* FireFox */
+    -o-transform:scale(1.1); /* Opera */
+    transform:scale(1.1);
+    transition: transform .35s;
+    -o-transition: transform .35s;
+    -moz-transition: transform .35s;
+    -webkit-transition: transform .35s;
+   z-index: 1;
+}
+
+#contents .container .m_golf .m_golf_over,
+#contents .container .m_soccer .m_soccer_over,
+#contents .container .m_basketball .m_basketball_over{
+	width:100%; position: absolute; left: 0px;  background-color:rgba(0, 53, 115, .7); display: none; color:#fff; 
+	text-align: center; font-size:56px; font-weight: 100; font-style: italic; line-height: 600px;
+}
+
+#contents .container .m_golf .m_golf_over{background-color:rgba(82, 0, 0, .7); }
+#contents .container .m_soccer .m_soccer_over{background-color:rgba(0, 115, 16, .7);}
+
+#contents .container .m_golf:hover .m_golf_over,
+#contents .container .m_soccer:hover .m_soccer_over,
+#contents .container .m_basketball:hover .m_basketball_over{display: block;}
+
+
+
+
+#footer {height: 115px; margin-top:40px;}
+#footer .container{position: relative; display: table;}
+#footer .container address{margin-top:40px;}
+#footer .container .addr{margin-right:30px;}
+#footer .container .logo{position: absolute; top:0; left:0;}
+#footer .container .rlogo{position: absolute; top:0; right:0;}
+#footer .container .copy{text-transform:uppercase;}
+
+
+.container {width: 1200px; height: inherit; margin: 0 auto; max-width: none !important;}
+
+
+
+/*메뉴*/
+
+nav {display: flex; justify-content: center; position: absolute; right: 230px;}
+ul, li {margin: 0; padding: 0; list-style: none;}
+#main-menu > li {z-index: 1; float: left; position: relative; }
+#main-menu > li > a {
+	font-size: 21px; 
+	font-weight: 500;
+	color: rgba(255,255,255,0.85);
+	text-align: center;
+	text-decoration: none;
+	letter-spacing: 0.05em;
+	display: block;
+	padding: 0px 36px;
+	border-right: 1px solid rgba(0,0,0,0.15);
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+#main-menu > li:nth-child(1) > a {border-left: 1px solid rgba(0,0,0,0.15);}
+#sub-menu {
+	position: absolute; 
+	left: 50%;
+    top: 120px;
+    transform: translate(-50%, 0);
+	background: rgba(255,255,255,1); 
+	opacity: 0; 
+	visibility: hidden; 
+	transition: all 0.15s ease-in;
+}
+#sub-menu > li {
+	/*padding: 0px 28px;*/
+	width: 140px;
+	text-align: center;
+	border-bottom: 1px solid rgba(0,0,0,0.15);
+	line-height: 40px;
+}
+#sub-menu > li >  a {color: rgba(0,0,0,1) !important; font-size: 16px; text-decoration: none; display: block;}
+#main-menu > li:hover #sub-menu {opacity: 1; visibility: visible;}
+#sub-menu > li >  a:hover {text-decoration: underline;}
+
+
+
+/*회원*/
+#member_wrap{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%)}
+#member_wrap .container h1{font-size: 0; text-align: center; margin-bottom:60px;}
+#member_wrap .container .member_form_wrap{width:480px; margin:0 auto;}
+
+.member_bg{
+	background: url(../images/member_bg.jpg) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+
+.tab {list-style: none; margin: 0; padding: 0; overflow: hidden;}
+.tab li {
+	width:400px; 
+	float: left; 
+	background-color: #8a90a0; 
+	border-right:1px solid #969baa;
+	text-align: center;
+	height: 60px;
+	margin-top:10px;
+}
+/*.tab li:last-child{width:33.4%;}*/
+.tab li a {
+	width:100%;
+	display: inline-block; 
+	color: #bec1c9;
+	text-decoration: none;
+	line-height: 60px;
+	/*transition:0.3s;*/
+	font-size: 18px;
+	font-weight: bold;
+}
+.tab li.current{background-color:#fff; color: #000; height: 70px; margin:0;}
+.tab li.current a{ color: #000; font-size: 20px; line-height: 70px;}
+.tabcontent {display: none; background-color:#fff; height:560px; color:#000; text-align: center; padding:60px 0;}
+.tabcontent.current {display: block;}
