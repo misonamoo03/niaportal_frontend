@@ -10,14 +10,17 @@ export default {
 		link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
 		script: [
 			{
-				src:
-					'https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous',
-			},
+        src: "https://code.jquery.com/jquery-1.12.4.js",
+        type: "text/javascript",
+        async: true
+			}
 		],
 	},
 
 	// Global CSS (https://go.nuxtjs.dev/config-css)
-	css: ['~/assets/css/default.css', '~/assets/css/style.css'],
+  css: ['~/assets/css/default.css', '~/assets/css/style.css'],
+  // Global CSS (https://go.nuxtjs.dev/config-js)
+	javascript: ['~/assets/js/custom.js'],
 
 	// Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
 	plugins: [],
@@ -37,7 +40,9 @@ export default {
 	],
 
 	// Axios module configuration (https://go.nuxtjs.dev/config-axios)
-	axios: {},
+  axios: {
+    withCredentials: true
+  },
 
 	// Build Configuration (https://go.nuxtjs.dev/config-build)
 	build: {},

@@ -1,15 +1,17 @@
 // tab
-$(document).ready(function() {
-	$('ul.tabs li').click(function() {
+$(document).ready(function(){
+	
+	$('ul.tabs li').click(function(){
 		var tab_id = $(this).attr('data-tab');
 
 		$('ul.tabs li').removeClass('current');
 		$('.tab-content').removeClass('current');
 
 		$(this).addClass('current');
-		$('#' + tab_id).addClass('current');
-	});
-});
+		$("#"+tab_id).addClass('current');
+	})
+
+})
 
 $(function() {
 	$('ul.tab li').click(function() {
@@ -18,5 +20,5 @@ $(function() {
 		$('.tabcontent').removeClass('current');
 		$(this).addClass('current');
 		$('#' + activeTab).addClass('current');
-	});
+	})
 });
