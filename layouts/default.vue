@@ -1,23 +1,16 @@
 <template>
-	<body>
 		<div id="wrap">
 			<theHeader />
-			<theBanner />
-			<theContent />
+      <Nuxt />
 			<theFooter />
 		</div>
-	</body>
 </template>
 <script>
-import theHeader from '~/layouts/header';
-import theBanner from '~/layouts/banner';
-import theContent from '~/layouts/content';
-import theFooter from '~/layouts/footer';
+import theHeader from '~/components/header';
+import theFooter from '~/components/footer';
 export default {
 	components: {
 		theHeader,
-		theBanner,
-		theContent,
 		theFooter,
 	},
 };

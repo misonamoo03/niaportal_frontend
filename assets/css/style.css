@@ -65,7 +65,8 @@
 #footer .container .copy{text-transform:uppercase;}
 
 
-.container {width: 1200px; height: inherit; margin: 0 auto; max-width: none !important;}
+
+.container {width: 1200px; height: inherit; margin: 0 auto;}
 
 
 
@@ -112,8 +113,26 @@ ul, li {margin: 0; padding: 0; list-style: none;}
 
 /*회원*/
 #member_wrap{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%)}
-#member_wrap .container h1{font-size: 0; text-align: center; margin-bottom:60px;}
-#member_wrap .container .member_form_wrap{width:480px; margin:0 auto;}
+#member_wrap .container h1{font-size: 0; text-align: center; margin:70px 0 50px 0;}
+#member_wrap .container .member_form_wrap{width:480px; position:absolute; 
+	top:50%; 
+	left:50%; 
+	transform:translate(-50%, -50%)}
+#member_wrap .container .member_form_wrap input{margin-bottom:8px;}
+#member_wrap .container .member_form_wrap h2{margin-bottom: 60px;}
+
+.findpwd_wrap{
+	background-color:#fff; 
+	height:600px; 
+	color:#000; 
+	text-align: center; 
+	/*padding-top:50px;*/
+	position: relative;
+	top:-1px;
+}
+
+
+
 
 .member_bg{
 	background: url(../images/member_bg.jpg) no-repeat center center fixed; 
@@ -121,6 +140,19 @@ ul, li {margin: 0; padding: 0; list-style: none;}
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+}
+
+.mem_ftxt{color:rgba(255, 255, 255, .3);}
+
+
+.tabcontent {
+	display: none; 
+	background-color:#fff; 
+	height:530px; color:#000; 
+	text-align: center; 
+	/*padding-top:50px;*/
+	position: relative;
+	top:-1px;
 }
 
 
@@ -134,7 +166,7 @@ ul, li {margin: 0; padding: 0; list-style: none;}
 	height: 60px;
 	margin-top:10px;
 }
-/*.tab li:last-child{width:33.4%;}*/
+.tab li:last-child{border-right:0;}
 .tab li a {
 	width:100%;
 	display: inline-block; 
@@ -147,5 +179,86 @@ ul, li {margin: 0; padding: 0; list-style: none;}
 }
 .tab li.current{background-color:#fff; color: #000; height: 70px; margin:0;}
 .tab li.current a{ color: #000; font-size: 20px; line-height: 70px;}
-.tabcontent {display: none; background-color:#fff; height:560px; color:#000; text-align: center; padding:60px 0;}
+.tabcontent {
+	display: none; 
+	background-color:#fff; 
+	height:530px; color:#000; 
+	text-align: center; 
+	/*padding-top:50px;*/
+	position: relative;
+	top:-1px;
+}
 .tabcontent.current {display: block;}
+
+
+/*메일*/
+
+#mail_wrap{width:800px; margin:0 auto; border:1px solid #ddd; font-size:15px; border-top:4px solid #000;}
+#mail_wrap h1{font-size:32px; }
+
+#mail_header{height:232px; background-image: url("../images/mail_topbg.jpg"); background-position: top center; background-repeat: no-repeat; border-bottom:1px solid #ddd; padding:60px 0 0 35px;}
+#mail_header img{margin-bottom:20px;}
+
+#mail_contents{background-color:#f1f2f7; padding: 50px 45px; text-align: center; line-height: 1.6;}
+#mail_contents .mail_numbox{width:100%; background-color: #fff; padding: 30px 0; margin-top:30px;}
+#mail_contents .mail_numbox .mail_num{font-size: 25px; font-weight: bold; margin-bottom: 10px;}
+#mail_footer{text-align: center; padding:30px 0;}
+
+
+
+/*버튼*/
+.btn_area{margin-top:30px;}
+.btn_type{
+	display: block; 
+	width:100%; 
+	font-size: 21px; 
+	font-weight: 500;
+	text-align: center; 
+	cursor: pointer;
+	line-height: 55px;
+	border-radius: 100px;
+}
+.btn_primary{color:#fff; background-color: #2046b3;}
+
+
+/*체크박스*/
+input[type="checkbox"]{position: absolute; width:1px; height: 1px; padding:0; margin:-1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;}
+input[type="checkbox"] + label{width: 100%; display: inline-block; position: relative; cursor: pointer; font-size: 15px; margin-top:10px; text-align: left;}
+
+
+
+input[type="checkbox"] + label::before{
+	content:""; display: 
+	inline-block; 
+	padding-left:20px; 
+	height:20px; 
+	background-image: url("../images/check_btn.svg");
+	background-size:20px;
+	vertical-align: middle;
+	margin-right: 8px;
+	position: relative;
+	top:-1px;
+}
+
+input[type="checkbox"]:checked + label::before{
+	content:""; 
+	display: inline-block; 
+	padding-left:20px; 
+	height:20px; 
+	background-image: url("../images/check_btn_checked.svg");
+	background-size:20px;
+	vertical-align: middle;
+}
+
+/*공통*/
+.warning{font-size: 15px; text-align: left; margin-top:10px;}
+.warning::before{
+	content:""; 
+	display: inline-block; 
+	width:13px;
+	height:13px; 
+	background-image: url("../images/mark.png");
+	background-size:13px;
+	vertical-align: middle;
+	margin-right:8px;
+}

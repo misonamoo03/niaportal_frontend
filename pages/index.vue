@@ -1,12 +1,21 @@
 <template>
-	<layoutDefault />
+  <div>
+    <theBanner />
+    <div id="contents"> 
+      <theMainIntro />
+    </div>
+  </div>
 </template>
 <script>
-import layoutDefault from '~/layouts/default';
+import theMainIntro from '~/components/mainIntro';
+import theBanner from '~/components/banner';
 
 export default {
+  //layout: 'main',
 	components: {
-		layoutDefault,
+    theMainIntro,
+    theBanner
 	},
 };
 </script>
+  

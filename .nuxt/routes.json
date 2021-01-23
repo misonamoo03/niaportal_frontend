@@ -1,0 +1,44 @@
+[
+  {
+    "name": "search",
+    "path": "/search",
+    "component": "C:\\\\미소나무\\\\프로젝트\\\\정부과제\\\\niapotal\\\\niaportal_frontend\\\\pages\\\\search.vue",
+    "chunkName": "pages/search",
+    "_name": "_409ab910"
+  },
+  {
+    "name": "board-faq-boardNo",
+    "path": "/board/faq/:boardNo?",
+    "component": "C:\\\\미소나무\\\\프로젝트\\\\정부과제\\\\niapotal\\\\niaportal_frontend\\\\pages\\\\board\\\\faq\\\\_boardNo.vue",
+    "chunkName": "pages/board/faq/_boardNo",
+    "_name": "_19c70540"
+  },
+  {
+    "name": "board-qna-boardNo",
+    "path": "/board/qna/:boardNo?",
+    "component": "C:\\\\미소나무\\\\프로젝트\\\\정부과제\\\\niapotal\\\\niaportal_frontend\\\\pages\\\\board\\\\qna\\\\_boardNo.vue",
+    "chunkName": "pages/board/qna/_boardNo",
+    "_name": "_411aa7ae"
+  },
+  {
+    "name": "member-name",
+    "path": "/member/:name?",
+    "component": "C:\\\\미소나무\\\\프로젝트\\\\정부과제\\\\niapotal\\\\niaportal_frontend\\\\pages\\\\member\\\\_name.vue",
+    "chunkName": "pages/member/_name",
+    "_name": "_0cc81050"
+  },
+  {
+    "name": "sports-code",
+    "path": "/sports/:code?",
+    "component": "C:\\\\미소나무\\\\프로젝트\\\\정부과제\\\\niapotal\\\\niaportal_frontend\\\\pages\\\\sports\\\\_code.vue",
+    "chunkName": "pages/sports/_code",
+    "_name": "_7f464796"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\미소나무\\\\프로젝트\\\\정부과제\\\\niapotal\\\\niaportal_frontend\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "_name": "_ac12d8cc"
+  }
+]
