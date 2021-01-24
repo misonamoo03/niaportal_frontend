@@ -27,7 +27,6 @@ export const mutations = {
 export const actions = {
   // nuxtServerInit는 모든 페이지를 서버 렌더링하기 전에 Nuxt.js에 의해 호출
   async nuxtServerInit({ commit }, { req }) {
-    console.log(req.session)
     if (req.session && req.session.authUser) {
       commit('SET_USER', req.session.authUser)
     }

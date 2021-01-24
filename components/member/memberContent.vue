@@ -141,7 +141,7 @@ export default {
     ...mapActions("member",['signUp','signIn']),
     async signUpMethod () {
       try {
-        console.log("email",this.email);
+        //console.log("email",this.email);
         let userInfo = {
           "email": this.email,
           "password":this.userPassword,
