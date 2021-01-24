@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>
-      <a href="/"><img src="~assets/images/m_logo.png" alt="logo" /></a>
+      <NuxtLink to="/"><img src="~assets/images/m_logo.png" alt="logo" /></NuxtLink>
     </h1>
     <ul class="tab">
       <li :class="{ current: pageName === 'signIn' }" data-tab="tab1" ><NuxtLink to="/member/signIn">로그인</NuxtLink></li>
