@@ -1,6 +1,6 @@
 <template>
   <div id="member_contents"> 
-    <theMemberContents :name="name"/>
+    <theMemberContents :pageName="name"/>
   </div>
 			
 </template>

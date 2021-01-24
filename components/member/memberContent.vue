@@ -4,15 +4,15 @@
       <a href="/"><img src="~assets/images/m_logo.png" alt="logo" /></a>
     </h1>
     <ul class="tab">
-      <li :class="{ current: name === 'signIn' }" data-tab="tab1" ><NuxtLink to="/member/signIn">로그인</NuxtLink></li>
-      <li :class="{ current: name === 'signUp' }" data-tab="tab2">
+      <li :class="{ current: pageName === 'signIn' }" data-tab="tab1" ><NuxtLink to="/member/signIn">로그인</NuxtLink></li>
+      <li :class="{ current: pageName === 'signUp' }" data-tab="tab2">
         <NuxtLink to="/member/signUp">가입하기</NuxtLink>
       </li>
-      <li :class="{ current: name === 'findPass' }" data-tab="tab3"><NuxtLink to="/member/findPass">비밀번호 찾기</NuxtLink></li>
+      <li :class="{ current: pageName === 'findPass' }" data-tab="tab3"><NuxtLink to="/member/findPass">비밀번호 찾기</NuxtLink></li>
     </ul>
 
     <!-- tab1[S] -->
-    <div id="tab1" :class="{ tabcontent: true, current: name === 'signIn' }">
+    <div id="tab1" :class="{ tabcontent: true, current: pageName === 'signIn' }">
       <div class="member_form_wrap">
         <input
           type="email"
@@ -26,7 +26,7 @@
         <label for="myCheck">아이디 저장</label>
 
         <div class="btn_area">
-          <button type="button" id="btnlogin" class="btn_type btn_primary" @click="signIn">
+          <button type="button" id="btnlogin" class="btn_type btn_primary" @click="signInMethod">
             <span>로그인</span>
           </button>
         </div>
@@ -35,7 +35,7 @@
     <!-- tab1[E] -->
 
     <!-- tab2[S] -->
-    <div id="tab2" :class="{ tabcontent: true, current: name === 'signUp' }">
+    <div id="tab2" :class="{ tabcontent: true, current: pageName === 'signUp' }">
       <div class="member_form_wrap">
         <input
           type="email"
@@ -60,7 +60,7 @@
         </form>
 
         <div class="btn_area clear">
-          <button type="button" id="btnJoin" class="btn_type btn_primary" @click="signUp">
+          <button type="button" id="btnJoin" class="btn_type btn_primary" @click="signUpMethod">
             <span >가입하기</span>
           </button>
         </div>
@@ -69,7 +69,7 @@
     <!-- tab2[E] -->
 
     <!-- tab3[S] -->
-    <div id="tab3" :class="{ tabcontent: true, current: name === 'findPass' }">
+    <div id="tab3" :class="{ tabcontent: true, current: pageName === 'findPass' }">
       <div class="member_form_wrap">
         <input
           type="email"
@@ -89,11 +89,13 @@
   </div>
 </template>
 <script>
-
+import { mapActions,mapMutations, mapGetters,mapState} from 'vuex'
+import CommonService from '~/service/common'
 export default {
-  props: ['name'],
+  props: ['pageName'],
   data () {
     return {
+      codeList:null,
       loginEmail: '',
       loginPassword: '',
       email: '',
@@ -105,8 +107,39 @@ export default {
 
     }
   },
+  created () {
+    // 뷰가 생성되고 데이터가 이미 감시 되고 있을 때 데이터를 가져온다.
+    this.fetchData()
+  },
+  watch: {
+    // 라우트가 변경되면 메소드를 다시 호출됩니다.
+    //'$route': 'fetchData'
+  },
   methods: {
-    async signUp () {
+
+    // 배열 리터럴
+    ...mapMutations([
+
+    ]),
+    ...mapActions(['getCodeList']),
+      async fetchData(){
+      try {
+
+        let param = {
+          "prtCode": "000",
+          "codeType": ""
+        };
+
+        await this.getCodeList(param).then();//<--actions로 조회 및 state 등록
+        this.codeList = this.getCommonCodeList; //<--getters로 가져오기
+        console.log("12345678",this.code); //<-- state로 가져 오기 
+      } catch (e) {
+        console.log(e.message);
+        this.returnMsg = e.message
+      }
+    },
+    ...mapActions("member",['signUp','signIn']),
+    async signUpMethod () {
       try {
         console.log("email",this.email);
         let userInfo = {
@@ -118,23 +151,21 @@ export default {
           "agency":this.agency,
           "companyTypeCode":"CDC001"
         };
-        await this.$store.dispatch('signUp', {
-           userInfo: userInfo
-         }).then(() => this.redirect())
+        await this.signUp({userInfo: userInfo}).then(()=>this.redirect());
+
       } catch (e) {
         console.log(e.message);
         this.returnMsg = e.message
       }
     },
-    async signIn () {
+    async signInMethod () {
       try {
         let userInfo = {
           "email": this.loginEmail,
           "password":this.loginPassword
         };
-        await this.$store.dispatch('signIn', {
-           email: this.loginEmail, password:this.loginPassword
-         }).then(() => this.redirect())
+
+       await this.signIn(userInfo).then(()=>this.redirect());
       } catch (e) {
         console.log(e.message);
         this.returnMsg = e.message
@@ -143,6 +174,15 @@ export default {
     redirect () {
       this.$router.push('/')
     }
+  },
+  computed: {
+  ...mapGetters( [
+    "getCommonCodeList",
+    // Here you can import other getters from the products.js
+  ]),
+  ...mapState(
+    { code: state => state.commonCodeList, }
+  )
   }
-};
+}
 </script>
