@@ -88,101 +88,92 @@
     <!-- tab3[E] -->
   </div>
 </template>
-<script>
-import { mapActions,mapMutations, mapGetters,mapState} from 'vuex'
-import CommonService from '~/service/common'
-export default {
-  props: ['pageName'],
-  data () {
-    return {
-      codeList:null,
-      loginEmail: '',
-      loginPassword: '',
-      email: '',
-      userPassword: '',
-      rePassword: '',
-      userName: '',
-      tel: '',
-      agency:'',
 
-    }
+<script>
+import { mapActions, mapMutations, mapGetters, mapState } from "vuex";
+
+export default {
+  props: ["pageName"],
+  data() {
+    return {
+      codeList: null,
+      loginEmail: "",
+      loginPassword: "",
+      email: "",
+      userPassword: "",
+      rePassword: "",
+      userName: "",
+      tel: "",
+      agency: "",
+    };
   },
-  created () {
+  created() {
     // 뷰가 생성되고 데이터가 이미 감시 되고 있을 때 데이터를 가져온다.
-    this.fetchData()
+    this.fetchData();
   },
   watch: {
     // 라우트가 변경되면 메소드를 다시 호출됩니다.
     //'$route': 'fetchData'
   },
   methods: {
-
     // 배열 리터럴
-    ...mapMutations([
-
-    ]),
-    ...mapActions(['getCodeList']),
-      async fetchData(){
+    ...mapMutations([]), //<--store mutation 관리
+    ...mapActions(["getCodeList"]), //<-- store Action 처리
+    ...mapActions("member", ["signUp", "signIn"]),//<--store member의 Action 관리
+    async fetchData() {
       try {
-
         let param = {
-          "prtCode": "000",
-          "codeType": ""
+          prtCode: "000",
+          codeType: "",
         };
 
-        await this.getCodeList(param).then();//<--actions로 조회 및 state 등록
+        await this.getCodeList(param).then(); //<--actions로 조회 및 state 등록
         this.codeList = this.getCommonCodeList; //<--getters로 가져오기
-        console.log("12345678",this.code); //<-- state로 가져 오기 
+        console.log("12345678", this.code); //<-- state로 가져 오기
       } catch (e) {
         console.log(e.message);
-        this.returnMsg = e.message
+        this.returnMsg = e.message;
       }
     },
-    ...mapActions("member",['signUp','signIn']),
-    async signUpMethod () {
-      try {
-        //console.log("email",this.email);
-        let userInfo = {
-          "email": this.email,
-          "password":this.userPassword,
-          "rePassword":this.rePassword,
-          "userName":this.userName,
-          "tel":this.tel,
-          "agency":this.agency,
-          "companyTypeCode":"CDC001"
-        };
-        await this.signUp({userInfo: userInfo}).then(()=>this.redirect());
-
-      } catch (e) {
-        console.log(e.message);
-        this.returnMsg = e.message
-      }
-    },
-    async signInMethod () {
+    //회원가입
+    async signUpMethod() {
       try {
         let userInfo = {
-          "email": this.loginEmail,
-          "password":this.loginPassword
+          email: this.email,
+          password: this.userPassword,
+          rePassword: this.rePassword,
+          userName: this.userName,
+          tel: this.tel,
+          agency: this.agency,
+          companyTypeCode: "CDC001",
         };
-
-       await this.signIn(userInfo).then(()=>this.redirect());
+        await this.signUp({ userInfo: userInfo }).then(() => this.redirect());
       } catch (e) {
         console.log(e.message);
-        this.returnMsg = e.message
+        this.returnMsg = e.message;
       }
     },
-    redirect () {
-      this.$router.push('/')
-    }
+    //로그인
+    async signInMethod() {
+      try {
+        let userInfo = {
+          email: this.loginEmail,
+          password: this.loginPassword,
+        };
+
+        await this.signIn(userInfo).then(() => this.redirect());
+      } catch (e) {
+        console.log(e.message);
+        this.returnMsg = e.message;
+      }
+    },
+    redirect() {
+      this.$router.push("/");
+    },
   },
   computed: {
-  ...mapGetters( [
-    "getCommonCodeList",
-    // Here you can import other getters from the products.js
-  ]),
-  ...mapState(
-    { code: state => state.commonCodeList, }
-  )
-  }
-}
+    ...mapGetters(["getCommonCodeList"]),//<--store Getter 관리
+    ...mapState({ code: (state) => state.commonCodeList }),//<--store state 관리
+  },
+};
 </script>

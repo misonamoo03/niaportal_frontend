@@ -1,7 +1,7 @@
 import CommonService from '~/service/common'
 
 export const state = () => ({
-  commonCodeList:[]
+  commonCodeList: []
 })
 
 export const mutations = {
@@ -20,11 +20,11 @@ export const actions = {
     }
   },
   //commonCode 조회
-  async getCodeList({ commit }, { prtCode,codeType}) {
+  async getCodeList({ commit }, { prtCode, codeType }) {
     const data = await CommonService.getCodeList(
-      prtCode,codeType
+      prtCode, codeType
     )
-    
+
     if (data.status != 200) {
       throw new Error(data.message)
     }
@@ -33,11 +33,11 @@ export const actions = {
 }
 
 export const getters = {
-   getCommonCodeList (state) {
-    
+  getCommonCodeList(state) {
+
     const { commonCodeList } = state;
 
     return commonCodeList
-    
+
   }
 }

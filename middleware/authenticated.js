@@ -1,6 +1,7 @@
 export default function ({ store, redirect, error }) {
   // auth 확인
-  if (!store.state.authUser) {
+  console.log("store : ", store.state.member);
+  if (!store.state.member.authUser) {
     console.log("------------------------------");
     return redirect('/member/signIn')
   }

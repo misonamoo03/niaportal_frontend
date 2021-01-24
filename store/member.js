@@ -31,12 +31,12 @@ export const actions = {
       commit('SET_USER', req.session.authUser)
     }
   },
-  async signUp({ commit }, { userInfo}) {
-   
+  async signUp({ commit }, { userInfo }) {
+
     const data = await MemberService.signUp({
       userInfo
     })
-    
+
     if (data.status != 200) {
       throw new Error(data.message)
     }
@@ -51,7 +51,7 @@ export const actions = {
     if (data.status != 200) {
       throw new Error(data.message)
     }
-    commit('LOGIN',data)
+    commit('LOGIN', data)
   },
   async logout({ commit }) {
     await axios.post('/apis/logout').then(() => commit('LOGOUT'))
@@ -59,5 +59,5 @@ export const actions = {
 }
 
 export const getters = {
-  
+
 }
