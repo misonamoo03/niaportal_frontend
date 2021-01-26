@@ -129,7 +129,8 @@ export default {
 
         await this.getCodeList(param).then(); //<--actions로 조회 및 state 등록
         this.codeList = this.getCommonCodeList; //<--getters로 가져오기
-        console.log("12345678", this.code); //<-- state로 가져 오기
+        console.log("getter로 가져온 commonCode:", this.codeList); //<-- state로 가져 오기
+        console.log("state가져온 commonCode:", this.code); //<-- state로 가져 오기
       } catch (e) {
         console.log(e.message);
         this.returnMsg = e.message;
@@ -160,10 +161,12 @@ export default {
           email: this.loginEmail,
           password: this.loginPassword,
         };
-
+        //store 호출
         await this.signIn(userInfo).then(() => this.redirect());
+        //정상처리
       } catch (e) {
-        console.log(e.message);
+        console.log("error : ",e.message);
+        //에러처리
         this.returnMsg = e.message;
       }
     },

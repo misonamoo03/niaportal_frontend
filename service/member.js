@@ -18,7 +18,8 @@ const signIn = async (info) => {
 //회원가입
 const signUp = async (userInfo) => {
   try {
-    const req = await axios.post('http://localhost:8080/User/register', JSON.stringify(userInfo), {
+    
+    const req = await axios.post('http://localhost:8080/User/register', JSON.stringify(userInfo.userInfo), {
       headers: {
         "Content-Type": 'application/json',
       },
