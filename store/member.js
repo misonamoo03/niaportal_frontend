@@ -43,7 +43,6 @@ export const actions = {
     //commit('LOGIN', data.id)
   },
   async signIn({ commit }, { email, password }) {
-
     const data = await MemberService.signIn({
       email, password
     })
@@ -52,6 +51,16 @@ export const actions = {
       throw new Error(data.message)
     }
     commit('LOGIN', data)
+  },
+  async findPass({commit}, {email} ) {
+    const data = await MemberService.findPass({
+      email
+    })
+    console.log(data);
+
+    if (data.status != 200) {
+      throw new Error(data.message)
+    }
   },
   async logout({ commit }) {
     await axios.post('/apis/logout').then(() => commit('LOGOUT'))

@@ -82,11 +82,12 @@
           type="email"
           name="login_email"
           placeholder="ID (이메일을 입력 하세요.)"
+          v-model="findPassEmail"
         />
 
         <p class="warning">가입 시 입력하셨던 이메일 주소를 입력해 주세요.</p>
         <div class="btn_area">
-          <button type="button" id="btnJoin" class="btn_type btn_primary">
+          <button type="button" id="btnJoin" class="btn_type btn_primary" @click="findPassMethod">
             <span>비밀번호 찾기 메일 발송</span>
           </button>
         </div>
@@ -142,7 +143,6 @@ extend('min', {
 
 extend('checkPass', {
   validate(value, { checkVal }) {
-    console.log(value,checkVal, this.password == this.rePassword);
     if (value == checkVal) {
       return true;
     }
@@ -158,6 +158,7 @@ export default {
       codeList: null,
       loginEmail: "",
       loginPassword: "",
+      findPassEmail: "",
       email: "",
       userPassword: "",
       rePassword: "",
@@ -179,7 +180,7 @@ export default {
     // 배열 리터럴
     ...mapMutations([]), //<--store mutation 관리
     ...mapActions(["getCodeList"]), //<-- store Action 처리
-    ...mapActions("member", ["signUp", "signIn"]),//<--store member의 Action 관리
+    ...mapActions("member", ["signUp", "signIn", "findPass"]),//<--store member의 Action 관리
     async fetchData() {
       try {
         let param = {
@@ -339,12 +340,39 @@ export default {
         await this.signIn(userInfo).then(() => this.redirect());
         //정상처리
       } catch (e) {
-        alert('아이디 또는 비밀번호가 일치하지 않습니다.');
-        console.log("error : ",e.message);
+        alert(e.message);
         //에러처리
         this.returnMsg = e.message;
       }
     },
+    //비밀번호 찾기
+    async findPassMethod() {
+      try {
+        var errorChk = true;
+        await validate(this.findPassEmail, 'required|email',{
+          name: '이메일'
+        }).then(result => {console.log(result);
+          if (!result.valid) {
+            alert(result.errors[0]);
+            errorChk = false;
+          }
+        });
+        if(!errorChk){  
+          return;
+        }
+
+        let userInfo = {
+            email: this.findPassEmail
+          };
+        //store 호출
+        await this.findPass(userInfo).then(() => this.redirect());
+        alert('비밀번호 찾기 메일이 발송되었습니다.\n이메일을 통해 비밀번호를 재설정 한 후 이용해주세요.')
+      } catch(e) {
+        //에러처리
+        alert(e.message);
+        this.returnMsg = e.message;
+    }
+  },
     redirect() {
       this.$router.push("/");
     },
