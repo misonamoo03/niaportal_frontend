@@ -45,5 +45,9 @@ export default {
   },
 
 	// Build Configuration (https://go.nuxtjs.dev/config-build)
-	build: {},
+	build: {
+		transpile: [
+			"vee-validate/dist/rules"	// nuxt JS의 vee-validate 기본 설정
+		  ]
+	},
 };
