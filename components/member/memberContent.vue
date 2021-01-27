@@ -91,6 +91,39 @@
 
 <script>
 import { mapActions, mapMutations, mapGetters, mapState } from "vuex";
+import { validate, extend } from 'vee-validate';
+import { required, email,confirmed } from 'vee-validate/dist/rules';
+extend('required', {
+  ...required,
+  message: '{_field_}는(은) 필수 입력항목입니다.'
+})
+
+
+extend('email',  {
+  ...email,
+  message: '{_field_} 이메일형식이 아닙니다.'
+})
+extend('min', {
+  validate(value, { min }) {
+    if (value.length >= min) {
+      return true;
+    }
+    return '{_field_}는 {min} 글자 이상이어야 합니다.';
+  },
+  params: ['min']
+});
+
+extend('checkPass', {
+  validate(value, { checkVal }) {
+    console.log(value,checkVal, this.password == this.rePassword);
+    if (value == checkVal) {
+      return true;
+    }
+    return '{_field_}는 비밀번호가 일치하지 않습니다.';
+  },
+  params: ['checkVal']
+});
+
 
 export default {
   props: ["pageName"],
@@ -139,6 +172,39 @@ export default {
     //회원가입
     async signUpMethod() {
       try {
+
+        await validate(this.email, 'required|email|min:3',{
+          name: 'email 은'
+        }).then(result => {console.log(result);
+          if (result.valid) {
+            // Do something
+            //통과
+          }else{
+            //validation 통과 못함
+          }
+        });
+         await validate(this.userPassword, 'required|min:8|checkPass:'+this.rePassword, {
+          name: 'Password',
+          values: {
+          }
+        }).then(result => {
+          console.log(result);
+          if (result.valid) {
+            // Do something!
+          }
+        });
+         await validate(this.rePassword, 'required|min:8', {
+          name: 'rePassword',
+          values: {
+          }
+        }).then(result => {
+          console.log(result);
+          if (result.valid) {
+            // Do something!
+          }
+        });
+
+
         let userInfo = {
           email: this.email,
           password: this.userPassword,
