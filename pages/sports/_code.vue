@@ -9,6 +9,7 @@ import theSportsList from '~/components/sports/sportsList';
 export default {
 	//middleware: 'authenticated',
 	asyncData({ params }) {
+		console.log('_code.vue');
 		console.log(params);
 		return {
 			code: params.code,
