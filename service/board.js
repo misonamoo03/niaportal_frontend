@@ -1,14 +1,13 @@
 import axios from 'axios';
 
 //공통코드 서브코드 조회
-const getCodeList = async (prtCode, codeType) => {
+const getBoardList = async boardNo => {
 	try {
 		const req = await axios.get(
-			'http://localhost:8080/Common/listCommonCode',
+			'http://localhost:8080/board/list',
 			{
 				params: {
-					prtCode: prtCode,
-					codeType: codeType,
+					boardNo: boardNo,
 				},
 			},
 			{ withCredentials: true },
@@ -21,5 +20,5 @@ const getCodeList = async (prtCode, codeType) => {
 };
 
 export default {
-	getCodeList,
+	getBoardList,
 };

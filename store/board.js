@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import CommonService from '~/service/common';
+import BoardService from '~/service/board';
 
 export const state = () => ({
-	commonCodeList: [],
+	storeBoardList: [],
 });
 
 export const mutations = {
-	COMMONCODE: function(state, codeList) {
-		state.commonCodeList = codeList;
+	BOARDLIST: function(state, boardList) {
+		state.storeBoardList = boardList;
 	},
 };
 
@@ -19,20 +19,23 @@ export const actions = {
 		}
 	},
 	//commonCode 조회
-	async getCodeList({ commit }, { prtCode, codeType }) {
-		const data = await CommonService.getCodeList(prtCode, codeType);
-
+	async getBoardList({ commit }, { boardNo }) {
+		const data = await BoardService.getBoardList(boardNo);
+		console.log(data.data);
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
-		commit('COMMONCODE', data.data.list);
+		commit('BOARDLIST', data.data.list);
 	},
 };
 
 export const getters = {
-	getCommonCodeList(state) {
-		const { commonCodeList } = state;
-
-		return commonCodeList;
+	getSportsBoardList(state) {
+		const { storeBoardList } = state;
+		console.log('getters: ');
+		storeBoardList.map(no => {
+			console.log(no);
+		});
+		return storeBoardList;
 	},
 };
