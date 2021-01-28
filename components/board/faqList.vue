@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<h2>{{ 'FAQ (CD006002) boardNo : ' + boardNo }}</h2>
+		<h2>{{ `FAQ (CD006002) boardNo : ${boardNo} ` }}</h2>
 		<br />
 		<!-- tab3[E] -->
 		{{ boardList }}
@@ -47,7 +47,7 @@ export default {
 	},
 	computed: {
 		...mapGetters('board', ['getSportsBoardList']), //<--store Getter 관리
-		...mapState('board', { result: state => state.storeBoardList }), //<--store state 관리
+		...mapState({ result: state => state.storeBoardList }), //<--store state 관리
 	},
 };
 </script>

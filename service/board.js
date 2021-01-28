@@ -19,6 +19,23 @@ const getBoardList = async boardNo => {
 	}
 };
 
+const insert = async boardInfo => {
+	try {
+		const req = await axios.post(
+			'http://localhost:8080/board/insert',
+			JSON.stringify(boardInfo),
+			{
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			},
+		);
+		return req.data;
+	} catch (e) {
+		console.error(`server error : ${e.error}`);
+	}
+};
 export default {
 	getBoardList,
+	insert,
 };

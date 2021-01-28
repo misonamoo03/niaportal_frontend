@@ -1,6 +1,13 @@
 <template>
 	<div class="container">
-		<h2>{{ '고객문의(CD006001) boardNo : ' + boardNo }}</h2>
+		<button class="btn_type btn_primary">
+			<NuxtLink to="/board/qna/insert">등록</NuxtLink>
+		</button>
+		<br />
+		<button class="btn_type btn_primary">수정</button>
+		<br />
+		<button class="btn_type btn_primary">삭제</button>
+		<h2>{{ `고객문의(CD006001) boardNo : ${boardNo} ` }}</h2>
 		<br />
 		<!-- tab3[E] -->
 		{{ boardList }}

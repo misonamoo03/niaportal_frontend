@@ -27,6 +27,17 @@ export const actions = {
 		}
 		commit('BOARDLIST', data.data.list);
 	},
+
+	async insert({ commit }, { boardInfo }) {
+		const data = await BoardService.insert({
+			boardInfo,
+		});
+
+		if (data.status != 200) {
+			throw new Error(data.message);
+		}
+	},
+	//async
 };
 
 export const getters = {
