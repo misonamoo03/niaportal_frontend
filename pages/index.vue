@@ -11,7 +11,7 @@ import theMainIntro from '~/components/mainIntro';
 import theBanner from '~/components/banner';
 
 export default {
-  //layout: 'main',
+  layout: 'main',
 	components: {
     theMainIntro,
     theBanner

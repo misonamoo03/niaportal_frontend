@@ -15,7 +15,7 @@ const getCodeList = async (prtCode, codeType) => {
 
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error(`server error : ${e.error}`);
+    console.error(`server error : ${e.error}`)
   }
 }
 

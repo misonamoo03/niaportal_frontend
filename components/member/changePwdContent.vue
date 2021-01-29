@@ -66,7 +66,6 @@ export default {
                 values: {
                 }
             }).then(result => {
-                console.log(result);
                 if (!result.valid) {
                     alert(result.errors[0]);
                     errorChk = false;
@@ -84,7 +83,7 @@ export default {
                 await this.changePwd(userInfo).then(() => this.redirect());
                 alert('비밀번호가 정상적으로 변경되었습니다.')
             } catch(e) {
-                console.log(e.message);
+                alert(e.message);
             }
         },
         redirect() {

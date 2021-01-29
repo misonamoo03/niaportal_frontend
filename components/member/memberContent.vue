@@ -203,7 +203,7 @@ export default {
         var errorChk = true;
         await validate(this.email, 'required|email',{
           name: '이메일'
-        }).then(result => {console.log(result);
+        }).then(result => {
           if (!result.valid) {
             alert(result.errors[0]);
             errorChk = false;
@@ -217,7 +217,6 @@ export default {
           values: {
           }
         }).then(result => {
-          console.log(result);
           if (!result.valid) {
             alert(result.errors[0]);
             errorChk = false;
@@ -231,7 +230,6 @@ export default {
           values: {
           }
         }).then(result => {
-          console.log(result);
           if (!result.valid) {
             alert(result.errors[0]);
             errorChk = false;
@@ -243,7 +241,6 @@ export default {
         await validate(this.userName, 'required|regex', {
           name: '이름',
         }).then(result => {
-          console.log(result);
           if (!result.valid) {
             alert(result.errors[0]);
             errorChk = false;
@@ -307,7 +304,7 @@ export default {
         var errorChk = true;
         await validate(this.loginEmail, 'required|email',{
           name: '이메일'
-        }).then(result => {console.log(result);
+        }).then(result => {
           if (!result.valid) {
             alert(result.errors[0]);
             errorChk = false;
@@ -321,7 +318,6 @@ export default {
           values: {
           }
         }).then(result => {
-          console.log(result);
           if (!result.valid) {
             alert(result.errors[0]);
             errorChk = false;
@@ -350,7 +346,7 @@ export default {
         var errorChk = true;
         await validate(this.findPassEmail, 'required|email',{
           name: '이메일'
-        }).then(result => {console.log(result);
+        }).then(result => {
           if (!result.valid) {
             alert(result.errors[0]);
             errorChk = false;

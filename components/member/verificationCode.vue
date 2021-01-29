@@ -18,6 +18,13 @@
 
 <script>
 import { mapActions, mapMutations, mapGetters, mapState } from "vuex";
+import { validate, extend } from 'vee-validate';
+import { required } from 'vee-validate/dist/rules';
+
+extend('required', {
+  ...required,
+  message: '{_field_}을(를) 입력해 주세요.'
+})
 
 export default {
     props: ["verifyEmail"],
@@ -32,6 +39,18 @@ export default {
         ...mapActions("member", ["verify"]),//<--store member의 Action 관리
         async verifyMethod() {
             try{
+                var errorChk = true;
+                await validate(this.secCode, 'required',{
+                name: '인증번호'
+                }).then(result => {
+                if (!result.valid) {
+                    alert(result.errors[0]);
+                    errorChk = false;
+                }
+                });
+                if(!errorChk){
+                return;
+                }
                 let userInfo = {
                     email: this.email,
                     secCode: this.secCode
@@ -39,7 +58,7 @@ export default {
                 await this.verify(userInfo).then(() => this.changePwd());
                 alert('인증이 정상적으로 처리되었습니다.')
             } catch(e) {
-                console.log(e.message);
+                alert(e.message);
             }
         },
         changePwd() {
