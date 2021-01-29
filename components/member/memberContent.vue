@@ -295,7 +295,6 @@ export default {
           agency: this.agency,
           companyTypeCode: this.companyTypeCode,
         };
-        console.log(userInfo);
         await this.signUp({ userInfo: userInfo }).then(() => this.redirect());
       } catch (e) {
         console.log(e.message);
@@ -367,6 +366,7 @@ export default {
         //store 호출
         await this.findPass(userInfo).then(() => this.redirect());
         alert('비밀번호 찾기 메일이 발송되었습니다.\n이메일을 통해 비밀번호를 재설정 한 후 이용해주세요.')
+        this.$router.push("/member/verification/" + this.findPassEmail);
       } catch(e) {
         //에러처리
         alert(e.message);

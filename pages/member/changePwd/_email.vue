@@ -1,11 +1,11 @@
 <template>
     <div id="member_contents"> 
-        <theVerificationCode />
+        <theChangePwdContent :changePwdEmail="email"/>
     </div>
 </template>
 
 <script>
-import theVerificationCode from '~/components/member/verificationCode';
+import theChangePwdContent from '~/components/member/changePwdContent';
 
 export default {
     head() {
@@ -15,10 +15,17 @@ export default {
             }   
         }
     },
+
+    asyncData({params}) { 
+        console.log(params);
+        return { 
+        email: params.email 
+        }; 
+    },  
     
     layout: 'member',
     components: {
-        theVerificationCode
+        theChangePwdContent
     }
 };
 </script>
