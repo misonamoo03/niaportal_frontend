@@ -3,7 +3,7 @@ import axios from 'axios'
 //공통코드 서브코드 조회
 const getCodeList = async (prtCode, codeType) => {
   try {
-    const req = await axios.get('http://localhost:8080/Common/listCommonCode', {
+    const req = await axios.get('http://sportsaihub.com:8080/Common/listCommonCode', {
       params: {
         prtCode: prtCode,
         codeType: codeType
