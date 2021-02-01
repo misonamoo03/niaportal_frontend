@@ -22,20 +22,31 @@ export const actions = {
 	async getBoardList({ commit }, { boardNo }) {
 		const data = await BoardService.getBoardList(boardNo);
 		console.log(data.data);
+		console.log(data.status);
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
 		commit('BOARDLIST', data.data.list);
 	},
 
-	async insert({ commit }, { boardInfo }) {
-		const data = await BoardService.insert({
+	async insertBoard({ commit }, { boardInfo }) {
+		const data = await BoardService.insertBoard({
 			boardInfo,
 		});
 
 		if (data.status != 200) {
+			console.log(data);
 			throw new Error(data.message);
 		}
+	},
+
+	async deleteBoard({ commit }, { boardNo }) {
+		const data = await BoardService.deleteBoard(boardNo);
+
+		if (data.status != 200) {
+			throw new Error(data.message);
+		}
+		//commit('DELETE', data.boardContentNo);
 	},
 	//async
 };

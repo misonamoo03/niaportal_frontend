@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-//공통코드 서브코드 조회
+// 게시글 조회
 const getBoardList = async boardNo => {
 	try {
 		const req = await axios.get(
@@ -19,15 +19,17 @@ const getBoardList = async boardNo => {
 	}
 };
 
-const insert = async boardInfo => {
+// FAQ 등록
+const insertBoard = async boardInfo => {
 	try {
 		const req = await axios.post(
 			'http://localhost:8080/board/insert',
-			JSON.stringify(boardInfo),
+			JSON.stringify(boardInfo.boardInfo),
 			{
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				withCredentials: true,
 			},
 		);
 		return req.data;
@@ -35,7 +37,22 @@ const insert = async boardInfo => {
 		console.error(`server error : ${e.error}`);
 	}
 };
+
+const deleteBoard = async boardNo => {
+	try {
+		const params = new URLSearchParams();
+		params.append('boardContentNo', boardNo);
+		const req = await axios.post('http://localhost:8080/board/delete', params, {
+			withCredentials: true,
+		});
+		return req.data;
+	} catch (e) {
+		console.error(`server error : ${e.error}`);
+	}
+};
+
 export default {
 	getBoardList,
-	insert,
+	insertBoard,
+	deleteBoard,
 };

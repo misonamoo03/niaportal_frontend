@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<button class="btn_type btn_primary">
+		<button class="btn_type btn_primary" v-show="authUser">
 			<NuxtLink to="/board/qna/insert">등록</NuxtLink>
 		</button>
 		<br />
@@ -11,17 +11,20 @@
 		<br />
 		<!-- tab3[E] -->
 		{{ boardList }}
+		{{ authUser }}
 	</div>
 </template>
 
 <script>
 import { mapActions, mapMutations, mapGetters, mapState } from 'vuex';
+//import Cookie from 'js-cookie';
 
 export default {
 	props: ['boardNo'],
 	data() {
 		return {
 			boardList: null,
+			//authUser: Cookie.get('userGbCode') == 'CD002002',
 		};
 	},
 	created() {
