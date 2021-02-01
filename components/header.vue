@@ -68,7 +68,6 @@ export default {
 			}
 		},
 		checkLogin() {
-			console.log(1);
 			console.log(this.name);
 			if(this.name === undefined) {
 				this.isNotLogin = true;
