@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 //로그인
 const signIn = async (info) => {

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 //공통코드 서브코드 조회
 const getCodeList = async (prtCode, codeType) => {
@@ -20,5 +20,5 @@ const getCodeList = async (prtCode, codeType) => {
 }
 
 export default {
-  getCodeList
-}
+	getCodeList,
+};

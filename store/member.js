@@ -1,28 +1,30 @@
-import MemberService from '~/service/member'
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+import MemberService from '~/service/member';
 
 export const state = () => ({
-  sidebar: false,
-  authUser: null
-})
+	sidebar: false,
+	authUser: null,
+});
 
 export const mutations = {
-  toggleSidebar: function (state) {
-    state.sidebar = !state.sidebar
-  },
-  LOGIN: function (state, user) {
-    state.authUser = user
-  },
-  LOGOUT: function () {
-    state.authUser = null
-  },
-  SET_USER: function (state, user) {
-    state.authUser = user
-  },
-  SET_MENU: function (state, data) {
-    state.topMenu = data.topMenu
-    state.aside = data.aside
-  }
-}
+	toggleSidebar: function(state) {
+		state.sidebar = !state.sidebar;
+	},
+	LOGIN: function(state, user) {
+		state.authUser = user;
+	},
+	LOGOUT: function() {
+		state.authUser = null;
+	},
+	SET_USER: function(state, user) {
+		state.authUser = user;
+	},
+	SET_MENU: function(state, data) {
+		state.topMenu = data.topMenu;
+		state.aside = data.aside;
+	},
+};
 
 export const actions = {
   // nuxtServerInit는 모든 페이지를 서버 렌더링하기 전에 Nuxt.js에 의해 호출
