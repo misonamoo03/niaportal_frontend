@@ -40,7 +40,7 @@
         <input
           type="email"
           name="join_email"
-          placeholder="ID (이메일을 입력 하세요.)"
+          placeholder="ID (이메일을 입력 하세요. )"
           v-model="email"
         />
         <input type="password" name="join_password" placeholder="비밀번호"  v-model="userPassword"/>
