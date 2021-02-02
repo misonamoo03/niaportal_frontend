@@ -5,7 +5,6 @@
         <theFooter />   
     </div>
 </template>
-
 <script>
 import theFooter from '~/components/member/myPage/footer';
 import theHeader from '~/components/header';

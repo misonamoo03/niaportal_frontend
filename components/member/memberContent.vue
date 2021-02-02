@@ -212,7 +212,7 @@ export default {
         if(!errorChk){
           return;
         }
-        await validate(this.userPassword, 'required|min:8|checkPass:'+this.rePassword, {
+        await validate(this.userPassword, 'required|min:8|checkPass:' + this.rePassword, {
           name: '비밀번호',
           values: {
           }

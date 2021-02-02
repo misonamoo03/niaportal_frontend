@@ -37,8 +37,8 @@
 					<li class="util_search"><a href="#"><img src="~assets/images/search.png" alt="search"></a></li>
 					<li class="util_login"><a href="#">{{name}}님 <span class="util_arrow"><img src="~assets/images/login_arrow.png" alt="util_arrow"></span></a>
 						<ul id="sub-menu" class="util_2depth">
-							<li><a href="#" aria-label="subemnu">정보수정</a></li>
-							<li><a href="/" aria-label="subemnu" @click="logoutMethod">로그아웃</a></li>
+							<li><NuxtLink to="/member/myPage" aria-label="submenu">정보수정</NuxtLink></li>
+							<li><a href="/" aria-label="submenu" @click="logoutMethod">로그아웃</a></li>
 						</ul>
 					</li>
 				</ul>

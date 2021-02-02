@@ -2,7 +2,11 @@ import MemberService from '~/service/member'
 
 export const state = () => ({
   sidebar: false,
-  authUser: null
+  authUser: null,
+  companyTypeCode: '',
+  companyTypeName: '',
+  tel: '',
+  agency: ''
 })
 
 export const mutations = {
@@ -21,6 +25,12 @@ export const mutations = {
   SET_MENU: function (state, data) {
     state.topMenu = data.topMenu
     state.aside = data.aside
+  },
+  USER_INFO: function (state, data) {
+    state.companyTypeCode = data.companyTypeCode
+    state.companyTypeName = data.companyTypeName
+    state.tel = data.tel
+    state.agency = data.agency
   }
 }
 
@@ -56,7 +66,6 @@ export const actions = {
     const data = await MemberService.findPass({
       email
     })
-    console.log(data);
 
     if (data.status != 200) {
       throw new Error(data.message)
@@ -69,7 +78,6 @@ export const actions = {
     const data = await MemberService.verify({
       email, secCode
     })
-    console.log(data);
 
     if (data.status != 200) {
       throw new Error(data.message)
@@ -79,13 +87,23 @@ export const actions = {
     const data = await MemberService.changePwd({
       email, password, rePassword
     })
-    console.log(data);
 
     if (data.status != 200) {
       throw new Error(data.message)
     }
     commit('SET_USER', data)
   },
+  async memberInquiry({commit}, {email}) {
+    const data = await MemberService.memberInquiry({
+      email
+    });
+    console.log(data.data.memberInfo);
+
+    if (data.status != 200) {
+      throw new Error(data.message)
+    }
+    commit('USER_INFO', data.data.memberInfo)
+  }
 }
 
 export const getters = {

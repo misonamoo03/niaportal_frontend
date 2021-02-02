@@ -62,7 +62,20 @@ const changePwd = async (info) => {
     params.append('email', info.email);
     params.append('password', info.password);
     params.append('rePassword', info.rePassword);
-    const req = await axios.post('http://sportsaihub.com:8080/User/setPw', params, { withCredentials: true }  );
+    const req = await axios.post('http://sportsaihub.com:8080/User/setPw', params, { withCredentials: true });
+    return req.data;
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(`server error : ${e.error}`);
+  }
+}
+
+//회원 정보 조회
+const memberInquiry = async (info) => {
+  try {
+    let params = new URLSearchParams();
+    params.append('email', info.email);
+    const req = await axios.post('http://sportsaihub.com:8080/User/inquiry', params, { withCredentials: true });
     return req.data;
   } catch (e) {
     // eslint-disable-next-line no-console
@@ -75,5 +88,6 @@ export default {
   signUp,
   findPass,
   verify,
-  changePwd
+  changePwd,
+  memberInquiry
 }

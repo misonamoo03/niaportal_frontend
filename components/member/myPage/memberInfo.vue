@@ -16,11 +16,11 @@
                 <tbody>
                     <tr>
                         <th>ID(이메일)</th>
-                        <td>email@email.com</td>
+                        <td>{{email}}</td>
                     </tr>
                     <tr>
                         <th>이름</th>
-                        <td>홍길동</td>
+                        <td>{{name}}</td>
                     </tr>
                     <tr>
                         <th  rowspan="3">비밀번호변경</th>
@@ -34,18 +34,18 @@
                     </tr>
                     <tr>
                         <th>전화번호</th>
-                        <td><input type="tel" name="modify_tel" value="010-1234-5678"></td>
+                        <td><input type="tel" name="modify_tel" v-bind:value="memberInfo.tel"></td>
                     </tr>
                     <tr>
                         <th>소속기관명</th>
-                        <td><input type="text" name="modify_aff" value="아이온"></td>
+                        <td><input type="text" name="modify_aff" v-bind:value="memberInfo.agency"></td>
                     </tr>
                     <tr>
                         <th>소속기관분류</th>
                         <td>
                             <form>
                                 <select name="join_organization">
-                                    <option value="organization">중소기업</option>
+                                    <option value="organization">{{memberInfo.companyTypeName}}</option>
                                 </select>
                             </form>
                         </td>
@@ -59,3 +59,45 @@
         </div> 
     </div> 
 </template>
+
+<script>
+import Cookie, { remove } from 'js-cookie'
+import { mapActions, mapMutations, mapGetters, mapState } from "vuex";
+
+export default {
+    data()  {
+        return {
+            email: Cookie.get('email'),
+            name: Cookie.get('userName'),
+
+        };
+    },
+    beforeMount() {
+		this.memberInquiryMethod();
+	},
+    methods: {
+            ...mapMutations([]), //<--store mutation 관리
+            ...mapActions("member", ["memberInquiry"]),//<--store member의 Action 관리
+
+            //회원 정보 조회
+            async memberInquiryMethod() {
+                try {
+                    let userInfo = {
+                        email: this.email
+                    };
+                    //스토어호출 
+                    await this.memberInquiry(userInfo).then();
+                    console.log(this.memberInfo);
+                } catch (e) {
+                    console.log(e.message);
+                    this.returnMsg = e.message;
+                } 
+            }
+    },
+    computed: mapState({ 
+            memberInfo(state){
+                return state.member
+            }
+        })
+}
+</script>

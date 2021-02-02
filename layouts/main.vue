@@ -1,11 +1,9 @@
 <template>
-  <div>
-      <div id="wrap">
-        <theHeader />
-        <Nuxt />
-        <theFooter />
-      </div>
-    </div>
+  <div id="wrap">
+    <theHeader />
+    <Nuxt />
+    <theFooter />
+  </div>
 </template>
 <script>
 import theHeader from '~/components/header';
