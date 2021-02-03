@@ -4,7 +4,7 @@
 			<address>
 				<p>
 					<span class="addr"
-						>서울특별시 강남구 테헤란로10길 15 ㈜아이온커뮤니케이션즈</span
+						>서울특별시 강남구 테헤란로10길 15 ㈜아이온커뮤니케이션즈.</span
 					>
 					<span><b>이메일</b> support@flexer.co.kr</span>
 				</p>
