@@ -83,11 +83,27 @@ const memberInquiry = async (info) => {
   }
 }
 
+//회원 정보 수정
+const memberUpdate = async (userInfo) => {
+  try {
+    const req = await axios.post('http://sportsaihub.com:8080/User/edit', JSON.stringify(userInfo.userInfo), {
+      headers: {
+        "Content-Type": 'application/json',
+      }, withCredentials: true 
+    });
+    return req.data;
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(`server error : ${e.error}`);
+  }
+}
+
 export default {
   signIn,
   signUp,
   findPass,
   verify,
   changePwd,
-  memberInquiry
+  memberInquiry,
+  memberUpdate
 }

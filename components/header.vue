@@ -38,7 +38,7 @@
 					<li class="util_login"><a href="#">{{name}}님 <span class="util_arrow"><img src="~assets/images/login_arrow.png" alt="util_arrow"></span></a>
 						<ul id="sub-menu" class="util_2depth">
 							<li><NuxtLink to="/member/myPage" aria-label="submenu">정보수정</NuxtLink></li>
-							<li><a href="/" aria-label="submenu" @click="logoutMethod">로그아웃</a></li>
+							<li @click="logoutMethod"><NuxtLink to="/" aria-label="submenu">로그아웃</NuxtLink></li>
 						</ul>
 					</li>
 				</ul>
@@ -54,7 +54,7 @@ export default {
 	data() {
 		return {
 			isNotLogin: true,
-			name: Cookie.get('userName')
+			name: ''
 		};
 	},
 	beforeMount() {
@@ -66,10 +66,11 @@ export default {
 			for(let c in cookie) {
 				remove(c);
 			}
+			this.checkLogin();
 		},
 		checkLogin() {
-			console.log(this.name);
-			if(this.name === undefined) {
+			this.name = Cookie.get('userName');
+			if(Cookie.get('userName') === undefined) {
 				this.isNotLogin = true;
 			} else {
 				this.isNotLogin = false;

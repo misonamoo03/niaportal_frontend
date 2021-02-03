@@ -3,10 +3,7 @@ import MemberService from '~/service/member'
 export const state = () => ({
   sidebar: false,
   authUser: null,
-  companyTypeCode: '',
-  companyTypeName: '',
-  tel: '',
-  agency: ''
+  info: ''
 })
 
 export const mutations = {
@@ -27,10 +24,7 @@ export const mutations = {
     state.aside = data.aside
   },
   USER_INFO: function (state, data) {
-    state.companyTypeCode = data.companyTypeCode
-    state.companyTypeName = data.companyTypeName
-    state.tel = data.tel
-    state.agency = data.agency
+    state.info = data
   }
 }
 
@@ -97,15 +91,28 @@ export const actions = {
     const data = await MemberService.memberInquiry({
       email
     });
-    console.log(data.data.memberInfo);
-
+    
     if (data.status != 200) {
       throw new Error(data.message)
     }
     commit('USER_INFO', data.data.memberInfo)
+  },
+  async memberUpdate({commit}, {userInfo}) {
+    const data = await MemberService.memberUpdate({
+      userInfo
+    })
+
+    if (data.status != 200) {
+      throw new Error(data.message)
+    }
   }
 }
 
 export const getters = {
+  getInfo(state) {
 
+    const { info } = state;
+
+    return info
+  }
 }
