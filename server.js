@@ -8,7 +8,7 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
-var port1 = 80;
+var port1 = 3000;
 var port2 = 443;
 
 var options = {
