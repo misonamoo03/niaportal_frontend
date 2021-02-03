@@ -2,13 +2,13 @@
 import BoardService from '~/service/board';
 
 export const state = () => ({
-	storeBoardList: [],
+  storeBoardList: [],
 });
 
 export const mutations = {
-	BOARDLIST: function(state, boardList) {
-		state.storeBoardList = boardList;
-	},
+  BOARDLIST: function(state, boardList) {
+    state.storeBoardList = boardList;
+  },
 };
 
 export const actions = {
@@ -52,12 +52,12 @@ export const actions = {
 };
 
 export const getters = {
-	getSportsBoardList(state) {
-		const { storeBoardList } = state;
-		console.log('getters: ');
-		storeBoardList.map(no => {
-			console.log(no);
-		});
-		return storeBoardList;
-	},
+  getSportsBoardList(state) {
+    const { storeBoardList } = state;
+    console.log('getters: ');
+    storeBoardList.map(no => {
+      console.log(no);
+    });
+    return storeBoardList;
+  },
 };
