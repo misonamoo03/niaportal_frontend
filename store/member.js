@@ -3,35 +3,39 @@
 import MemberService from '~/service/member';
 
 export const state = () => ({
-	sidebar: false,
-	authUser: null,
-});
+  sidebar: false,
+  authUser: null,
+  info: ''
+})
 
 export const mutations = {
-	toggleSidebar: function(state) {
-		state.sidebar = !state.sidebar;
-	},
-	LOGIN: function(state, user) {
-		state.authUser = user;
-	},
-	LOGOUT: function() {
-		state.authUser = null;
-	},
-	SET_USER: function(state, user) {
-		state.authUser = user;
-	},
-	SET_MENU: function(state, data) {
-		state.topMenu = data.topMenu;
-		state.aside = data.aside;
-	},
-};
+  toggleSidebar: function (state) {
+    state.sidebar = !state.sidebar
+  },
+  LOGIN: function (state, user) {
+    state.authUser = user
+  },
+  LOGOUT: function () {
+    state.authUser = null
+  },
+  SET_USER: function (state, user) {
+    state.authUser = user
+  },
+  SET_MENU: function (state, data) {
+    state.topMenu = data.topMenu
+    state.aside = data.aside
+  },
+  USER_INFO: function (state, data) {
+    state.info = data
+  }
+}
 
 export const actions = {
   // nuxtServerInit는 모든 페이지를 서버 렌더링하기 전에 Nuxt.js에 의해 호출
   async nuxtServerInit({ commit }, { req }) {
-    if (req.session && req.session.authUser) {
-      commit('SET_USER', req.session.authUser)
-    }
+    //if (req.session && req.session.authUser) {
+    //  commit('SET_USER', req.session.authUser)
+    //}
   },
   async signUp({ commit }, { userInfo }) {
 
@@ -58,7 +62,6 @@ export const actions = {
     const data = await MemberService.findPass({
       email
     })
-    console.log(data);
 
     if (data.status != 200) {
       throw new Error(data.message)
@@ -71,7 +74,6 @@ export const actions = {
     const data = await MemberService.verify({
       email, secCode
     })
-    console.log(data);
 
     if (data.status != 200) {
       throw new Error(data.message)
@@ -81,15 +83,38 @@ export const actions = {
     const data = await MemberService.changePwd({
       email, password, rePassword
     })
-    console.log(data);
 
     if (data.status != 200) {
       throw new Error(data.message)
     }
     commit('SET_USER', data)
   },
+  async memberInquiry({commit}, {email}) {
+    const data = await MemberService.memberInquiry({
+      email
+    });
+
+    if (data.status != 200) {
+      throw new Error(data.message)
+    }
+    commit('USER_INFO', data.data.memberInfo)
+  },
+  async memberUpdate({commit}, {userInfo}) {
+    const data = await MemberService.memberUpdate({
+      userInfo
+    })
+
+    if (data.status != 200) {
+      throw new Error(data.message)
+    }
+  }
 }
 
 export const getters = {
+  getInfo(state) {
 
+    const { info } = state;
+
+    return info
+  }
 }
