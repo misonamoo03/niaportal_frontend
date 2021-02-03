@@ -22,7 +22,7 @@
         />
         <input type="password" name="login_password" placeholder="비밀번호" v-model="loginPassword" />
 
-        <input type="checkbox" id="myCheck" />
+        <input type="checkbox" id="myCheck" v-model="saved"/>
         <label for="myCheck">아이디 저장</label>
 
         <div class="btn_area">
@@ -98,6 +98,7 @@
 </template>
 
 <script>
+import Cookie, { remove } from 'js-cookie'
 import { mapActions, mapMutations, mapGetters, mapState } from "vuex";
 import { validate, extend } from 'vee-validate';
 import { required, email, integer, is_not } from 'vee-validate/dist/rules';
@@ -165,12 +166,16 @@ export default {
       userName: "",
       tel: "",
       agency: "",
-      companyTypeCode: ""
+      companyTypeCode: "",
+      saved: false
     };
   },
   created() {
     // 뷰가 생성되고 데이터가 이미 감시 되고 있을 때 데이터를 가져온다.
     this.fetchData();
+  },
+  beforeMount() {
+    this.isSaved();
   },
   watch: {
     // 라우트가 변경되면 메소드를 다시 호출됩니다.
@@ -332,7 +337,14 @@ export default {
           password: this.loginPassword,
         };
         //store 호출
-        await this.signIn(userInfo).then(() => this.redirect());
+        await this.signIn(userInfo).then(() => {
+          if(this.saved === true){
+            Cookie.set('savedEmail', this.loginEmail);
+          } else {
+            Cookie.remove('savedEmail');
+          }
+          this.redirect()
+        });
         //정상처리
       } catch (e) {
         alert(e.message);
@@ -372,6 +384,12 @@ export default {
     redirect() {
       this.$router.push("/");
     },
+    isSaved() {
+      const savedEmail = Cookie.get('savedEmail')
+      if(savedEmail == null) return;
+      this.saved = true;
+      this.loginEmail = savedEmail;
+    }
   },
   computed: {
     ...mapGetters(["getCommonCodeList"]),//<--store Getter 관리
