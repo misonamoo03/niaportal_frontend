@@ -68,7 +68,9 @@ export default {
 		logoutMethod() {
 			const cookie = Cookie.get();
 			for(let c in cookie) {
-				remove(c);
+				if(c != 'savedEmail'){
+					remove(c);	
+				}
 			}
 			this.checkLogin();
 		},
