@@ -2,13 +2,17 @@
 import BoardService from '~/service/board';
 
 export const state = () => ({
-  storeBoardList: [],
+	storeBoardList: [],
+  storeBoardInfo: [],
 });
 
 export const mutations = {
-  BOARDLIST: function(state, boardList) {
-    state.storeBoardList = boardList;
-  },
+	BOARDLIST: function(state, boardList) {
+		state.storeBoardList = boardList;
+	},
+  BOARDINFO: function(state, boardInfo) {
+	  state.storeBoardInfo = boardInfo;
+  }
 };
 
 export const actions = {
@@ -29,35 +33,29 @@ export const actions = {
 		commit('BOARDLIST', data.data.list);
 	},
 
-	async insertBoard({ commit }, { boardInfo }) {
-		const data = await BoardService.insertBoard({
-			boardInfo,
-		});
-
-		if (data.status != 200) {
-			console.log(data);
-			throw new Error(data.message);
-		}
-	},
-
-	async deleteBoard({ commit }, { boardNo }) {
-		const data = await BoardService.deleteBoard(boardNo);
-
-		if (data.status != 200) {
-			throw new Error(data.message);
-		}
-		//commit('DELETE', data.boardContentNo);
-	},
-	//async
+  async getBoardInfo({ commit }, { boardContentNo }) {
+	  const data = await BoardService.getBoardInfo(boardContentNo);
+	  console.log(data.data);
+	  console.log(data.status);
+    if (data.status != 200) {
+      throw new Error(data.message);
+    }
+    commit('BOARDINFO', data.data.info);
+  }
 };
 
 export const getters = {
-  getSportsBoardList(state) {
-    const { storeBoardList } = state;
-    console.log('getters: ');
-    storeBoardList.map(no => {
-      console.log(no);
-    });
-    return storeBoardList;
-  },
+	getSportsBoardList(state) {
+		const { storeBoardList } = state;
+		console.log('getters: ');
+		storeBoardList.map(no => {
+			console.log(no);
+		});
+		return storeBoardList;
+	},
+  getGetterBoardInfo(state) {
+	  const { storeBoardInfo } = state;
+	  return storeBoardInfo;
+	  console.log('getters: ');
+  }
 };
