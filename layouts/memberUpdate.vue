@@ -6,7 +6,7 @@
     </div>
 </template>
 <script>
-import theFooter from '~/components/member/myPage/footer';
+import theFooter from '~/components/subFooter';
 import theHeader from '~/components/header';
 export default {
 	components: {

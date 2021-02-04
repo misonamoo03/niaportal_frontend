@@ -18,9 +18,7 @@
 
 			<span class="rlogo"
 				><a href="https://www.nia.or.kr/site/nia_kor/main.do" target="_blank"
-					><img
-						src="~assets/images/member_footer_logo2.png"
-						alt="footer_logo"/></a
+					><img src="~assets/images/member_footer_logo2.png" alt="footer_logo"/></a
 			></span>
 		</div>
 	</div>

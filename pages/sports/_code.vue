@@ -15,10 +15,12 @@ export default {
 			code: params.code,
 		};
 	},
-
-	layout: 'blank',
+	layout: 'sports',
 	components: {
 		theSportsList,
 	},
+	beforeMount() {
+		this.$nuxt.$emit('sport', this.code);
+	}
 };
 </script>
