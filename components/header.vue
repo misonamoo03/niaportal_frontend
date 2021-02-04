@@ -28,7 +28,7 @@
 			<div class="util">
 				<ul v-if="isNotLogin">
 					<li class="util_search">
-						<NuxtLink to="/search"
+						<NuxtLink to="/board/search"
 							><img src="~assets/images/search.png" alt="search"
 						/></NuxtLink>
 					</li>
@@ -38,7 +38,7 @@
 				</ul>
 				<!-- 로그인 후 -->
 				<ul id="main-menu" v-else>
-					<li class="util_search"><a href="#"><img src="~assets/images/search.png" alt="search"></a></li>
+					<li class="util_search"><NuxtLink to="/board/search"><img src="~assets/images/search.png" alt="search"></NuxtLink></li>
 					<li class="util_login"><a href="#">{{name}}님 <span class="util_arrow"><img src="~assets/images/login_arrow.png" alt="util_arrow"></span></a>
 						<ul id="sub-menu" class="util_2depth">
 							<li><NuxtLink to="/member/myPage" aria-label="submenu">정보수정</NuxtLink></li>
