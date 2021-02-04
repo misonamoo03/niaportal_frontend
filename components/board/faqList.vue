@@ -4,7 +4,9 @@
       <NuxtLink to='/board/faq/insert'>등록</NuxtLink>
     </button>
     <br />
-    <button class='btn_type btn_primary' v-show='authUser'>수정</button>
+    <button class='btn_type btn_primary' v-show='authUser'>
+      <NuxtLink to='/board/faq/update'>수정</NuxtLink>
+    </button>
     <br />
     <button class='btn_type btn_primary' v-show='authUser' @click='deleteBoard'>
       삭제
@@ -13,8 +15,10 @@
     <h2>{{ `FAQ (CD006002) boardNo : ${boardNo} ` }}</h2>
     <h3>{{ `접근 권한 : ${authUser} ` }}</h3>
     <br />
+    <ul>
+      <li v-for='item in boardList'>{{ item }}</li>
+    </ul>
     <!-- tab3[E] -->
-    {{ boardList }}
   </div>
 </template>
 
@@ -30,7 +34,8 @@ export default {
       boardList: null,
       /* 관리자 */
       authUser: Cookie.get('userGbCode') === 'CD002002',
-      boardContentNo: 10020,
+      /* 추후 선택한 게시글 번호로 변경 */
+      boardContentNo: 10024,
     };
   },
   created() {
@@ -59,13 +64,13 @@ export default {
     },
     deleteBoard() {
       try {
-        const req = axios.get('http://localhost:8080/board/delete',
+        const req = axios.get('http://sportsaihub.com:8080/board/delete',
           {
             params: {
               boardContentNo: this.boardContentNo,
             },
+            withCredentials: true,
           },
-          { withCredentials: true },
         );
         console.log(this.boardContentNo);
         return req.data;
@@ -80,6 +85,7 @@ export default {
   computed: {
     ...mapGetters('board', ['getSportsBoardList']), //<--store Getter 관리
     ...mapState({ result: state => state.storeBoardList }), //<--store state 관리
+
   },
 };
 </script>

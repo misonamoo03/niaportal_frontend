@@ -4,7 +4,7 @@ import axios from 'axios';
 const getBoardList = async boardNo => {
   try {
     const req = await axios.get(
-      'http://localhost:8080/board/list',
+      'http://sportsaihub.com:8080/board/list',
       {
         params: {
           boardNo: boardNo,
@@ -18,15 +18,13 @@ const getBoardList = async boardNo => {
   }
 };
 
-// FAQ 등록
-const insertBoard = async boardInfo => {
+const getBoardInfo = async boardContentNo => {
   try {
-    const req = await axios.post(
-      'http://localhost:8080/board/insert',
-      JSON.stringify(boardInfo.boardInfo),
+    const req = await axios.get(
+      'http://sportsaihub.com:8080/board/detail',
       {
-        headers: {
-          'Content-Type': 'application/json',
+        params: {
+          boardContentNo: boardContentNo,
         },
         withCredentials: true,
       },
@@ -37,21 +35,7 @@ const insertBoard = async boardInfo => {
   }
 };
 
-const deleteBoard = async boardContentNo => {
-  try {
-    const params = new URLSearchParams();
-    params.append('boardContentNo', boardContentNo);
-    const req = await axios.post('http://localhost:8080/board/delete', params, {
-      withCredentials: true,
-    });
-    return req.data;
-  } catch (e) {
-    console.error(`server error : ${e.error}`);
-  }
-};
-
 export default {
   getBoardList,
-  insertBoard,
-  deleteBoard,
+  getBoardInfo
 };
