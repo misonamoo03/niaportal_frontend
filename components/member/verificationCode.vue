@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h1><a href=""><img src="~assets/images/m_logo.png" alt="logo"></a></h1>
+        <h1><NuxtLink to="/"><img src="~assets/images/m_logo.png" alt="logo"></NuxtLink></h1>
     
 
         <div class="findpwd_wrap">
