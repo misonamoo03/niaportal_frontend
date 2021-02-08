@@ -167,10 +167,9 @@
 .data_list_wrap{width:100%;}
 .data_list_wrap h2{margin:35px 0 25px 0 !important;}
 .data_list{display: inline-block; clear: both;}
-.data_list ul{display: inline-block; margin-bottom:25px;}
-.data_list ul:last-child{margin-bottom: 15px;}
-.data_list li:last-child {margin-right:0;}
+.data_list .grid_col4 li:nth-child(4n) {margin-right:0;}
 
+.grid_col4{}
 .data_list .data_thumb{
 	width: 212px; 
 	float: left; 

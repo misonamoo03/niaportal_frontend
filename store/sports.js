@@ -21,8 +21,6 @@ export const actions = {
 	//commonCode 조회
 	async getSportsList({ commit }, { code }) {
 		const data = await SportsService.getSportsList(code);
-		console.log('▼ store/sports/getSportList()');
-		console.log(data.data);
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
@@ -33,7 +31,7 @@ export const actions = {
 export const getters = {
 	getSportsItemList(state) {
 		const { storeSportsList } = state;
-		console.log('getters: ');
+		console.log(storeSportsList);
 		storeSportsList.map(no => {
 			console.log(no);
 		});

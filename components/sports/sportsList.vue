@@ -23,235 +23,17 @@
 					<a href="http://aihub.or.kr" target="_blank"><button type="submit"><span>바로가기</span></button></a>
 				</div>
 				<!-- 골프 데이터 -->
-				<div class="data_list_wrap" v-if="code === 'CD020'">
-					<div class="data_list">
-						<h2>Setup</h2>
-						<ul>
-							<li class="data_thumb pop_video">
+				<div class="data_list_wrap">
+					<div class="data_list" v-for="(sport, index) in sportsList" v-bind:key="index">
+						<h2>{{sport.actName}}</h2>
+						<ul class="grid_col4">
+							<li class="data_thumb pop_img" v-for="(list, index) in sport.sportslist" v-bind:key="index">
 								<!-- 누르면 출력될 이미지나 동영상의 파일명을 data-video에 넣음 -->
-								<a data-video="sample1" class="btn_play">
+								<a data-img="pop_img">
 									<!-- 리스트 이미지 -->
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
+									<img :src="list.thumImgUrl" alt="thumb">
 								</a>
-								<p class="thumb_txt">Setup 01</p>
-							</li>
-							<li class="data_thumb pop_img">
-								<a data-img="pop_img">
-									<img src="~assets/images/pop_img.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">Setup 02</p>
-							</li>
-							<li class="data_thumb pop_video">
-								<a data-video="sample2" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">Setup 04</p>
-							</li>
-							<li class="data_thumb pop_img">
-								<a data-img="pop_img">
-									<img src="~assets/images/pop_img.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">Setup 03</p>
-							</li>
-						</ul>
-						<ul>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">Setup 05</p>
-							</li>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">Setup 06</p>
-							</li>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">Setup 07</p>
-							</li>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">Setup 08</p>
-							</li>
-						</ul>
-					</div>
-
-					<div class="data_list">
-						<h2>Address</h2>
-						<ul>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">Address 01</p>
-							</li>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">Address 02</p>
-							</li>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">Address 03</p>
-							</li>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">Address 04</p>
-							</li>
-						</ul>
-					</div>
-
-					<!-- 비디오 이미지 출력 -->
-					<div class="video-popup">
-						<div class="video-popup-closer"></div>
-					</div>
-
-					<div class="img-popup">
-						<div class="img-popup-closer"></div>
-					</div>	
-				</div>
-
-				<!-- 축구 데이터 -->
-				<div class="data_list_wrap" v-else-if="code === 'CD021'">
-					<div class="data_list">
-						<h2>드리블</h2>
-						<ul>
-							<li class="data_thumb pop_video">
-								<!-- 누르면 출력될 이미지나 동영상의 파일명을 data-video에 넣음 -->
-								<a data-video="sample1" class="btn_play">
-									<!-- 리스트 이미지 -->
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">드리블 01</p>
-							</li>
-							<li class="data_thumb pop_img">
-								<a data-img="pop_img">
-									<img src="~assets/images/pop_img.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">드리블 02</p>
-							</li>
-							<li class="data_thumb pop_video">
-								<a data-video="sample2" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">드리블 04</p>
-							</li>
-							<li class="data_thumb pop_img">
-								<a data-img="pop_img">
-									<img src="~assets/images/pop_img.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">드리블 03</p>
-							</li>
-						</ul>
-						<ul>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">드리블 05</p>
-							</li>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">드리블 06</p>
-							</li>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">드리블 07</p>
-							</li>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">드리블 08</p>
-							</li>
-						</ul>
-					</div>
-
-					<div class="data_list">
-						<h2>패스</h2>
-						<ul>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">패스 01</p>
-							</li>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">패스 02</p>
-							</li>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">패스 03</p>
-							</li>
-							<li class="data_thumb pop_video">
-								<a data-video="sample1" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">패스 04</p>
-							</li>
-						</ul>
-					</div>
-
-					<!-- 비디오 이미지 출력 -->
-					<div class="video-popup">
-						<div class="video-popup-closer"></div>
-					</div>
-
-					<div class="img-popup">
-						<div class="img-popup-closer"></div>
-					</div>	
-				</div>
-
-				<!-- 농구 데이터 -->
-				<div class="data_list_wrap" v-else-if="code === 'CD022'">
-					<div class="data_list">
-						<h2>드리블</h2>
-						<ul>
-							<li class="data_thumb pop_video">
-								<!-- 누르면 출력될 이미지나 동영상의 파일명을 data-video에 넣음 -->
-								<a data-video="sample1" class="btn_play">
-									<!-- 리스트 이미지 -->
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">드리블 01</p>
-							</li>
-							<li class="data_thumb pop_img">
-								<a data-img="pop_img">
-									<img src="~assets/images/pop_img.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">드리블 02</p>
-							</li>
-							<li class="data_thumb pop_video">
-								<a data-video="sample2" class="btn_play">
-									<img src="~assets/images/thumb_soccer.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">드리블 04</p>
-							</li>
-							<li class="data_thumb pop_img">
-								<a data-img="pop_img">
-									<img src="~assets/images/pop_img.jpg" alt="thumb">
-								</a>
-								<p class="thumb_txt">드리블 03</p>
+								<p class="thumb_txt">{{list.fileName}}</p>
 							</li>
 						</ul>
 					</div>
@@ -296,7 +78,7 @@ export default {
 
 				await this.getSportsList(param).then();
 				this.sportsList = this.getSportsItemList;
-				console.log('12345678', this.result);
+				console.log(this.sportsList);
 			} catch (e) {
 				console.log(e.message);
 				this.returnMsg = e.message;

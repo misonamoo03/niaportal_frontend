@@ -9,10 +9,8 @@ import theSportsList from '~/components/sports/sportsList';
 import theBanner from '~/components/sports/sportsBanner';
 
 export default {
-	//middleware: 'authenticated',
+	// middleware: 'authenticated',
 	asyncData({ params }) {
-		console.log('_code.vue');
-		console.log(params);
 		return {
 			code: params.code,
 		};

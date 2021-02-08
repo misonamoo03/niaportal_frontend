@@ -20,7 +20,7 @@
           placeholder="ID (이메일을 입력 하세요.)"
           v-model="loginEmail"
         />
-        <input type="password" name="login_password" placeholder="비밀번호" v-model="loginPassword" />
+        <input type="password" name="login_password" placeholder="비밀번호"  @keydown.13="signInMethod" v-model="loginPassword" />
 
         <input type="checkbox" id="myCheck" v-model="saved"/>
         <label for="myCheck">아이디 저장</label>

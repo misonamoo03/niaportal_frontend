@@ -10,7 +10,7 @@ html, body{width:100%;}
 body{width:100%; background:#fff; min-width:320px; -webkit-text-size-adjust:none;word-wrap:break-word;word-break:keep-all; letter-spacing: -.5px;}
 body,input,select,textarea,button {border:none;font-size:16px; font-family:'Noto Sans KR', sans-serif;color:#000;}
 ul,ol,li{list-style:none;}
-table{width:100%;border-spacing:0;border-collapse:collapse;}
+table{width:100%;border-spacing:0;border-collapse:collapse; table-layout:fixed;}
 img,fieldset{border:0;}
 address,cite,code,em{font-style:normal;font-weight:normal;}
 label,img,input,select,textarea,button{vertical-align:middle;}
@@ -50,6 +50,8 @@ input[type=search][disabled],
 input[type=email][disabled]{background:#eaeaea; border-color:#c0c0c0; color:#666; -webkit-appearance:none;font-size:12px;}
 textarea[readonly],
 textarea[disabled]{padding:11px; font-size:16px; color:#666; font-weight:normal; line-height:140%; height:78px; background:#eaeaea;border:1px solid #c0c0c0;}
+textarea{height: 100%;}
+textarea::-webkit-input-placeholder{color:#b5b5b5; font-size:16px; line-height:100%;}
 
 button{cursor: pointer;}
 h1 {font-size:65px;}
