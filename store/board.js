@@ -48,8 +48,8 @@ export const actions = {
 		commit('BOARDINFO', data.data.info);
 	},
  
-	async search({ commit }, { query }) {
-		const data = await BoardService.search(query);
+	async search({ commit }, { query, type}) {
+		const data = await BoardService.search({query, type});
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}

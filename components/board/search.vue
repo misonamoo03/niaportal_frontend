@@ -8,12 +8,12 @@
             <h2>정보수정</h2>
             <div class="search_wrap">
                 <div class="search_select">
-                    <select name="select_con">
-                        <option value="cont1">전체</option>
-                        <option value="cont1">골프데이터</option>
-                        <option value="cont1">축구데이터</option>
-                        <option value="cont1">농구데이터</option>
-                        <option value="cont1">문의사항</option>
+                    <select name="select_con" v-model="type">
+                        <option value="">전체</option>
+                        <option value="CD020">골프데이터</option>
+                        <option value="CD021">축구데이터</option>
+                        <option value="CD022">농구데이터</option>
+                        <option value="CD006002">문의사항</option>
                     </select>
                 </div>
                 <div class="search_keyword">
@@ -67,6 +67,7 @@ import { mapActions, mapMutations, mapGetters, mapState } from 'vuex';
 export default {
     data() {
         return {
+            type: '',
             query: '',
             searchList: '',
             isSearched: false,
@@ -81,6 +82,7 @@ export default {
             try {
                 let param = {
                     query: this.query,
+                    type: this.type
                 }
 
                 await this.search(param).then(() => {
