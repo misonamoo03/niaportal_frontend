@@ -35,7 +35,24 @@ const getBoardInfo = async boardContentNo => {
   }
 };
 
+const search = async query => {
+  try {
+    const req = await axios.get(
+      'http://sportsaihub.com:8080/Common/listSearch',
+      {
+        params: {
+          query: query
+        }
+      }
+    );
+    return req.data;
+  } catch (e) {
+    console.error(`server error : ${e.error}`);
+  }
+}
+
 export default {
   getBoardList,
-  getBoardInfo
+  getBoardInfo,
+  search
 };

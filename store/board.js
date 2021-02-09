@@ -1,18 +1,23 @@
 /* eslint-disable no-unused-vars */
+import { localeChanged } from 'vee-validate';
 import BoardService from '~/service/board';
 
 export const state = () => ({
 	storeBoardList: [],
-  storeBoardInfo: [],
+  	storeBoardInfo: [],
+	storeSearchList: []
 });
 
 export const mutations = {
 	BOARDLIST: function(state, boardList) {
 		state.storeBoardList = boardList;
 	},
-  BOARDINFO: function(state, boardInfo) {
-	  state.storeBoardInfo = boardInfo;
-  }
+	BOARDINFO: function(state, boardInfo) {
+		state.storeBoardInfo = boardInfo;
+	},	
+	SEARCHLIST: function(state, searchList) {
+		state.storeSearchList = searchList;
+	}
 };
 
 export const actions = {
@@ -33,29 +38,39 @@ export const actions = {
 		commit('BOARDLIST', data.data.list);
 	},
 
-  async getBoardInfo({ commit }, { boardContentNo }) {
-	  const data = await BoardService.getBoardInfo(boardContentNo);
-	  console.log(data.data);
-	  console.log(data.status);
-    if (data.status != 200) {
-      throw new Error(data.message);
-    }
-    commit('BOARDINFO', data.data.info);
-  }
+	async getBoardInfo({ commit }, { boardContentNo }) {
+		const data = await BoardService.getBoardInfo(boardContentNo);
+		console.log(data.data);
+		console.log(data.status);
+		if (data.status != 200) {
+		throw new Error(data.message);
+		}
+		commit('BOARDINFO', data.data.info);
+	},
+ 
+	async search({ commit }, { query }) {
+		const data = await BoardService.search(query);
+		if (data.status != 200) {
+			throw new Error(data.message);
+		}
+		commit('SEARCHLIST', data.data);
+	}
 };
 
 export const getters = {
 	getSportsBoardList(state) {
 		const { storeBoardList } = state;
-		console.log('getters: ');
 		storeBoardList.map(no => {
 			console.log(no);
 		});
 		return storeBoardList;
 	},
-  getGetterBoardInfo(state) {
-	  const { storeBoardInfo } = state;
-	  return storeBoardInfo;
-	  console.log('getters: ');
-  }
+	getGetterBoardInfo(state) {
+		const { storeBoardInfo } = state;
+		return storeBoardInfo;
+	},
+	getSearchList(state) {
+		const { storeSearchList } = state;
+		return storeSearchList;
+	}
 };

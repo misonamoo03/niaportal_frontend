@@ -5,13 +5,8 @@
                 <li class="home"><img src="~assets/images/location_home.png" alt="location_home"></li>
                 <li>통합검색</li>
             </ol>
-
             <h2>정보수정</h2>
-
-
-
             <div class="search_wrap">
-                
                 <div class="search_select">
                     <select name="select_con">
                         <option value="cont1">전체</option>
@@ -21,33 +16,21 @@
                         <option value="cont1">문의사항</option>
                     </select>
                 </div>
-                
                 <div class="search_keyword">
-                    <input type="text" name="keyword" class="keyword_input" placeholder="검색어를 입력하세요">
-                    <button type="submit" class="search_btn"><em>검색</em></button>
+                    <input type="text" name="keyword" class="keyword_input" placeholder="검색어를 입력하세요" v-model="query" @keydown.13="searchMethod">
+                    <button type="submit" class="search_btn" @click="searchMethod"><em>검색</em></button>
                 </div>
-
             </div>
-
             <!-- 결과 있음 -->
-            <div class="result_wrap">
-                <p class="result_total">검색결과 (10건)</p>
+            <div class="result_wrap" v-if="isSearched && hasSearchResult">
+                <p class="result_total">검색결과 ({{searchList.totalCnt}}건)</p>
                 <ul class="result_box">
-                    <li>
+                    <li v-for="(result,index) in searchList.list" v-bind:key="index">
                         <div class="result_twrap">
-                            <p class="con">골프</p>
-                            <p class="tit">제목 출력 ex) setup01</p>
+                            <p class="con">{{result.typeName}}</p>
+                            <p class="tit">{{result.title}}</p>
                             <p class="txt">
-                                동영상내용출력 동영상내용출력 동영상내용출력 동영상내용출력 동영상내용출력 동영상내용출력 동영상내용출력 동영상내용출력 동영상내용출력
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="result_twrap">
-                            <p class="con">문의사항</p>
-                            <p class="tit">문의사항 제목 출력</p>
-                            <p class="txt">
-                                문의사항내용출력 문의사항내용출력 문의사항내용출력 문의사항내용출력 문의사항내용출력 문의사항내용출력 문의사항내용출력 문의사항내용출력 문의사항내용출력 문의사항내용출력 문의사항내용출력 문의사항내용출력 문의사항내용출력 문의사항내용출력
+                                {{result.content}}
                             </p>
                         </div>
                     </li>
@@ -66,9 +49,8 @@
                     <button type="button" class="btn_end" title="마지막 페이지로 이동"><span>끝</span></button>
                 </div>
             </div>
-
             <!-- 결과 없음 -->
-            <div class="result_wrap">
+            <div class="result_wrap" v-else-if="isSearched && !hasSearchResult">
                 <p class="result_total">검색결과 (0건)</p>
                 <ul class="result_box">
                     <li class="no_result">
@@ -80,7 +62,48 @@
     </div> 
 </template>
 <script>
+import { mapActions, mapMutations, mapGetters, mapState } from 'vuex';
+
 export default {
-    
+    data() {
+        return {
+            query: '',
+            searchList: '',
+            isSearched: false,
+            hasSearchResult: false,
+        }
+    },
+    methods: {
+        ...mapMutations([]), //<--store mutation 관리
+        ...mapActions('board', ['search']), //<-- store Action 처리
+        // 검색
+        async searchMethod() {
+            try {
+                let param = {
+                    query: this.query,
+                }
+
+                await this.search(param).then(() => {
+                    this.afterSearch();
+                });
+                console.log(this.searchList);
+            } catch (e) {
+                console.log(e.message);
+				this.returnMsg = e.message;
+            }
+        },
+        afterSearch() {
+            this.searchList = this.getSearchList;
+            this.isSearched = true;
+            if(this.searchList.totalCnt === 0) {
+                this.hasSearchResult = false;
+            } else {
+                this.hasSearchResult = true;
+            }
+        }
+    },
+    computed: {
+        ...mapGetters('board', ['getSearchList'])
+    }
 }
 </script>
