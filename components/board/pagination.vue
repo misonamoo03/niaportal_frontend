@@ -1,0 +1,94 @@
+<template>
+  <div class="pagination">
+        <button type="button" class="btn_first" title="첫 페이지로 이동" v-if="first" @click="changeLink(1)"><span>처음</span></button>
+        <button type="button" class="btn_prev" title="이전 5개 목록 페이지로 이동" v-if="prev" @click="changeLink(startPageIndex - 1)"><span>이전</span></button>
+
+        <ul class="paging">
+            <li v-for="index in endPageIndex-startPageIndex + 1" :key="index">
+                <button type="button" :class="{on: (startPageIndex + index - 1) == currentPage}" title="현재페이지로 이동" @click="changePage(index)">{{ startPageIndex + index - 1 }}</button>
+            </li>
+        </ul>
+
+        <button type="button" class="btn_next" title="다음 5개 목록 페이지로 이동" v-if="next" @click="changeLink(endPageIndex + 1)"><span>다음</span></button>
+        <button type="button" class="btn_end" title="마지막 페이지로 이동" v-if="end" @click="changeLink(pageCount)"><span>끝</span></button>
+    </div>            
+</template>
+
+<script>
+export default {
+    props: ['listRowCount', 'totalListItemCount', 'pageLinkCount', 'currentPage'],    //listRowCount: 한 페이지당 리스트 개수, totalListItemCount: 총 리스트 개수, pageLinkCount: 링크당 페이지 개수
+    data() {
+        return {
+            pageCount: 0,       //페이지 개수
+            startPageIndex: 0,  //링크에서 페이지 시작 인덱스
+            endPageIndex: 0,    //링크에서 페이지 마지막 인덱스
+            prev: false,
+            next: false,
+            first: false,
+            end: false
+        }
+    },
+    methods: {
+        initUI() {
+            this.pageCount= Math.ceil(this.totalListItemCount/this.listRowCount);
+
+            if((this.currentPage % this.pageLinkCount) == 0) {
+                this.startPageIndex = ((this.currentPage / this.pageLinkCount) -1) * this.pageLinkCount + 1;
+            } else {
+                this.startPageIndex = Math.floor(this.currentPage / this.pageLinkCount) * this.pageLinkCount + 1;
+            }
+
+            if((this.currentPage % this.pageLinkCount == 0)) {
+                this.endPageIndex = ((this.currentPage / this.pageLinkCount)-1)* this.pageLinkCount + this.pageLinkCount;
+            } else {
+                this.endPageIndex = Math.floor(this.currentPage / this.pageLinkCount)* this.pageLinkCount + this.pageLinkCount;
+            }
+
+            if(this.currentPage <= this.pageLinkCount) {
+                this.prev = false;
+                this.first = false;
+            } else {
+                this.prev = true;
+                this.first = true;
+            }
+
+            if(this.endPageIndex >= this.pageCount) {
+                this.endPageIndex = this.pageCount;
+                this.next = false;
+                this.end = false;
+            } else {
+                this.next = true;
+                this.end = true;
+            }
+
+            console.log(`startPageIndex: ${this.startPageIndex}`);
+            console.log(`endPageIndex: ${this.endPageIndex}`);
+            console.log(`pageCount: ${this.pageCount}`);
+        },
+        changePage(index) {
+            let selectedPage = this.startPageIndex + index - 1;
+            this.$emit('update', selectedPage);
+        },
+        changeLink(index) {
+            this.$emit('update', index);
+        }
+    },
+    watch: {
+        currentPage: function() {
+            this.initUI();
+        },
+        totalListItemCount: function () {
+            this.initUI();
+        },
+        listRowCount: function () {
+            this.initUI();
+        },
+        pageLinkCount: function () {
+            this.initUI();
+        }
+    },
+    created() {
+        this.initUI();
+    }
+}
+</script>

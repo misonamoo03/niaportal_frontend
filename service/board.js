@@ -42,7 +42,8 @@ const search = async ( info ) => {
       {
         params: {
           query: info.query,
-          type: info.type
+          type: info.type,
+          currentPage: info.currentPage
         }
       }
     );
