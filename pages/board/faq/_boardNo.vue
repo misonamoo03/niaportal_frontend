@@ -4,7 +4,7 @@
 	</div>
 </template>
 <script>
-import theFaqList from '~/components/board/faqList';
+import theFaqList from '~/components/board/faq/faqList';
 
 export default {
 	asyncData({ params }) {

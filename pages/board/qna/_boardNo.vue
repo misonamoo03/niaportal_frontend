@@ -4,7 +4,7 @@
 	</div>
 </template>
 <script>
-import theQnaList from '~/components/board/qnaList';
+import theQnaList from '~/components/board/qna/qnaList';
 
 export default {
 	asyncData({ params }) {
