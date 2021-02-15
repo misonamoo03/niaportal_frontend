@@ -51,10 +51,26 @@ const search = async ( info ) => {
   } catch (e) {
     console.error(`server error : ${e.error}`);
   }
+};
+
+const createFaq = async (info) => {
+  try {
+    const req = await axios.post('http://sportsaihub.com:8080/board/insert', JSON.stringify(info), {
+      headers: {
+        "Content-Type": 'application/json',
+      }, withCredentials: true 
+    });
+    return req;
+
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(`server error : ${e.error}`);
+  }
 }
 
 export default {
   getBoardList,
   getBoardInfo,
-  search
+  search,
+  createFaq
 };

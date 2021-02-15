@@ -16,7 +16,7 @@
     <h3>{{ `접근 권한 : ${authUser} ` }}</h3>
     <br />
     <ul>
-      <li v-for='item in boardList'>{{ item }}</li>
+      <li v-for='(item, index) in boardList' v-bind:key="index">{{ item }}</li>
     </ul>
     <!-- tab3[E] -->
   </div>

@@ -30,8 +30,6 @@ export const actions = {
 	//commonCode 조회
 	async getBoardList({ commit }, { boardNo }) {
 		const data = await BoardService.getBoardList(boardNo);
-		console.log(data.data);
-		console.log(data.status);
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
@@ -54,6 +52,14 @@ export const actions = {
 			throw new Error(data.message);
 		}
 		commit('SEARCHLIST', data.data);
+	},
+
+	async createFaq({commit}, {boardNo, title, content}) {
+		const data = await BoardService.createFaq({boardNo, title, content});
+		console.log(data);
+		if (data.status != 200) {
+			throw new Error(data.message);
+		}
 	}
 };
 
@@ -61,7 +67,6 @@ export const getters = {
 	getSportsBoardList(state) {
 		const { storeBoardList } = state;
 		storeBoardList.map(no => {
-			console.log(no);
 		});
 		return storeBoardList;
 	},

@@ -1,9 +1,8 @@
 <template>
-  <div id="sub_contents"> 
-       <div class="container">
-              
+<div id="sub_contents"> 
+       <div class="container">       
               <ol class="location">
-                     <li class="home"><img src="images/location_home.png" alt="location_home"></li>
+                     <li class="home"><img src="~assets/images/location_home.png" alt="location_home"></li>
                      <li>AI게시판</li>
                      <li>FAQ</li>
               </ol>
@@ -11,8 +10,8 @@
               <div class="lnb">
                      <div class="lnb_title">AI게시판</div>
                      <ul>
-                            <li class="on"><a href="faq.html">FAQ</a></li>
-                            <li><a href="inquiry.html">문의하기</a></li>
+                            <li class="on"><NuxtLink to="/board/faq/faq">FAQ</NuxtLink></li>
+                            <li><NuxtLink to="/board/qna/qna">문의하기</NuxtLink></li>
                      </ul>
               </div>
 
@@ -22,43 +21,25 @@
                             <p>원하는 질문과 답이 없을 시 문의하기에 작성해 주세요</p>
                      </div>
 
-                     <div class="accordion">
+                     <div class="accordion" v-show="!showNewFaqForm">
                             <ul>
-                                   <li>
+                                   <li v-for="(list, index) in faqList" v-bind:key="index">
                                           <a href="#">
-                                                 데이터요청도 가능 한가요?<span class="arrow"></span>
+                                                 {{list.title}}<span class="arrow"></span>
                                           </a>
                                           <p>
-                                                 FAQ형의 게시판 답변이 표시되는 영역입니다.  FAQ형의 게시판 답변이 표시되는 영역입니다. <br />
-                                                 FAQ형의 게시판 답변이 표시되는 영역입니다. <br />
-                                                 FAQ형의 게시판 답변이 표시되는 영역입니다.  FAQ형의 게시판 답변이 표시되는 영역입니다.
-                                          </p>
-                                   </li>
-                                   <li>
-                                          <a href="#">
-                                                 영상이 다운로드 되지 않습니다 영상이 다운로드 되지 않습니다 영상이 다운로드 되지 않습니다 영상이 다운로드 되지 않습니다 영상이 다운로드 되지 않습니다<span class="arrow"></span>
-                                          </a>
-                                          <p>
-                                                 FAQ형의 게시판 답변이 표시되는 영역입니다.
-                                          </p>
-                                   </li>
-                                   <li>
-                                          <a href="#">
-                                                 FAQ형의 게시판 제목이 표시되는 영역입니다. <span class="arrow"></span>
-                                          </a>
-                                          <p>
-                                                 FAQ형의 게시판 답변이 표시되는 영역입니다.
+                                                 {{list.content}}
                                           </p>
                                    </li>
                             </ul>
                      </div>
 
-                     <div class="btn_area clear">
-                            <button type="button" class="btn_type btn_basic btn_primary popOpenBtnCmmn" data-num="1">작성하기</button>
-
+                     <div class="btn_area clear" v-show="isSuperUser && !showNewFaqForm">
+                            <button type="button" class="btn_type btn_basic btn_primary popOpenBtnCmmn" data-num="1" @click="createNewFaq">작성하기</button>
+                     </div>
 
                             <!-- popUp_1 [S] -->
-                     <div id="popUp_1" class="popCmmn">
+                     <div id="popUp_1" class="popCmmn" v-show="showNewFaqForm">
                             <div class="popBg" data-num="1"></div>
                             <div class="popInnerBox">
                                    <div class="popHead">FAQ 작성</div>
@@ -71,11 +52,11 @@
                                                  <tbody>
                                                         <tr>
                                                                <th>질문</th>
-                                                               <td><textarea name="faq_A" rows="3" cols="33" placeholder="FAQ에 올라갈 질문을 입력해 주세요"></textarea></td>
+                                                               <td><textarea name="faq_A" rows="3" cols="33" placeholder="FAQ에 올라갈 질문을 입력해 주세요" v-model="title"></textarea></td>
                                                         </tr>
                                                         <tr>
                                                                <th>답변</th>
-                                                               <td><textarea name="faq_A" rows="10" cols="33" placeholder="질문에 대한 답변을 입력해 주세요"></textarea></td>
+                                                               <td><textarea name="faq_A" rows="10" cols="33" placeholder="질문에 대한 답변을 입력해 주세요" v-model="content"></textarea></td>
                                                         </tr>
                                                  </tbody>
                                           </table>
@@ -85,7 +66,7 @@
                                           <button href="#" class="btn_layerClose" ></button>
                                    </div>
                                    <div class="popFoot">
-                                                 <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="1"><span>작성완료</span></button>	
+                                          <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="1" @click="createFaqMethod"><span>작성완료</span></button>	
                                    </div>
                             </div>
                      </div>
@@ -122,15 +103,104 @@
                                    </div>
                             </div>
                             </div> -->
-                            <!-- faq_write [E] -->
-                     </div>
+                     <!-- faq_write [E] -->
               </div>
-       </div> 
+       </div>
 </div> 
 </template>
 
 <script>
-export default {
+import { mapActions, mapMutations, mapGetters, mapState } from 'vuex';
+import Cookie from 'js-cookie';
+import { validate, extend } from 'vee-validate';
+import { required } from 'vee-validate/dist/rules';
 
+extend('required', {
+  ...required,
+  message: '{_field_}을(를) 입력해 주세요.'
+})
+
+export default {
+       data() {
+              return {
+                     faqList: null,
+                     isSuperUser: false,
+                     showNewFaqForm: false,
+                     title: '',
+                     content: ''
+              }
+       },
+       created() {
+              this.getFaqListMethod();
+       },
+       methods: {
+              ...mapMutations([]), //<--store mutation 관리
+              ...mapActions('board', ['getBoardList', 'createFaq']), //<-- store Action 처리
+              async getFaqListMethod(){
+                     try {
+                            this.isSuperUser = (Cookie.get('userGbCode') === 'CD002002');
+
+                            let param = {
+                                   boardNo: 1
+                            }
+
+                            await this.getBoardList(param).then();
+                            this.faqList = this.getSportsBoardList;
+                            console.log(this.faqList);
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              },
+              async createFaqMethod() {
+                     try {
+                            var errorChk = true;
+                            await validate(this.title, 'required',{
+                                   name: '질문 또는 답변'
+                            }).then(result => {
+                                   if (!result.valid) {
+                                          alert(result.errors[0]);
+                                          errorChk = false;
+                                   }
+                            });
+                            if(!errorChk){
+                                   return;
+                            }
+                            await validate(this.content, 'required',{
+                                   name: '질문 또는 답변'
+                            }).then(result => {
+                                   if (!result.valid) {
+                                          alert(result.errors[0]);
+                                          errorChk = false;
+                                   }
+                            });
+                            if(!errorChk){
+                                   return;
+                            }
+
+                            let param = {
+                                   boardNo: 1,
+                                   title: this.title,
+                                   content: this.content
+                            };
+
+                            await this.createFaq(param).then(() => {
+                                   this.getFaqListMethod();
+                                   this.showNewFaqForm = false;
+                            });
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              },
+              createNewFaq() {
+                     this.showNewFaqForm = true;
+                     this.title = '';
+                     this.content = '';
+              }
+       },
+       computed: {
+              ...mapGetters('board', ['getSportsBoardList']), //<--store Getter 관리
+       }
 }
 </script>
