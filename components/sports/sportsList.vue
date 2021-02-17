@@ -26,12 +26,12 @@
 				<div class="data_list_wrap">
 					<div class="data_list" v-for="(sport, index) in sportsList" v-bind:key="index">
 						<h2>{{sport.actName}}</h2>
-						<ul class="grid_col4">
+						<ul class="grid_col5">
 							<li class="data_thumb pop_img" v-for="(list, index) in sport.sportslist" v-bind:key="index">
 								<!-- 누르면 출력될 이미지나 동영상의 파일명을 data-video에 넣음 -->
 								<a data-img="pop_img">
 									<!-- 리스트 이미지 -->
-									<img :src="list.thumImgUrl" alt="thumb">
+									<img :src="list.thumImgUrl" alt="thumb"  @click="viewImage(list.thumImgUrl)">
 								</a>
 								<p class="thumb_txt">{{list.fileName}}</p>
 							</li>
@@ -43,8 +43,9 @@
 						<div class="video-popup-closer"></div>
 					</div>
 
-					<div class="img-popup">
-						<div class="img-popup-closer"></div>
+					<div class="img-popup" :class="{ 'img-popup': true, reveal: isViewPopupImg }">
+            <div class='img-wrapper'><img v-bind:src="viewPopupImgUrl"></div>
+						<div class="img-popup-closer" @click="closeViewImage()"></div>
 					</div>	
 				</div>
 			</div>
@@ -60,6 +61,8 @@ export default {
 		return {
 			sportsList: null,
 			sport: '',
+      isViewPopupImg: false,
+      viewPopupImgUrl: '',
 		};
 	},
 	created() {
@@ -98,7 +101,15 @@ export default {
             this.sport = '농구 데이터';
             }
         }
-		}
+		},
+    viewImage(url) {
+            this.isViewPopupImg = true;
+            this.viewPopupImgUrl = url;
+    },
+    closeViewImage() {
+            this.isViewPopupImg = false;
+            this.viewPopupImgUrl = '';
+    },
 	},
 	computed: {
 		...mapGetters('sports', ['getSportsItemList']), //<--store Getter 관리

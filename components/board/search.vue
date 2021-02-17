@@ -5,7 +5,6 @@
                 <li class="home"><img src="~assets/images/location_home.png" alt="location_home"></li>
                 <li>통합검색</li>
             </ol>
-            <h2>정보수정</h2>
             <div class="search_wrap">
                 <div class="search_select">
                     <select name="select_con" v-model="type">
