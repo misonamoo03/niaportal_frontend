@@ -11,8 +11,8 @@
               <div class="lnb">
                      <div class="lnb_title">AI게시판</div>
                       <ul>
-                            <li class="on"><NuxtLink to="/board/faq/faq">FAQ</NuxtLink></li>
-                            <li><NuxtLink to="/board/qna/qna">문의하기</NuxtLink></li>
+                            <li><NuxtLink to="/board/faq/faq">FAQ</NuxtLink></li>
+                            <li class="on"><NuxtLink to="/board/qna/qna">문의하기</NuxtLink></li>
                      </ul>
               </div>
 
