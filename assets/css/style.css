@@ -700,7 +700,7 @@ input[type="checkbox"]:checked + label::before{
 	display: inline-block; 
 	width:18px;
 	height:23px; 
-	background-image: url("../images/faq_mark_A.png");
+	background-image: url("../images/faq_mark_a.png");
 	background-size:18px;
 	margin-right:8px;
 	position: absolute;
