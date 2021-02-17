@@ -4,7 +4,7 @@ import axios from 'axios';
 const getSportsList = async code => {
 	try {
 		const req = await axios.get(
-			'http://localhost:8080/Sports/list',
+			'http://sportsaihub.com:8080/Sports/list',
 			{
 				params: {
 					sportsTypeCode: code,
