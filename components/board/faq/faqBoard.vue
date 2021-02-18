@@ -101,7 +101,7 @@
                                                  <button class="btn_layerClose" @click="closeFaq(2)"></button>
                                           </div>
                                           <div class="popFoot">
-                                                 <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="2"><span>수정완료</span></button>	
+                                                 <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="2" @click="updateFaqMethod"><span>수정완료</span></button>	
                                           </div>
                                    </div>
                             </div>
@@ -141,7 +141,7 @@ export default {
        },
        methods: {
               ...mapMutations([]), //<--store mutation 관리
-              ...mapActions('board', ['getBoardList', 'createFaq', 'showBoardDetail']), //<-- store Action 처리
+              ...mapActions('board', ['getBoardList', 'createFaq', 'showBoardDetail', 'updateFaq']), //<-- store Action 처리
               async getFaqListMethod(){
                      try {
                             this.isSuperUser = (Cookie.get('userGbCode') === 'CD002002');
@@ -207,9 +207,26 @@ export default {
                             };
 
                             await this.showBoardDetail(param).then();
-                            console.log(this.getBoardDetail);
-                            this.updateTitle = this.getBoardDetail.title;
-                            this.updateContent = this.getBoardDetail.content;
+                            this.boardDetail = this.getBoardDetail;
+                            this.updateTitle = this.boardDetail.title;
+                            this.updateContent = this.boardDetail.content;
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              },
+              async updateFaqMethod() {
+                     try {
+                            let param = {
+                                   boardContentNo: this.boardDetail.boardContentNo,
+                                   title: this.updateTitle,
+                                   content: this.updateContent
+                            };
+
+                            await this.updateFaq(param).then(() => {
+                                   this.getFaqListMethod();
+                                   this.closeFaq(2);
+                            });
                      } catch (e) {
                             console.log(e);
                             this.returnMsg = e.message;

@@ -72,6 +72,14 @@ export const actions = {
 			throw new Error(data.message);
 		}
 		commit('BOARDDETAIL', data.data.info);
+	},
+
+	async updateFaq({commit}, {boardContentNo, title, content}) {
+		const data = await BoardService.updateFaq({boardContentNo, title, content});
+		console.log(data);
+		if (data.status != 200) {
+			throw new Error(data.message);
+		}
 	}
 };
 

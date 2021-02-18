@@ -82,6 +82,19 @@ const showBoardDetail = async (info) => {
   } catch (e) {
     console.error(`server error : ${e.error}`);
   }
+};
+
+const updateFaq = async (info) => {
+  try {
+    const req = await axios.post('http://sportsaihub.com:8080/board/update', JSON.stringify(info), {
+      headers: {
+        "Content-Type": 'application/json',
+      }, withCredentials: true 
+    });
+    return req;
+  } catch (e) {
+    console.error(`server error : ${e.error}`);
+  }
 }
 
 export default {
@@ -89,5 +102,6 @@ export default {
   getBoardInfo,
   search,
   createFaq,
-  showBoardDetail
+  showBoardDetail,
+  updateFaq
 };
