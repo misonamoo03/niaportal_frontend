@@ -55,11 +55,11 @@
                                                         <tbody>
                                                                <tr>
                                                                       <th>질문</th>
-                                                                      <td><textarea name="faq_A" rows="3" cols="33" placeholder="FAQ에 올라갈 질문을 입력해 주세요"></textarea></td>
+                                                                      <td><textarea name="faq_A" rows="3" cols="33" placeholder="FAQ에 올라갈 질문을 입력해 주세요" v-model="title"></textarea></td>
                                                                </tr>
                                                                <tr>
                                                                       <th>답변</th>
-                                                                      <td><textarea name="faq_A" rows="10" cols="33" placeholder="질문에 대한 답변을 입력해 주세요"></textarea></td>
+                                                                      <td><textarea name="faq_A" rows="10" cols="33" placeholder="질문에 대한 답변을 입력해 주세요" v-model="content"></textarea></td>
                                                                </tr>
                                                         </tbody>
                                                  </table>
@@ -69,7 +69,7 @@
                                                  <button class="btn_layerClose" @click="closeFaq(1)"></button>
                                           </div>
                                           <div class="popFoot">
-                                                 <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="1"><span>작성완료</span></button>	
+                                                 <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="1" @click="createFaqMethod"><span>작성완료</span></button>	
                                           </div>
                                    </div>
                             </div>
@@ -189,6 +189,7 @@ export default {
 
                             await this.createFaq(param).then(() => {
                                    this.getFaqListMethod();
+                                   this.closeFaq(1);
                             });
                      } catch (e) {
                             console.log(e);
@@ -197,8 +198,8 @@ export default {
               },
               createNewFaq(viewNum) {
                      document.getElementById("popUp_"+viewNum).style.display = 'block';
-                     //this.title = '';
-                     //this.content = '';
+                     this.title = '';
+                     this.content = '';
               },
               closeFaq(viewNum) {
                      document.getElementById("popUp_"+viewNum).style.display = 'none';
