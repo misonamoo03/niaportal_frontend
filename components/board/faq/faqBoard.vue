@@ -24,9 +24,9 @@
                      <div class="accordion">
                             <ul>
                                    <li v-for="(list, index) in faqList" v-bind:key="index">
-                                          <a v-on:click="toggleAnswer" v-html="list.title">
+                                          <a :id="'q_'+index" v-on:click="toggleAnswer(index)" v-html="list.title">
                                           </a>
-                                          <p v-show="isShowAnswer" v-html="list.content">                                              
+                                          <p :id="'a_'+index" v-show="isShowAnswer" v-html="list.content">                                              
                                           </p>
                                           <div class="popOpenBtnCmmn modify" data-num="2" @click="showBoardDetailMethod(list.boardContentNo), createNewFaq(2)" v-show="isSuperUser">수정하기</div>
                                    </li> 
@@ -115,6 +115,8 @@ import { mapActions, mapMutations, mapGetters, mapState } from 'vuex';
 import Cookie from 'js-cookie';
 import { validate, extend } from 'vee-validate';
 import { required } from 'vee-validate/dist/rules';
+import $ from "jquery";
+
 
 extend('required', {
   ...required,
@@ -241,8 +243,22 @@ export default {
                      this.updateTitle = '';
                      this.updateContent = '';
               },
-              toggleAnswer() {
-                     this.isShowAnswer = !this.isShowAnswer;
+              toggleAnswer(idx) {
+                var _this = $("#q_"+idx);
+                 _this.next().slideToggle(300);
+
+                $(".accordion ul li a").not( _this).next().slideUp(300);
+
+                $(".accordion ul li a").css('background','#f1f2f7'),
+                $(".accordion ul li a").not( _this).css('background','#fff');
+
+                // $(this).find(".arrow").toggleClass("up")
+                _this.find(".arrow").addClass("up"),
+                $(".accordion ul li a").not(_this).find(".arrow").removeClass("up")
+                
+                return false;
+
+                
               }
        },
        computed: {
