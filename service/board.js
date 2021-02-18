@@ -1,13 +1,14 @@
 import axios from 'axios';
 
 // 게시글 조회
-const getBoardList = async boardNo => {
+const getBoardList = async (boardNo, pagePerRow) => {
   try {
     const req = await axios.get(
       'http://sportsaihub.com:8080/board/list',
       {
         params: {
           boardNo: boardNo,
+          pagePerRow: pagePerRow
         },
       },
       { withCredentials: true },

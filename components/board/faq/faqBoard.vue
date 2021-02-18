@@ -25,12 +25,11 @@
                             <ul>
                                    <li v-for="(list, index) in faqList" v-bind:key="index">
                                           <a v-on:click="toggleAnswer" v-html="list.title">
-                                                 <span class="arrow"></span>
                                           </a>
-                                          <p v-show="isShowAnswer" v-html="list.content">                                                
+                                          <p v-show="isShowAnswer" v-html="list.content">                                              
                                           </p>
                                           <div class="popOpenBtnCmmn modify" data-num="2" @click="showBoardDetailMethod(list.boardContentNo), createNewFaq(2)" v-show="isSuperUser">수정하기</div>
-                                   </li>
+                                   </li> 
                             </ul>
                      </div>
 
@@ -146,7 +145,8 @@ export default {
                             this.isSuperUser = (Cookie.get('userGbCode') === 'CD002002');
 
                             let param = {
-                                   boardNo: 1
+                                   boardNo: 1,
+                                   pagePerRow: 1000
                             }
 
                             await this.getBoardList(param).then();

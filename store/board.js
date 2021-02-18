@@ -32,13 +32,13 @@ export const actions = {
 		//}
 	},
 	//commonCode 조회
-	async getBoardList({ commit }, { boardNo }) {
-		const data = await BoardService.getBoardList(boardNo);
+	async getBoardList({ commit }, { boardNo, pagePerRow }) {
+		const data = await BoardService.getBoardList(boardNo, pagePerRow);
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
 		data.data.list.forEach((item) => {
-			item.title = item.title.replace(/(\n)/g, '<br />');
+			item.title = item.title.replace(/(\n)/g, '<br />') + '<span class="arrow"></span>';
 		       item.content = item.content.replace(/(\n)/g, '<br />');
 		});
 		
