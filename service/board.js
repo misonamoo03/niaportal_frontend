@@ -66,11 +66,28 @@ const createFaq = async (info) => {
     // eslint-disable-next-line no-console
     console.error(`server error : ${e.error}`);
   }
+};
+
+const showBoardDetail = async (info) => {
+  try {
+    const req = await axios.get(
+      'http://sportsaihub.com:8080/board/detail',
+      {
+        params: {
+          boardContentNo: info.boardContentNo
+        }
+      }
+    );
+    return req.data;
+  } catch (e) {
+    console.error(`server error : ${e.error}`);
+  }
 }
 
 export default {
   getBoardList,
   getBoardInfo,
   search,
-  createFaq
+  createFaq,
+  showBoardDetail
 };

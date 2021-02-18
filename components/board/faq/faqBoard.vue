@@ -30,7 +30,7 @@
                                           <p v-show="isShowAnswer">
                                                  {{list.content}}
                                           </p>
-                                          <div class="popOpenBtnCmmn modify" data-num="2" @click="createNewFaq(2)" v-show="isSuperUser">수정하기</div>
+                                          <div class="popOpenBtnCmmn modify" data-num="2" @click="showBoardDetailMethod(list.boardContentNo), createNewFaq(2)" v-show="isSuperUser">수정하기</div>
                                    </li>
                             </ul>
                      </div>
@@ -87,11 +87,11 @@
                                                         <tbody>
                                                                <tr>
                                                                       <th>질문</th>
-                                                                      <td><textarea name="faq_A" rows="3" cols="33">FAQ 질문이 나옵니다</textarea></td>
+                                                                      <td><textarea name="faq_A" rows="3" cols="33" v-model="updateTitle">FAQ 질문이 나옵니다</textarea></td>
                                                                </tr>
                                                                <tr>
                                                                       <th>답변</th>
-                                                                      <td><textarea name="faq_A" rows="10" cols="33">FAQ 답변이 나옵니다.</textarea></td>
+                                                                      <td><textarea name="faq_A" rows="10" cols="33" v-model="updateContent">FAQ 답변이 나옵니다.</textarea></td>
                                                                </tr>
                                                         </tbody>
                                                  </table>
@@ -127,10 +127,13 @@ export default {
        data() {
               return {
                      faqList: null,
+                     boardDetail: null,
                      isSuperUser: false,
                      isShowAnswer: false,
                      title: '',
                      content: '',
+                     updateTitle: '',
+                     updateContent: ''
               }
        },
        created() {
@@ -138,7 +141,7 @@ export default {
        },
        methods: {
               ...mapMutations([]), //<--store mutation 관리
-              ...mapActions('board', ['getBoardList', 'createFaq']), //<-- store Action 처리
+              ...mapActions('board', ['getBoardList', 'createFaq', 'showBoardDetail']), //<-- store Action 처리
               async getFaqListMethod(){
                      try {
                             this.isSuperUser = (Cookie.get('userGbCode') === 'CD002002');
@@ -196,6 +199,22 @@ export default {
                             this.returnMsg = e.message;
                      }
               },
+              async showBoardDetailMethod(boardContentNo) {
+                     try {  
+                            console.log(boardContentNo);
+                            let param = {
+                                   boardContentNo: boardContentNo
+                            };
+
+                            await this.showBoardDetail(param).then();
+                            console.log(this.getBoardDetail);
+                            this.updateTitle = this.getBoardDetail.title;
+                            this.updateContent = this.getBoardDetail.content;
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              },
               createNewFaq(viewNum) {
                      document.getElementById("popUp_"+viewNum).style.display = 'block';
                      this.title = '';
@@ -203,13 +222,15 @@ export default {
               },
               closeFaq(viewNum) {
                      document.getElementById("popUp_"+viewNum).style.display = 'none';
+                     this.updateTitle = '';
+                     this.updateContent = '';
               },
               toggleAnswer() {
                      this.isShowAnswer = !this.isShowAnswer;
               }
        },
        computed: {
-              ...mapGetters('board', ['getSportsBoardList']), //<--store Getter 관리
+              ...mapGetters('board', ['getSportsBoardList', 'getBoardDetail']), //<--store Getter 관리
        }
 }
 </script>

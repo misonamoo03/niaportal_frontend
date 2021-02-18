@@ -5,7 +5,8 @@ import BoardService from '~/service/board';
 export const state = () => ({
 	storeBoardList: [],
   	storeBoardInfo: [],
-	storeSearchList: []
+	storeSearchList: [],
+	storeBoardDetail: []
 });
 
 export const mutations = {
@@ -17,6 +18,9 @@ export const mutations = {
 	},	
 	SEARCHLIST: function(state, searchList) {
 		state.storeSearchList = searchList;
+	},
+	BOARDDETAIL: function(state, boardDetail) {
+		state.storeBoardDetail = boardDetail;
 	}
 };
 
@@ -60,6 +64,14 @@ export const actions = {
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
+	},
+
+	async showBoardDetail({commit}, {boardContentNo}) {
+		const data = await BoardService.showBoardDetail({boardContentNo});
+		if (data.status != 200) {
+			throw new Error(data.message);
+		}
+		commit('BOARDDETAIL', data.data.info);
 	}
 };
 
@@ -77,5 +89,9 @@ export const getters = {
 	getSearchList(state) {
 		const { storeSearchList } = state;
 		return storeSearchList;
+	},
+	getBoardDetail(state) {
+		const { storeBoardDetail } = state;
+		return storeBoardDetail;
 	}
 };
