@@ -24,11 +24,10 @@
                      <div class="accordion">
                             <ul>
                                    <li v-for="(list, index) in faqList" v-bind:key="index">
-                                          <a @click="toggleAnswer">
-                                                 {{list.title}}<span class="arrow"></span>
+                                          <a v-on:click="toggleAnswer" v-html="list.title">
+                                                 <span class="arrow"></span>
                                           </a>
-                                          <p v-show="isShowAnswer">
-                                                 {{list.content}}
+                                          <p v-show="isShowAnswer" v-html="list.content">                                                
                                           </p>
                                           <div class="popOpenBtnCmmn modify" data-num="2" @click="showBoardDetailMethod(list.boardContentNo), createNewFaq(2)" v-show="isSuperUser">수정하기</div>
                                    </li>

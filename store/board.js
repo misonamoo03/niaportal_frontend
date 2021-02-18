@@ -37,6 +37,11 @@ export const actions = {
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
+		data.data.list.forEach((item) => {
+			item.title = item.title.replace(/(\n)/g, '<br />');
+		       item.content = item.content.replace(/(\n)/g, '<br />');
+		});
+		
 		commit('BOARDLIST', data.data.list);
 	},
 
