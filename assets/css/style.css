@@ -360,12 +360,17 @@ ul, li {margin: 0; padding: 0; list-style: none;}
 
 
 /*회원*/
-#member_wrap{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%)}
-#member_wrap .container h1{font-size: 0; text-align: center; margin:70px 0 50px 0;}
-#member_wrap .container .member_form_wrap{width:480px; position:absolute; 
+/*#member_wrap{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%)}*/
+#member_wrap .container h1{font-size: 0; text-align: center; margin:60px 0 45px 0;}
+#member_wrap .container .member_form_wrap{
+	width:480px; 
+	position:absolute; 
 	top:50%; 
 	left:50%; 
-	transform:translate(-50%, -50%)}
+	transform:translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%); /* IE 9 */ 
+	-webkit-transform: translate(-50%, -50%); /* Safari */
+}
 #member_wrap .container .member_form_wrap input{margin-bottom:8px;}
 #member_wrap .container .member_form_wrap h2{margin-bottom: 60px;}
 
@@ -390,18 +395,8 @@ ul, li {margin: 0; padding: 0; list-style: none;}
 	background-size: cover;
 }
 
+
 .mem_ftxt{color:rgba(255, 255, 255, .3);}
-
-
-.tabcontent {
-	display: none; 
-	background-color:#fff; 
-	height:530px; color:#000; 
-	text-align: center; 
-	/*padding-top:50px;*/
-	position: relative;
-	top:-1px;
-}
 
 
 .tab {list-style: none; margin: 0; padding: 0; overflow: hidden;}
@@ -428,6 +423,7 @@ ul, li {margin: 0; padding: 0; list-style: none;}
 }
 .tab li.current{background-color:#fff; color: #000; height: 70px; margin:0;}
 .tab li.current a{ color: #000; font-size: 20px; line-height: 70px;}
+
 .tabcontent {
 	display: none; 
 	background-color:#fff; 
@@ -436,7 +432,9 @@ ul, li {margin: 0; padding: 0; list-style: none;}
 	/*padding-top:50px;*/
 	position: relative;
 	top:-1px;
+	overflow: hidden;
 }
+
 .tabcontent.current {display: block;}
 
 
@@ -700,7 +698,7 @@ input[type="checkbox"]:checked + label::before{
 	display: inline-block; 
 	width:18px;
 	height:23px; 
-	background-image: url("../images/faq_mark_a.png");
+	background-image: url("../images/faq_mark_A.png");
 	background-size:18px;
 	margin-right:8px;
 	position: absolute;

@@ -3,7 +3,7 @@
        <div class="container">
               
               <ol class="location">
-                     <li class="home"><img src="images/location_home.png" alt="location_home"></li>
+                     <li class="home"><img src="~assets/images/location_home.png" alt="location_home"></li>
                      <li>AI게시판</li>
                      <li>문의하기</li>
               </ol>

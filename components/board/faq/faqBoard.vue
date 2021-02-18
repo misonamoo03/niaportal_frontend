@@ -21,65 +21,33 @@
                             <p>원하는 질문과 답이 없을 시 문의하기에 작성해 주세요</p>
                      </div>
 
-                     <div class="accordion" v-show="!showNewFaqForm">
+                     <div class="accordion">
                             <ul>
                                    <li v-for="(list, index) in faqList" v-bind:key="index">
-                                          <a href="#">
+                                          <a @click="toggleAnswer">
                                                  {{list.title}}<span class="arrow"></span>
                                           </a>
-                                          <p>
+                                          <p v-show="isShowAnswer">
                                                  {{list.content}}
                                           </p>
+                                          <div class="popOpenBtnCmmn modify" data-num="2" @click="createNewFaq(2)" v-show="isSuperUser">수정하기</div>
                                    </li>
                             </ul>
                      </div>
 
-                     <div class="btn_area clear" v-show="isSuperUser && !showNewFaqForm">
-                            <button type="button" class="btn_type btn_basic btn_primary popOpenBtnCmmn" data-num="1" @click="createNewFaq">작성하기</button>
-                     </div>
-
+                     <div class="btn_area clear" v-show="isSuperUser">
+                            <button type="button" class="btn_type btn_basic btn_primary popOpenBtnCmmn" data-num="1" @click="createNewFaq(1)">작성하기</button>	
+                            <!-- <div class="btn_group">
+                                   <button type="button" class="btn_type btn_basic btn_cancel popOpenBtnCmmn" data-num="2"><span>수정하기</span></button>	
+                                   <button type="button" class="btn_type btn_basic btn_primary popOpenBtnCmmn" data-num="1">작성하기</button>
+                            </div>	 -->
                             <!-- popUp_1 [S] -->
-                     <div id="popUp_1" class="popCmmn" v-show="showNewFaqForm">
-                            <div class="popBg" data-num="1"></div>
-                            <div class="popInnerBox">
-                                   <div class="popHead">FAQ 작성</div>
-                                   <div class="popBody">
-                                          <table class="tb_write pop">
-                                                 <colgroup>
-                                                        <col width="20%">					
-                                                        <col width="">
-                                                 </colgroup>
-                                                 <tbody>
-                                                        <tr>
-                                                               <th>질문</th>
-                                                               <td><textarea name="faq_A" rows="3" cols="33" placeholder="FAQ에 올라갈 질문을 입력해 주세요" v-model="title"></textarea></td>
-                                                        </tr>
-                                                        <tr>
-                                                               <th>답변</th>
-                                                               <td><textarea name="faq_A" rows="10" cols="33" placeholder="질문에 대한 답변을 입력해 주세요" v-model="content"></textarea></td>
-                                                        </tr>
-                                                 </tbody>
-                                          </table>
-
-                                   </div>
-                                   <div id="btncancel" data-num="1" class="popCloseBtnCmmn">
-                                          <button href="#" class="btn_layerClose" ></button>
-                                   </div>
-                                   <div class="popFoot">
-                                          <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="1" @click="createFaqMethod"><span>작성완료</span></button>	
-                                   </div>
-                            </div>
-                     </div>
-                     <!-- popUp_1 [E] -->
-                            <!-- faq_write [S] -->
-                            <!-- <div class="dim-layer">
-                            <div class="dimBg"></div>
-                            <div id="faq_write" class="pop-layer">
-                                   <div class="pop-container">
-                                   
-                                   <h3>FAQ 작성</h3>
-
-                                   <table class="tb_write pop">
+                            <div id="popUp_1" class="popCmmn">
+                                   <div class="popBg" data-num="1"></div>
+                                   <div class="popInnerBox">
+                                          <div class="popHead">FAQ 작성</div>
+                                          <div class="popBody">
+                                                 <table class="tb_write pop">
                                                         <colgroup>
                                                                <col width="20%">					
                                                                <col width="">
@@ -96,14 +64,49 @@
                                                         </tbody>
                                                  </table>
 
-                                   <div><a href="#" class="btn-layerClose"></a> </div>
-
-                                   <button type="button" id="btnJoin" class="btn_type btn_basic btn_primary btn-layerClose"><span>작성완료</span></button>
-
+                                          </div>
+                                          <div id="btncancel" data-num="1" class="popCloseBtnCmmn">
+                                                 <button class="btn_layerClose" @click="closeFaq(1)"></button>
+                                          </div>
+                                          <div class="popFoot">
+                                                 <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="1"><span>작성완료</span></button>	
+                                          </div>
                                    </div>
                             </div>
-                            </div> -->
-                     <!-- faq_write [E] -->
+
+                            <div id="popUp_2" class="popCmmn">
+                                   <div class="popBg" data-num="2"></div>
+                                   <div class="popInnerBox">
+                                          <div class="popHead">FAQ 수정</div>
+                                          <div class="popBody">
+                                                 <table class="tb_write pop">
+                                                        <colgroup>
+                                                               <col width="20%">					
+                                                               <col width="">
+                                                        </colgroup>
+                                                        <tbody>
+                                                               <tr>
+                                                                      <th>질문</th>
+                                                                      <td><textarea name="faq_A" rows="3" cols="33">FAQ 질문이 나옵니다</textarea></td>
+                                                               </tr>
+                                                               <tr>
+                                                                      <th>답변</th>
+                                                                      <td><textarea name="faq_A" rows="10" cols="33">FAQ 답변이 나옵니다.</textarea></td>
+                                                               </tr>
+                                                        </tbody>
+                                                 </table>
+
+                                          </div>
+                                          <div id="btncancel" data-num="2" class="popCloseBtnCmmn">
+                                                 <button class="btn_layerClose" @click="closeFaq(2)"></button>
+                                          </div>
+                                          <div class="popFoot">
+                                                 <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="2"><span>수정완료</span></button>	
+                                          </div>
+                                   </div>
+                            </div>
+                            <!-- popUp_1 [E] --> 
+                     </div>
               </div>
        </div>
 </div> 
@@ -125,9 +128,9 @@ export default {
               return {
                      faqList: null,
                      isSuperUser: false,
-                     showNewFaqForm: false,
+                     isShowAnswer: false,
                      title: '',
-                     content: ''
+                     content: '',
               }
        },
        created() {
@@ -186,17 +189,22 @@ export default {
 
                             await this.createFaq(param).then(() => {
                                    this.getFaqListMethod();
-                                   this.showNewFaqForm = false;
                             });
                      } catch (e) {
                             console.log(e);
                             this.returnMsg = e.message;
                      }
               },
-              createNewFaq() {
-                     this.showNewFaqForm = true;
-                     this.title = '';
-                     this.content = '';
+              createNewFaq(viewNum) {
+                     document.getElementById("popUp_"+viewNum).style.display = 'block';
+                     //this.title = '';
+                     //this.content = '';
+              },
+              closeFaq(viewNum) {
+                     document.getElementById("popUp_"+viewNum).style.display = 'none';
+              },
+              toggleAnswer() {
+                     this.isShowAnswer = !this.isShowAnswer;
               }
        },
        computed: {
