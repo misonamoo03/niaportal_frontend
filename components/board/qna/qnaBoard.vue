@@ -263,7 +263,42 @@
 </template>
 
 <script>
+import { mapActions, mapMutations, mapGetters, mapState } from 'vuex';
+import Cookie from 'js-cookie';
 export default {
+       data() {
+              return {
+                     qnaList: null,
+                     isSuperUser: false,
 
+              }
+       },
+       created() {
+              this.getQnaListMethod();
+       },
+       methods: {
+              ...mapMutations([]), //<--store mutation 관리
+              ...mapActions('board', ['getBoardList']),
+              async getQnaListMethod() {
+                     try {
+                            this.isSuperUser = (Cookie.get('userGbCode') === 'CD002002');
+
+                            let param = {
+                                   boardNo: 2,
+                                   pagePerRow: 10
+                            };
+
+                            await this.getBoardList(param).then();
+                            this.qnaList = this.getSportsBoardList;
+                            console.log(this.qnaList);
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              }
+       },
+       computed: {
+              ...mapGetters('board', ['getSportsBoardList']), //<--store Getter 관리
+       }
 }
 </script>
