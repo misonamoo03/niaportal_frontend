@@ -1,14 +1,15 @@
 import axios from 'axios';
 
 // 게시글 조회
-const getBoardList = async (boardNo, pagePerRow) => {
+const getBoardList = async (boardNo, pagePerRow, currentPage) => {
   try {
     const req = await axios.get(
       'http://sportsaihub.com:8080/board/list',
       {
         params: {
           boardNo: boardNo,
-          pagePerRow: pagePerRow
+          pagePerRow: pagePerRow,
+          currentPage: currentPage
         },
       },
       { withCredentials: true },
@@ -54,7 +55,7 @@ const search = async ( info ) => {
   }
 };
 
-const createFaq = async (info) => {
+const createBoardContent = async (info) => {
   try {
     const req = await axios.post('http://sportsaihub.com:8080/board/insert', JSON.stringify(info), {
       headers: {
@@ -102,7 +103,7 @@ export default {
   getBoardList,
   getBoardInfo,
   search,
-  createFaq,
+  createBoardContent,
   showBoardDetail,
   updateFaq
 };
