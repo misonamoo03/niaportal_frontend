@@ -26,8 +26,8 @@
                 <ul class="result_box">
                     <li v-for="(result,index) in searchList.list" v-bind:key="index">
                         <div class="result_twrap">
-                            <p class="con" @click="categoryLinkPage(result.typeCode)">{{result.typeName}}</p>
-                            <p class="tit"  @click="contentLinkPage(result.typeCode,result.subTypeCode,result.contentNo)">{{result.title}}</p>
+                            <p class="con" style="cursor:pointer" @click="categoryLinkPage(result.typeCode)">{{result.typeName}}</p>
+                            <p class="tit"  style="cursor:pointer" @click="contentLinkPage(result.typeCode,result.subTypeCode,result.contentNo)">{{result.title}}</p>
                             <p class="txt">
                                 {{result.content}}
                             </p>
