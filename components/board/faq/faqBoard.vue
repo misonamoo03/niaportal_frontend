@@ -24,7 +24,7 @@
                      <div class="accordion">
                             <ul>
                                    <li v-for="(list, index) in faqList" v-bind:key="index">
-                                          <a :id="'q_'+index" v-on:click="toggleAnswer(index)" v-html="list.title">
+                                          <a :id="'q_'+index" v-on:click="toggleAnswer(index)" v-html="list.title + '<span class=arrow></span>'">
                                           </a>
                                           <p :id="'a_'+index" v-show="isShowAnswer" v-html="list.content">                                              
                                           </p>
@@ -141,7 +141,7 @@ export default {
        },
        methods: {
               ...mapMutations([]), //<--store mutation 관리
-              ...mapActions('board', ['getBoardList', 'createFaq', 'showBoardDetail', 'updateFaq']), //<-- store Action 처리
+              ...mapActions('board', ['getBoardList', 'createBoardContent', 'showBoardDetail', 'updateBoardContent']), //<-- store Action 처리
               async getFaqListMethod(){
                      try {
                             this.isSuperUser = (Cookie.get('userGbCode') === 'CD002002');
@@ -152,7 +152,7 @@ export default {
                             }
 
                             await this.getBoardList(param).then();
-                            this.faqList = this.getSportsBoardList;
+                            this.faqList = this.getSportsBoardList.list;
                             console.log(this.faqList);
                      } catch (e) {
                             console.log(e);
@@ -185,13 +185,17 @@ export default {
                                    return;
                             }
 
+                            if(!window.confirm("FAQ 작성을 완료하시겠습니까?")) {
+                                   return;
+                            }
+
                             let param = {
                                    boardNo: 1,
                                    title: this.title,
                                    content: this.content
                             };
 
-                            await this.createFaq(param).then(() => {
+                            await this.createBoardContent(param).then(() => {
                                    this.getFaqListMethod();
                                    this.closeFaq(1);
                             });
@@ -224,7 +228,7 @@ export default {
                                    content: this.updateContent
                             };
 
-                            await this.updateFaq(param).then(() => {
+                            await this.updateBoardContent(param).then(() => {
                                    this.getFaqListMethod();
                                    this.closeFaq(2);
                             });
