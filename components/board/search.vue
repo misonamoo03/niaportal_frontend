@@ -80,13 +80,11 @@ export default {
                 await this.search(param).then(() => {
                     this.afterSearch();
                 });
-                
-                console.log(this.searchList);
+
             } catch (e) {
                 if (e.message === '필수 변수값 없음') {
                     alert('검색어를 입력하세요.');
                 }
-                console.log(e);
 				this.returnMsg = e.message;
             }
         },
@@ -104,22 +102,22 @@ export default {
                     this.afterSearch();
                 });
                 
-                console.log(this.searchList);
             } catch (e) {
                 if (e.message === '필수 변수값 없음') {
                     alert('검색어를 입력하세요.');
                 }
-                console.log(e);
 				this.returnMsg = e.message;
             }
         },
         afterSearch() {
-            var list = this.getSearchList
-            if(list != null && list != undefined){
-              this.searchList = list;
+            var _searchResult = this.getSearchList
+
+            if(_searchResult != null && _searchResult != undefined && _searchResult.totalCnt != undefined  ){
+
+              this.searchList = _searchResult;
               this.isSearched = true;
-              this.type=list.type;
-              this.query=list.query;
+              this.type=this.searchList.type;
+              this.query=this.searchList.query;
               if(this.searchList.totalCnt === 0) {
                   this.hasSearchResult = false;
               } else {
