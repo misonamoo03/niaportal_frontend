@@ -31,9 +31,7 @@ export const actions = {
 export const getters = {
 	getSportsItemList(state) {
 		const { storeSportsList } = state;
-		console.log(storeSportsList);
 		storeSportsList.map(no => {
-			console.log(no);
 		});
 		return storeSportsList;
 	},

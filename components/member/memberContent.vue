@@ -195,8 +195,6 @@ export default {
 
         await this.getCodeList(param).then(); //<--actions로 조회 및 state 등록
         this.codeList = this.getCommonCodeList; //<--getters로 가져오기
-        console.log("getter로 가져온 commonCode:", this.codeList); //<-- state로 가져 오기
-        console.log("state가져온 commonCode:", this.code); //<-- state로 가져 오기
       } catch (e) {
         console.log(e.message);
         this.returnMsg = e.message;

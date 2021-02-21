@@ -23,7 +23,7 @@
                                    <dt>
                                           <div class="v_tit">{{title}}</div>
                                           <div class="v_info">
-                                                 <span>홍길동</span>
+                                                 <span>{{userName}}</span>
                                                  <span>{{regDate}}</span>
                                                  <span>조회 {{viewCnt}}</span>
                                           </div>
@@ -47,9 +47,9 @@
                             <div class="cmt_txt_wrap">
                                    <ul>
                                           <li>
-                                                 <p class="cmt_info"><span class="name">슈퍼계정</span>  20.06.05   11:00</p>
+                                                 <p class="cmt_info"><span class="name">{{replyUserName}}</span>  {{replyRegDate}}</p>
                                                  <p class="cmt_txt">
-                                                        {{content}}
+                                                        {{replyContent}}
                                                  </p>
                                           </li>
                                    </ul>
@@ -74,7 +74,10 @@ export default {
                      viewCnt: '',
                      replyCnt: '',
                      replyContent: '',
-                     regDate: ''
+                     regDate: '',
+                     replyRegDate: '',
+                     userName: '',
+                     replyUserName: ''
               }
        },
        created() {
@@ -93,12 +96,17 @@ export default {
                             this.boardGroup = this.getBoardGroup;
                             this.title = this.boardGroup.title;
                             this.content = this.boardGroup.content;
+                            this.userName = this.boardGroup.userName;
                             this.viewCnt = this.boardGroup.viewCnt;
                             this.replyCnt = this.boardGroup.replyCnt;
-                            this.regDate = this.boardGroup.regDate.substr(2);
+                            this.regDate = this.boardGroup.regDate;
                             this.replyList = this.boardGroup.replyList[0];
-                            this.replyContent = this.replyList.content;
                             console.log(this.boardGroup);
+                            if (this.replyList != undefined) {
+                                   this.replyContent = this.replyList.content;
+                                   this.replyRegDate = this.replyList.regDate;
+                                   this.replyUserName = this.replyList.userName;
+                            }
                      } catch (e) {
                             console.log(e);
                             this.returnMsg = e.message;

@@ -241,7 +241,7 @@ export default {
               ...mapActions('board', ['getBoardList', 'createBoardContent', 'showBoardDetail', 'showBoardGroup', 'updateBoardContent']),
               async getQnaListMethod() {
                      try {
-                           getQnaResult(this.currentPage);
+                           this.getQnaResult(this.currentPage);
                      } catch (e) {
                             console.log(e);
                             this.returnMsg = e.message;
