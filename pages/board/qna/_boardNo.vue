@@ -1,11 +1,12 @@
 <template>
 	<div id="member_contents">
-		<theQnaList :boardNo="boardNo" />
+		<theBanner />
+		<theQnaDetail :boardNo="boardNo" />
 	</div>
 </template>
 <script>
-import theQnaList from '~/components/board/qna/qnaList';
-
+import theQnaDetail from '~/components/board/qna/qnaDetail';
+import theBanner from '~/components/board/qna/qnaBanner';
 export default {
 	asyncData({ params }) {
 		console.log(params);
@@ -14,9 +15,10 @@ export default {
 		};
 	},
 
-	layout: 'blank',
+	layout: 'qna',
 	components: {
-		theQnaList,
+		theQnaDetail,
+		theBanner,
 	},
 };
 </script>

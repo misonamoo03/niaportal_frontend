@@ -10,7 +10,7 @@
 
               <div class="lnb">
                      <div class="lnb_title">AI게시판</div>
-                      <ul>
+                     <ul>
                             <li><NuxtLink to="/board/faq/faq">FAQ</NuxtLink></li>
                             <li class="on"><NuxtLink to="/board/qna/qna">문의하기</NuxtLink></li>
                      </ul>
@@ -42,7 +42,7 @@
                                           <tr v-for="(list, index) in qnaList" v-bind:key="index">
                                                  <td class="no">{{list.boardContentNo}}</td>
                                                  <td class="txtL">
-                                                        <a href="inquiry_view.html">
+                                                        <a style="cursor: pointer" @click="showBoardDetail(list)">
                                                                <span class="lock" v-show="list.secYn == 'Y'"></span>
                                                                <span class="txtL_length">
                                                                       {{list.title}}
@@ -446,6 +446,27 @@ export default {
                      this.updateContent = '';
                      this.reply = '';
               },
+              showBoardDetail(list) {
+                     const userNo = Cookie.get('userNo');
+                     const userGbCode = Cookie.get('userGbCode');
+                     
+                     if((userGbCode == null) || (userGbCode == undefined) || (userGbCode == '')) {
+                            if(window.confirm("로그인을 해야지 문의사항 조회가 가능합니다. 로그인 페이지로 이동하시겠습니까?")) {
+                                   return this.$router.push("/member/signIn");
+                            } else {
+                                   return;
+                            }
+                     }
+
+                     if(list.secYn === "Y") {
+                            if((userGbCode != 'CD002002') && (userNo != list.userNo)) {
+                                   alert("해당 문의내용은 작성자와 운영자만 열람이 가능 합니다.");
+                                   return;
+                            }
+                     }
+
+                     return this.$router.push("/board/qna/" + list.boardContentNo);
+              }
        },
        computed: {
               ...mapGetters('board', ['getSportsBoardList', 'getBoardDetail', 'getBoardGroup']), //<--store Getter 관리

@@ -60,10 +60,6 @@ export default {
                 this.next = true;
                 this.end = true;
             }
-
-            console.log(`startPageIndex: ${this.startPageIndex}`);
-            console.log(`endPageIndex: ${this.endPageIndex}`);
-            console.log(`pageCount: ${this.pageCount}`);
         },
         changePage(index) {
             window.location.href = '#wrap';
