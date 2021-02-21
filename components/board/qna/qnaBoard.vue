@@ -39,86 +39,36 @@
                                           </tr>
                                    </thead>
                                    <tbody>
-                                          <tr>
-                                                 <td class="no">10</td>
+                                          <tr v-for="(list, index) in qnaList" v-bind:key="index">
+                                                 <td class="no">{{list.boardContentNo}}</td>
                                                  <td class="txtL">
                                                         <a href="inquiry_view.html">
+                                                               <span class="lock" v-show="list.secYn == 'Y'"></span>
                                                                <span class="txtL_length">
-                                                                      데이터문의입니다.
+                                                                      {{list.title}}
                                                                </span>
+                                                               <span class="cnt" v-if="list.replyCnt != 0">({{list.replyCnt}})</span>
                                                         </a>
                                                  </td>
-                                                 <td class="answer">
-                                                        <a href="#" class="popOpenBtnCmmn" data-num="2">답변작성</a>
+                                                 <td class="answer" v-if="isSuperUser && list.replyCnt == 0">
+                                                        <a href="#" class="popOpenBtnCmmn" data-num="2" @click="showBoardDetailMethod(list.boardContentNo), createNewQna(2)">답변작성</a>
                                                  </td>
-                                                 <td class="writer">홍길동</td>
-                                                 <td class="date">2021.01.08</td>
-                                                 <td class="view">50</td>
-                                          </tr>
-                                          
-                                          <tr>
-                                                 <td class="no">9</td>
-                                                 <td class="txtL">
-                                                        <a href="inquiry_view.html">
-                                                               <span class="lock"></span>
-                                                               <span class="txtL_length">
-                                                                      데이터문의입니다. 데이터문의입니다. 데이터문의입니다. 데이터문의입니다. 데이터문의입니다. 데이터문의입니다.
-                                                               </span>  
-                                                               <span class="cnt">(1)</span>
-                                                        </a>
+                                                 <td class="answer modify" v-else-if="isSuperUser">
+                                                        <a href="#" class="popOpenBtnCmmn" data-num="3" @click="showBoardGroupMethod(list.boardContentNo), createNewQna(3)">답변수정</a>
                                                  </td>
-                                                 <td class="answer modify">
-                                                        <a href="#" class="popOpenBtnCmmn" data-num="3">답변수정</a>
+                                                 <td  v-else>
                                                  </td>
-                                                 <td class="writer">홍길동</td>
-                                                 <td class="date">2021.01.08</td>
-                                                 <td class="view">247</td>
-                                          </tr>
-
-                                          <tr>
-                                                 <td class="no">8</td>
-                                                 <td class="txtL">
-                                                        <a href="inquiry_view.html">
-                                                               <span class="lock"></span>
-                                                               <span class="txtL_length">
-                                                                      데이터문의입니다. 데이터문의입니다.
-                                                               </span>  
-                                                               <span class="cnt">(1)</span>
-                                                        </a>
-                                                 </td>
-                                                 <td class="answer modify">
-                                                        <a href="#" class="popOpenBtnCmmn" data-num="3">답변수정</a>
-                                                 </td>
-                                                 <td class="writer">홍길동</td>
-                                                 <td class="date">2021.01.08</td>
-                                                 <td class="view">757</td>
+                                                 <td class="writer">{{list.userName}}</td>
+                                                 <td class="date">{{list.regDate}}</td>
+                                                 <td class="view">{{list.viewCnt}}</td>
                                           </tr>
                                    </tbody>
                             </table>
                      </div>
-
-                     <div class="pagination" >
-                            <button type="button" class="btn_first" title="첫 페이지로 이동"><span>처음</span></button>
-                            <button type="button" class="btn_prev" title="이전 5개 목록 페이지로 이동"><span>이전</span></button>
-
-                            <ul class="paging">
-                                   <li><button type="button" class="on" title="현재페이지로 이동">1</button></li>
-                                   <li><button type="button" title="2번 페이지로 이동">2</button></li>
-                                   <li><button type="button" title="3번 페이지로 이동">3</button></li>
-                                   <li><button type="button" title="4번 페이지로 이동">4</button></li>
-                                   <li><button type="button" title="5번 페이지로 이동">5</button></li>
-                                   <li><button type="button" title="6번 페이지로 이동">6</button></li>
-                                   <li><button type="button" title="7번 페이지로 이동">7</button></li>
-                                   <li><button type="button" title="8번 페이지로 이동">8</button></li>
-                                   <li><button type="button" title="9번 페이지로 이동">9</button></li>
-                            </ul>
-
-                            <button type="button" class="btn_next" title="다음 5개 목록 페이지로 이동"><span>다음</span></button>
-                            <button type="button" class="btn_end" title="마지막 페이지로 이동"><span>끝</span></button>
-                     </div>
-              
+                     <thePagination @update="changePage" v-bind:totalListItemCount="qnaResult.totalCnt" v-bind:listRowCount="qnaResult.pagePerRow" v-bind:currentPage="qnaResult.currentPage" v-bind:pageLinkCount="10"/>       
+                                                               
                      <div class="btn_area clear m_t0">
-                            <button type="button" class="btn_type btn_basic btn_primary popOpenBtnCmmn" data-num="1">문의사항 작성</button>
+                            <button type="button" class="btn_type btn_basic btn_primary popOpenBtnCmmn" data-num="1" @click="createNewQna(1)">문의사항 작성</button>
                      </div>
 
                      
@@ -136,26 +86,26 @@
                                                  <tbody>
                                                         <tr>
                                                                <th>제목</th>
-                                                               <td><textarea name="inquiry_tit" rows="2" cols="33" placeholder="제목을 입력해 주세요"></textarea></td>
+                                                               <td><textarea name="inquiry_tit" rows="2" cols="33" placeholder="제목을 입력해 주세요" v-model="title"></textarea></td>
                                                         </tr>
                                                         <tr>
                                                                <th>내용</th>
-                                                               <td><textarea name="inquiry_con" rows="8" cols="33" placeholder="내용을 입력해 주세요"></textarea></td>
+                                                               <td><textarea name="inquiry_con" rows="8" cols="33" placeholder="내용을 입력해 주세요" v-model="content"></textarea></td>
                                                         </tr>
                                                  </tbody>
                                           </table>
 
-                                          <input type="checkbox" id="myCheck">
+                                          <input type="checkbox" id="myCheck" v-model="secYn">
                                           <label for="myCheck">작성한 문의사항을 비공개합니다.</label>
 
                                    </div>
                                    <div id="btncancel" data-num="1" class="popCloseBtnCmmn">
-                                          <button href="#" class="btn_layerClose" ></button>
+                                          <button @click="closeQna(1)" class="btn_layerClose" ></button>
                                    </div>
                                    <div class="popFoot">
                                           <div class="btn_group">
-                                                 <button type="button" id="btncancel" class="btn_type btn_basic btn_cancel popCloseBtnCmmn" data-num="1"><span>취소</span></button>	
-                                   <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="1"><span>작성완료</span></button>	
+                                                 <button type="button" id="btncancel" class="btn_type btn_basic btn_cancel popCloseBtnCmmn" data-num="1" @click="closeQna(1)"><span>취소</span></button>	
+                                   <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="1" @click="createQnaMethod"><span>작성완료</span></button>	
                             </div>
                                    </div>
                             </div>
@@ -176,34 +126,29 @@
                                                  <tbody>
                                                         <tr>
                                                                <th>제목</th>
-                                                               <td>문의 작성자가 작성한 제목 출력	</td>
+                                                               <td>{{updateTitle}}</td>
                                                         </tr>
                                                         <tr>
                                                                <th>내용</th>
                                                                <td>
-                                                                      문의 작성자가 작성한 내용 출력<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 작성자가 작성한 내용 출력 문의 작성자가 작성한<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 작성자가 작성한 내용 출력<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 작성자가 작성한<br />
-                                                                      문의 작성자가 작성한 내용 출력<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 
+                                                                      {{updateContent}}
                                                                </td>
                                                         </tr>
                                                         <tr>
                                                                <th>답변</th>
-                                                               <td><textarea name="inquiry_comt" rows="6" cols="33" placeholder="답변을 입력해 주세요"></textarea></td>
+                                                               <td><textarea name="inquiry_comt" rows="6" cols="33" placeholder="답변을 입력해 주세요" v-model="reply"></textarea></td>
                                                         </tr>
                                                  </tbody>
                                           </table>
 
                                    </div>
                                    <div id="btncancel" data-num="2" class="popCloseBtnCmmn">
-                                          <button href="#" class="btn_layerClose" ></button>
+                                          <button href="#" class="btn_layerClose" @click="closeQna(2)"></button>
                                    </div>
                                    <div class="popFoot">
                                           <div class="btn_group">
-                                                 <button type="button" id="btncancel" class="btn_type btn_basic btn_cancel popCloseBtnCmmn" data-num="2"><span>취소</span></button>	
-                                   <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="2"><span>작성완료</span></button>	
+                                                 <button type="button" id="btncancel" class="btn_type btn_basic btn_cancel popCloseBtnCmmn" data-num="2" @click="closeQna(2)"><span>취소</span></button>	
+                                   <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="2" @click="replyMethod()"><span>작성완료</span></button>	
                             </div>
                                    </div>
                             </div>
@@ -224,34 +169,29 @@
                                                  <tbody>
                                                         <tr>
                                                                <th>제목</th>
-                                                               <td>문의 작성자가 작성한 제목 출력	</td>
+                                                               <td>{{this.updateTitle}}</td>
                                                         </tr>
                                                         <tr>
                                                                <th>내용</th>
                                                                <td>
-                                                                      문의 작성자가 작성한 내용 출력<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 작성자가 작성한 내용 출력 문의 작성자가 작성한<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 작성자가 작성한 내용 출력<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 작성자가 작성한<br />
-                                                                      문의 작성자가 작성한 내용 출력<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 
+                                                                      {{this.updateContent}}
                                                                </td>
                                                         </tr>
                                                         <tr>
                                                                <th>답변</th>
-                                                               <td><textarea name="inquiry_comt" rows="6" cols="33">작성한 답변 출력작성한 답변 출력작성한 답변 출력</textarea></td>
+                                                               <td><textarea name="inquiry_comt" rows="6" cols="33" v-model="reply"></textarea></td>
                                                         </tr>
                                                  </tbody>
                                           </table>
 
                                    </div>
                                    <div id="btncancel" data-num="3" class="popCloseBtnCmmn">
-                                          <button href="#" class="btn_layerClose" ></button>
+                                          <button href="#" class="btn_layerClose" @click="closeQna(3)"></button>
                                    </div>
                                    <div class="popFoot">
                                           <div class="btn_group">
-                                                 <button type="button" id="btncancel" class="btn_type btn_basic btn_cancel popCloseBtnCmmn" data-num="3"><span>취소</span></button>	
-                                   <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="3"><span>수정완료</span></button>	
+                                                 <button type="button" id="btncancel" class="btn_type btn_basic btn_cancel popCloseBtnCmmn" data-num="3" @click="closeQna(3)"><span>취소</span></button>	
+                                   <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="3" @click="updateReplyMethod"><span>수정완료</span></button>	
                             </div>
                                    </div>
                             </div>
@@ -263,14 +203,36 @@
 </template>
 
 <script>
+import thePagination from '~/components/board/pagination';
 import { mapActions, mapMutations, mapGetters, mapState } from 'vuex';
 import Cookie from 'js-cookie';
+import { validate, extend } from 'vee-validate';
+import { required } from 'vee-validate/dist/rules';
+
+extend('required', {
+  ...required,
+  message: '{_field_}을(를) 입력해 주세요.'
+})
+
 export default {
+       components: {
+              thePagination
+       },
        data() {
               return {
-                     qnaList: null,
+                     boardDetail: null,
+                     boardGroup: null,
+                     qnaResult: '',
+                     qnaList: [],
                      isSuperUser: false,
-
+                     currentPage: '',
+                     title: '',
+                     content: '',
+                     orgBoardContentNo: '',
+                     updateTitle: '',
+                     updateContent: '',
+                     reply: '',
+                     secYn: false
               }
        },
        created() {
@@ -278,7 +240,7 @@ export default {
        },
        methods: {
               ...mapMutations([]), //<--store mutation 관리
-              ...mapActions('board', ['getBoardList']),
+              ...mapActions('board', ['getBoardList', 'createBoardContent', 'showBoardDetail', 'showBoardGroup', 'updateBoardContent']),
               async getQnaListMethod() {
                      try {
                             this.isSuperUser = (Cookie.get('userGbCode') === 'CD002002');
@@ -289,16 +251,196 @@ export default {
                             };
 
                             await this.getBoardList(param).then();
-                            this.qnaList = this.getSportsBoardList;
+                            this.qnaResult = this.getSportsBoardList;
+                            this.qnaList = this.qnaResult.list;
                             console.log(this.qnaList);
                      } catch (e) {
                             console.log(e);
                             this.returnMsg = e.message;
                      }
-              }
+              },
+              async changePage(pageIndex) {
+                     try {
+                            this.currentPage = pageIndex;
+
+                            let param = {
+                                   boardNo: 2,
+                                   currentPage: this.currentPage
+                            };
+
+                            await this.getBoardList(param).then(() => {
+                            });
+                            this.qnaResult = this.getSportsBoardList;
+                            this.qnaList = this.qnaResult.list;
+                            console.log(this.qnaList);
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              },
+              async createQnaMethod() {
+                     try {
+                            var errorChk = true;
+                            await validate(this.title, 'required',{
+                                   name: '질문 또는 답변'
+                            }).then(result => {
+                                   if (!result.valid) {
+                                          alert(result.errors[0]);
+                                          errorChk = false;
+                                   }
+                            });
+                            if(!errorChk){
+                                   return;
+                            }
+                            await validate(this.content, 'required',{
+                                   name: '질문 또는 답변'
+                            }).then(result => {
+                                   if (!result.valid) {
+                                          alert(result.errors[0]);
+                                          errorChk = false;
+                                   }
+                            });
+                            if(!errorChk){
+                                   return;
+                            }
+
+                            if(!window.confirm("문의사항 작성을 완료하시겠습니까?")) {
+                                   return;
+                            }
+
+                            let param = {
+                                   boardNo: 2,
+                                   title: this.title,
+                                   content: this.content,
+                                   secYn: this.secYn ? 'Y' : 'N'
+                            };
+
+                            await this.createBoardContent(param).then(() => {
+                                   this.getQnaListMethod();
+                                   this.closeQna(1);
+                            });
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              },
+              async replyMethod() {
+                     try {
+                            var errorChk = true;
+                            await validate(this.reply, 'required',{
+                                   name: '답변'
+                            }).then(result => {
+                                   if (!result.valid) {
+                                          alert(result.errors[0]);
+                                          errorChk = false;
+                                   }
+                            });
+                            if(!errorChk){
+                                   return;
+                            }
+
+                            if(!window.confirm("답변 작성을 완료하시겠습니까?")) {
+                                   return;
+                            }
+
+                            let param = {
+                                   boardNo: 2,
+                                   orgBoardContentNo: this.orgBoardContentNo,
+                                   title: this.updateTitle,
+                                   content: this.reply
+                            };
+
+                            await this.createBoardContent(param).then(() => {
+                                   this.getQnaListMethod();
+                                   this.closeQna(2);
+                            });
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              },
+              async showBoardDetailMethod(boardContentNo) {
+                     try {  
+                            console.log(boardContentNo);
+                            let param = {
+                                   boardContentNo: boardContentNo
+                            };
+
+                            await this.showBoardDetail(param).then();
+                            this.boardDetail = this.getBoardDetail;
+                            this.updateTitle = this.boardDetail.title;
+                            this.updateContent = this.boardDetail.content;
+                            this.orgBoardContentNo = this.boardDetail.boardContentNo;
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              },
+              async showBoardGroupMethod(boardContentNo) {
+                     try {  
+                            let param = {
+                                   boardContentNo: boardContentNo
+                            };
+
+                            await this.showBoardGroup(param).then();
+                            this.boardGroup = this.getBoardGroup;
+                            console.log(this.boardGroup);
+                            this.updateTitle = this.boardGroup.title;
+                            this.updateContent = this.boardGroup.content;
+                            this.reply = this.boardGroup.replyList[0].content;
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              },
+              async updateReplyMethod() {
+                     try {
+                            var errorChk = true;
+                            await validate(this.reply, 'required',{
+                                   name: '답변'
+                            }).then(result => {
+                                   if (!result.valid) {
+                                          alert(result.errors[0]);
+                                          errorChk = false;
+                                   }
+                            });
+                            if(!errorChk){
+                                   return;
+                            }
+
+                            if(!window.confirm("답변을 수정하시겠습니까?")) {
+                                   return;
+                            }
+
+                            let param = {
+                                   boardContentNo: this.boardGroup.replyList[0].boardContentNo,
+                                   content: this.reply
+                            };
+
+                            await this.updateBoardContent(param).then(() => {
+                                   this.getQnaListMethod();
+                                   this.closeQna(3);
+                            });
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              },
+              createNewQna(viewNum) {
+                     document.getElementById("popUp_"+viewNum).style.display = 'block';
+                     this.title = '';
+                     this.content = '';
+                     this.secYn = false;
+              },
+              closeQna(viewNum) {
+                     document.getElementById("popUp_"+viewNum).style.display = 'none';
+                     this.updateTitle = '';
+                     this.updateContent = '';
+                     this.reply = '';
+              },
        },
        computed: {
-              ...mapGetters('board', ['getSportsBoardList']), //<--store Getter 관리
+              ...mapGetters('board', ['getSportsBoardList', 'getBoardDetail', 'getBoardGroup']), //<--store Getter 관리
        }
 }
 </script>

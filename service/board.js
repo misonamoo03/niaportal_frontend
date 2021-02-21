@@ -1,14 +1,15 @@
 import axios from 'axios';
 
 // 게시글 조회
-const getBoardList = async (boardNo, pagePerRow) => {
+const getBoardList = async (boardNo, pagePerRow, currentPage) => {
   try {
     const req = await axios.get(
       'http://sportsaihub.com:8080/board/list',
       {
         params: {
           boardNo: boardNo,
-          pagePerRow: pagePerRow
+          pagePerRow: pagePerRow,
+          currentPage: currentPage
         },
       },
       { withCredentials: true },
@@ -54,7 +55,7 @@ const search = async ( info ) => {
   }
 };
 
-const createFaq = async (info) => {
+const createBoardContent = async (info) => {
   try {
     const req = await axios.post('http://sportsaihub.com:8080/board/insert', JSON.stringify(info), {
       headers: {
@@ -85,7 +86,7 @@ const showBoardDetail = async (info) => {
   }
 };
 
-const updateFaq = async (info) => {
+const updateBoardContent = async (info) => {
   try {
     const req = await axios.post('http://sportsaihub.com:8080/board/update', JSON.stringify(info), {
       headers: {
@@ -98,11 +99,28 @@ const updateFaq = async (info) => {
   }
 }
 
+const showBoardGroup = async (info) => {
+  try {
+    const req = await axios.get(
+      'http://sportsaihub.com:8080/board/detailBoardGroup',
+      {
+        params: {
+          boardContentNo: info.boardContentNo
+        }
+      }
+    );
+    return req.data;
+  } catch (e) {
+    console.error(`server error : ${e.error}`);
+  }
+};
+
 export default {
   getBoardList,
   getBoardInfo,
   search,
-  createFaq,
+  createBoardContent,
   showBoardDetail,
-  updateFaq
+  updateBoardContent,
+  showBoardGroup
 };

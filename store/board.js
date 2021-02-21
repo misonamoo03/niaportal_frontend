@@ -6,7 +6,8 @@ export const state = () => ({
 	storeBoardList: [],
   	storeBoardInfo: [],
 	storeSearchList: [],
-	storeBoardDetail: []
+	storeBoardDetail: [],
+	storeBoardGroup: []
 });
 
 export const mutations = {
@@ -21,6 +22,9 @@ export const mutations = {
 	},
 	BOARDDETAIL: function(state, boardDetail) {
 		state.storeBoardDetail = boardDetail;
+	},
+	BOARDGROUP: function(state, boardGroup) {
+		state.storeBoardGroup = boardGroup;
 	}
 };
 
@@ -32,17 +36,19 @@ export const actions = {
 		//}
 	},
 	//commonCode 조회
-	async getBoardList({ commit }, { boardNo, pagePerRow }) {
-		const data = await BoardService.getBoardList(boardNo, pagePerRow);
+	async getBoardList({ commit }, { boardNo, pagePerRow, currentPage }) {
+		const data = await BoardService.getBoardList(boardNo, pagePerRow, currentPage);
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
-		data.data.list.forEach((item) => {
-			item.title = item.title.replace(/(\n)/g, '<br />') + '<span class="arrow"></span>';
-		       item.content = item.content.replace(/(\n)/g, '<br />');
-		});
+		if(boardNo === 1) {
+			data.data.list.forEach((item) => {
+				item.title = item.title.replace(/(\n)/g, '<br />');
+				item.content = item.content.replace(/(\n)/g, '<br />');
+			});
+		}
 		
-		commit('BOARDLIST', data.data.list);
+		commit('BOARDLIST', data.data);
 	},
 
 	async getBoardInfo({ commit }, { boardContentNo }) {
@@ -63,14 +69,6 @@ export const actions = {
 		commit('SEARCHLIST', data.data);
 	},
 
-	async createFaq({commit}, {boardNo, title, content}) {
-		const data = await BoardService.createFaq({boardNo, title, content});
-		console.log(data);
-		if (data.status != 200) {
-			throw new Error(data.message);
-		}
-	},
-
 	async showBoardDetail({commit}, {boardContentNo}) {
 		const data = await BoardService.showBoardDetail({boardContentNo});
 		if (data.status != 200) {
@@ -79,20 +77,34 @@ export const actions = {
 		commit('BOARDDETAIL', data.data.info);
 	},
 
-	async updateFaq({commit}, {boardContentNo, title, content}) {
-		const data = await BoardService.updateFaq({boardContentNo, title, content});
+	async updateBoardContent({commit}, {boardContentNo, title, content}) {
+		const data = await BoardService.updateBoardContent({boardContentNo, title, content});
 		console.log(data);
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
+	},
+
+	async createBoardContent({commit}, {boardNo, title, content, secYn, orgBoardContentNo}) {
+		const data = await BoardService.createBoardContent({boardNo, title, content, secYn, orgBoardContentNo});
+		console.log(data);
+		if (data.status != 200) {
+			throw new Error(data.message);
+		}
+	},
+
+	async showBoardGroup({commit}, {boardContentNo}) {
+		const data = await BoardService.showBoardGroup({boardContentNo});
+		if (data.status != 200) {
+			throw new Error(data.message);
+		}
+		commit('BOARDGROUP', data.data.info);
 	}
 };
 
 export const getters = {
 	getSportsBoardList(state) {
 		const { storeBoardList } = state;
-		storeBoardList.map(no => {
-		});
 		return storeBoardList;
 	},
 	getGetterBoardInfo(state) {
@@ -106,5 +118,9 @@ export const getters = {
 	getBoardDetail(state) {
 		const { storeBoardDetail } = state;
 		return storeBoardDetail;
+	},
+	getBoardGroup(state) {
+		const { storeBoardGroup } = state;
+		return storeBoardGroup;
 	}
 };
