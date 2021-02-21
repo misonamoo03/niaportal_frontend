@@ -427,6 +427,14 @@ export default {
                      }
               },
               createNewQna(viewNum) {
+                     if((Cookie.get('userGbCode') == null) || (Cookie.get('userGbCode') == undefined) || (Cookie.get('userGbCode') == '')) {
+                            if(window.confirm("로그인을 해야지 글쓰기가 가능합니다. 로그인 페이지로 이동하시겠습니까?")) {
+                                   return this.$router.push("/member/signIn");
+                            } else {
+                                   return;
+                            }
+                     }
+
                      document.getElementById("popUp_"+viewNum).style.display = 'block';
                      this.title = '';
                      this.content = '';
