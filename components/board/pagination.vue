@@ -60,18 +60,14 @@ export default {
                 this.next = true;
                 this.end = true;
             }
-
-            console.log(`startPageIndex: ${this.startPageIndex}`);
-            console.log(`endPageIndex: ${this.endPageIndex}`);
-            console.log(`pageCount: ${this.pageCount}`);
         },
         changePage(index) {
-            window.location.href = '#wrap';
+            //window.location.href = '#wrap';
             let selectedPage = this.startPageIndex + index - 1;
             this.$emit('update', selectedPage);
         },
         changeLink(index) {
-            window.location.href = '#wrap';
+            //window.location.href = '#wrap';
             this.$emit('update', index);
         }
     },

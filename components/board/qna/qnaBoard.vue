@@ -10,7 +10,7 @@
 
               <div class="lnb">
                      <div class="lnb_title">AI게시판</div>
-                      <ul>
+                     <ul>
                             <li><NuxtLink to="/board/faq/faq">FAQ</NuxtLink></li>
                             <li class="on"><NuxtLink to="/board/qna/qna">문의하기</NuxtLink></li>
                      </ul>
@@ -42,7 +42,7 @@
                                           <tr v-for="(list, index) in qnaList" v-bind:key="index">
                                                  <td class="no">{{list.boardContentNo}}</td>
                                                  <td class="txtL">
-                                                        <a href="inquiry_view.html">
+                                                        <a style="cursor: pointer" @click="showBoardDetail(list)">
                                                                <span class="lock" v-show="list.secYn == 'Y'"></span>
                                                                <span class="txtL_length">
                                                                       {{list.title}}
@@ -208,6 +208,7 @@ import { mapActions, mapMutations, mapGetters, mapState } from 'vuex';
 import Cookie from 'js-cookie';
 import { validate, extend } from 'vee-validate';
 import { required } from 'vee-validate/dist/rules';
+import $ from "jquery";
 
 extend('required', {
   ...required,
@@ -225,7 +226,7 @@ export default {
                      qnaResult: '',
                      qnaList: [],
                      isSuperUser: false,
-                     currentPage: '',
+                     currentPage: 1,
                      title: '',
                      content: '',
                      orgBoardContentNo: '',
@@ -235,25 +236,12 @@ export default {
                      secYn: false
               }
        },
-       created() {
-              this.getQnaListMethod();
-       },
        methods: {
               ...mapMutations([]), //<--store mutation 관리
               ...mapActions('board', ['getBoardList', 'createBoardContent', 'showBoardDetail', 'showBoardGroup', 'updateBoardContent']),
               async getQnaListMethod() {
                      try {
-                            this.isSuperUser = (Cookie.get('userGbCode') === 'CD002002');
-
-                            let param = {
-                                   boardNo: 2,
-                                   pagePerRow: 10
-                            };
-
-                            await this.getBoardList(param).then();
-                            this.qnaResult = this.getSportsBoardList;
-                            this.qnaList = this.qnaResult.list;
-                            console.log(this.qnaList);
+                           getQnaResult(this.currentPage);
                      } catch (e) {
                             console.log(e);
                             this.returnMsg = e.message;
@@ -268,16 +256,34 @@ export default {
                                    currentPage: this.currentPage
                             };
 
-                            await this.getBoardList(param).then(() => {
-                            });
-                            this.qnaResult = this.getSportsBoardList;
-                            this.qnaList = this.qnaResult.list;
-                            console.log(this.qnaList);
+                            this.$router.push({ path: '/board/qna/qna', query: param});
+
                      } catch (e) {
                             console.log(e);
                             this.returnMsg = e.message;
                      }
               },
+              async getQnaResult(pageIndex) {   // 페이지 변경 시 호출되는 메서드
+                try {
+                     this.currentPage = pageIndex;
+
+                      let param = {
+                              boardNo: 2,
+                              currentPage: this.currentPage
+                      };
+
+                      await this.getBoardList(param).then(() => {
+                      });
+                      this.qnaResult = this.getSportsBoardList;
+                      this.qnaList = this.qnaResult.list;
+                      console.log(this.qnaList);
+                    
+                } catch (e) {
+                    console.log(e);
+                    this.returnMsg = e.message;
+            this.returnMsg = e.message;
+                }
+            },
               async createQnaMethod() {
                      try {
                             var errorChk = true;
@@ -427,6 +433,14 @@ export default {
                      }
               },
               createNewQna(viewNum) {
+                     if((Cookie.get('userGbCode') == null) || (Cookie.get('userGbCode') == undefined) || (Cookie.get('userGbCode') == '')) {
+                            if(window.confirm("로그인을 해야지 글쓰기가 가능합니다. 로그인 페이지로 이동하시겠습니까?")) {
+                                   return this.$router.push("/member/signIn");
+                            } else {
+                                   return;
+                            }
+                     }
+
                      document.getElementById("popUp_"+viewNum).style.display = 'block';
                      this.title = '';
                      this.content = '';
@@ -438,9 +452,65 @@ export default {
                      this.updateContent = '';
                      this.reply = '';
               },
+              showBoardDetail(list) {
+                     const userNo = Cookie.get('userNo');
+                     const userGbCode = Cookie.get('userGbCode');
+                     
+                     if((userGbCode == null) || (userGbCode == undefined) || (userGbCode == '')) {
+                            if(window.confirm("로그인을 해야지 문의사항 조회가 가능합니다. 로그인 페이지로 이동하시겠습니까?")) {
+                                   return this.$router.push("/member/signIn");
+                            } else {
+                                   return;
+                            }
+                     }
+
+                     if(list.secYn === "Y") {
+                            if((userGbCode != 'CD002002') && (userNo != list.userNo)) {
+                                   alert("해당 문의내용은 작성자와 운영자만 열람이 가능 합니다.");
+                                   return;
+                            }
+                     }
+
+                     return this.$router.push("/board/qna/" + list.boardContentNo);
+              }
        },
        computed: {
               ...mapGetters('board', ['getSportsBoardList', 'getBoardDetail', 'getBoardGroup']), //<--store Getter 관리
-       }
+       },
+      created() {
+        var _init=true;
+        try{
+          console.log("===========99999======",(new RegExp('[\?&]' + "currentPage" + '=([^&#]*)').exec($(location).attr('href')))[1]);
+          var _currentPage = (new RegExp('[\?&]' + "currentPage" + '=([^&#]*)').exec($(location).attr('href')))[1];
+          _init = false;
+        }catch(e){
+          _init = true;
+        }
+        
+        if(_init){// 처음 호출 할 경우
+          this.currentPage = 1;
+        }else{
+           if(this.getSportsBoardList.list!=null && this.getSportsBoardList.list != undefined && this.getSportsBoardList.list != ''){
+            this.currentPage = this.getSportsBoardList.currentPage;
+          }else{
+            this.currentPage = 1;
+          }
+        }
+       
+        this.getQnaResult(this.currentPage);
+        
+          
+      },
+       watch: {
+        '$route' (to, from) {
+            console.log(to.query.query,from.query);
+
+            if(to.query.currentPage!=null && to.query.currentPage != undefined && to.query.currentPage != ''){
+              this.getQnaResult(to.query.currentPage);
+            }
+            
+        },
+        
+    },
 }
 </script>

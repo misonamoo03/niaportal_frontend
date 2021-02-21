@@ -51,6 +51,7 @@
 <script>
 import thePagination from '~/components/board/pagination';
 import { mapActions, mapMutations, mapGetters, mapState } from 'vuex';
+import $ from "jquery";
 
 export default {
     components: {
@@ -60,7 +61,7 @@ export default {
         return {
             type: '',
             query: '',
-            currentPage: '',
+            currentPage: 1,
             searchList: '',
             isSearched: false,
             hasSearchResult: false,
@@ -70,25 +71,26 @@ export default {
         ...mapMutations([]), //<--store mutation 관리
         ...mapActions('board', ['search']), //<-- store Action 처리
         // 검색
-        async searchMethod() {  // 검색 시 호출되는 메서드
-            try {
+        searchMethod() {  // 검색 시 호출되는 메서드
+           
                 let param = {
                     query: this.query,
-                    type: this.type
+                    type: this.type,
+                    currentPage: this.currentPage
                 }
-
-                await this.search(param).then(() => {
-                    this.afterSearch();
-                });
-
-            } catch (e) {
-                if (e.message === '필수 변수값 없음') {
-                    alert('검색어를 입력하세요.');
-                }
-				this.returnMsg = e.message;
-            }
+                this.$router.push({ path: '/board/search', query: param});
         },
-        async changePage(pageIndex) {   // 페이지 변경 시 호출되는 메서드
+        changePage(pageIndex) {   // 페이지 변경 시 호출되는 메서드
+                this.currentPage = pageIndex;
+
+                let param = {
+                    query: this.query,
+                    type: this.type,
+                    currentPage: this.currentPage
+                }
+                 this.$router.push({ path: '/board/search', query: param});
+        },
+        async getSearchResult(pageIndex) {   // 페이지 변경 시 호출되는 메서드
             try {
                 this.currentPage = pageIndex;
 
@@ -100,6 +102,7 @@ export default {
 
                 await this.search(param).then(() => {
                     this.afterSearch();
+                     $('html,body').animate({scrollTop:$("#sub_contents").offset().top}, 500);
                 });
                 
             } catch (e) {
@@ -137,7 +140,7 @@ export default {
         },
         contentLinkPage(typeCode,subTypeCode,contentNo){
           if(typeCode == "CD006001" || typeCode == "CD006002"){
-             this.$router.push('/board/qna/'+subTypeCode);
+             this.$router.push('/board/qna/'+contentNo);
           }else{
             console.log("category = ", subTypeCode);
              this.$router.push({ path: '/sports/'+typeCode, query: { category: subTypeCode }});
@@ -152,6 +155,24 @@ export default {
     },
     created() {
         this.afterSearch();
-    }
+    },
+  watch: {
+        '$route' (to, from) {
+            console.log(to.query.query,from.query.query);
+            
+            this.isSearched = false;
+            this.query = '';
+            this.type = '';
+            this.searchList = '';
+
+            if(to.query.query!=null && to.query.query != undefined && to.query.query != ''){
+              this.query = to.query.query;
+              this.type = to.query.type;
+              this.getSearchResult(to.query.currentPage);
+            }
+            
+        },
+        
+    },
 }
 </script>
