@@ -62,12 +62,12 @@ export default {
             }
         },
         changePage(index) {
-            window.location.href = '#wrap';
+            //window.location.href = '#wrap';
             let selectedPage = this.startPageIndex + index - 1;
             this.$emit('update', selectedPage);
         },
         changeLink(index) {
-            window.location.href = '#wrap';
+            //window.location.href = '#wrap';
             this.$emit('update', index);
         }
     },
