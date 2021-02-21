@@ -25,7 +25,7 @@
 				<!-- 골프 데이터 -->
 				<div class="data_list_wrap">
 					<div class="data_list" v-for="(sport, index) in sportsList" v-bind:key="index">
-						<h2>{{sport.actName}}</h2>
+						<h2 :id="sport.actCode">{{sport.actName}}</h2>
 						<ul class="grid_col5">
 							<li class="data_thumb pop_img" v-for="(list, index) in sport.sportslist" v-bind:key="index">
 								<!-- 누르면 출력될 이미지나 동영상의 파일명을 data-video에 넣음 -->
@@ -54,9 +54,10 @@
 </template>
 <script>
 import { mapActions, mapMutations, mapGetters, mapState } from 'vuex';
+import $ from "jquery";
 
 export default {
-	props: ['code'],
+	props: ['code','category'],
 	data() {
 		return {
 			sportsList: null,
@@ -79,9 +80,10 @@ export default {
 					code: this.code,
 				};
 
-				await this.getSportsList(param).then();
+				await this.getSportsList(param).then(
+        );
 				this.sportsList = this.getSportsItemList;
-				console.log(this.sportsList);
+
 			} catch (e) {
 				console.log(e.message);
 				this.returnMsg = e.message;
@@ -115,5 +117,20 @@ export default {
 		...mapGetters('sports', ['getSportsItemList']), //<--store Getter 관리
 		...mapState({ result: state => state.storeSportsList }), //<--store state 관리
 	},
+  updated() {
+    this.$nextTick(function () {
+      // 모든 화면이 렌더링된 후 실행합니다.
+      if( this.category != null && this.category != '' && this.category != undefined){
+        try{
+          $('html,body').animate({scrollTop:$("#"+this.category).offset().top}, 500);
+        }catch(e){
+
+        }
+        
+      }
+
+        
+    })
+  }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<theBanner :code="code"/>
-		<theSportsList :code="code" />
+		<theSportsList :code="code" :category="category"/>
 	</div>
 </template>
 <script>
@@ -10,9 +10,10 @@ import theBanner from '~/components/sports/sportsBanner';
 
 export default {
 	// middleware: 'authenticated',
-	asyncData({ params }) {
+	asyncData({ params,query }) {
 		return {
 			code: params.code,
+      category:''
 		};
 	},
 	layout: 'sports',
@@ -22,6 +23,9 @@ export default {
 	},
 	beforeMount() {
 		this.$nuxt.$emit('sport', this.code);
-	}
+	},
+  mounted() {
+    this.category = this.$route.query.category;
+  }
 };
 </script>

@@ -26,8 +26,8 @@
                 <ul class="result_box">
                     <li v-for="(result,index) in searchList.list" v-bind:key="index">
                         <div class="result_twrap">
-                            <p class="con">{{result.typeName}}</p>
-                            <p class="tit">{{result.title}}</p>
+                            <p class="con" @click="categoryLinkPage(result.typeCode)">{{result.typeName}}</p>
+                            <p class="tit"  @click="contentLinkPage(result.typeCode,result.subTypeCode,result.contentNo)">{{result.title}}</p>
                             <p class="txt">
                                 {{result.content}}
                             </p>
@@ -80,13 +80,11 @@ export default {
                 await this.search(param).then(() => {
                     this.afterSearch();
                 });
-                
-                console.log(this.searchList);
+
             } catch (e) {
                 if (e.message === '필수 변수값 없음') {
                     alert('검색어를 입력하세요.');
                 }
-                console.log(e);
 				this.returnMsg = e.message;
             }
         },
@@ -104,27 +102,56 @@ export default {
                     this.afterSearch();
                 });
                 
-                console.log(this.searchList);
             } catch (e) {
                 if (e.message === '필수 변수값 없음') {
                     alert('검색어를 입력하세요.');
                 }
-                console.log(e);
 				this.returnMsg = e.message;
             }
         },
         afterSearch() {
-            this.searchList = this.getSearchList;
-            this.isSearched = true;
-            if(this.searchList.totalCnt === 0) {
-                this.hasSearchResult = false;
-            } else {
-                this.hasSearchResult = true;
+            var _searchResult = this.getSearchList
+
+            if(_searchResult != null && _searchResult != undefined && _searchResult.totalCnt != undefined  ){
+
+              this.searchList = _searchResult;
+              this.isSearched = true;
+              this.type=this.searchList.type;
+              this.query=this.searchList.query;
+              if(this.searchList.totalCnt === 0) {
+                  this.hasSearchResult = false;
+              } else {
+                  this.hasSearchResult = true;
+              }
             }
+            
+        },
+        categoryLinkPage(typeCode){
+          if(typeCode == "CD006001" || typeCode == "CD006002"){
+             this.$router.push('/board/qna/qna');
+          }else{
+             this.$router.push('/sports/'+typeCode);
+          }
+         
+          //this.$router.push({name: '/sports/'+typeCode, query: {act: subTypeCode, age: 3}});
+        },
+        contentLinkPage(typeCode,subTypeCode,contentNo){
+          if(typeCode == "CD006001" || typeCode == "CD006002"){
+             this.$router.push('/board/qna/'+subTypeCode);
+          }else{
+            
+             this.$router.push({ path: '/sports/'+typeCode, query: { category: subTypeCode }});
+          }
+         
+          //this.$router.push({name: '/sports/'+typeCode, query: {act: subTypeCode, age: 3}});
         }
+        
     },
     computed: {
         ...mapGetters('board', ['getSearchList'])
+    },
+    created() {
+        this.afterSearch();
     }
 }
 </script>
