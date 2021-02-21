@@ -38,7 +38,7 @@
 
                      <div class="btn_area clear">
                             <a>
-                                   <button type="button" id="btnJoin" class="btn_type btn_basic btn_primary" @click="redirect"><span>이전 페이지 이동</span></button>
+                                   <button type="button" id="btnJoin" class="btn_type btn_basic btn_primary" @click="$router.go(-1)"><span>이전 페이지 이동</span></button>
                             </a>
                      </div>
 

@@ -140,7 +140,7 @@ export default {
         },
         contentLinkPage(typeCode,subTypeCode,contentNo){
           if(typeCode == "CD006001" || typeCode == "CD006002"){
-             this.$router.push('/board/qna/'+subTypeCode);
+             this.$router.push('/board/qna/'+contentNo);
           }else{
             
              this.$router.push({ path: '/sports/'+typeCode, query: { category: subTypeCode }});
