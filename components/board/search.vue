@@ -139,7 +139,7 @@ export default {
           if(typeCode == "CD006001" || typeCode == "CD006002"){
              this.$router.push('/board/qna/'+subTypeCode);
           }else{
-            
+            console.log("category = ", subTypeCode);
              this.$router.push({ path: '/sports/'+typeCode, query: { category: subTypeCode }});
           }
          
