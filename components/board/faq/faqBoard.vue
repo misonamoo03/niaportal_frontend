@@ -141,7 +141,7 @@ export default {
        },
        methods: {
               ...mapMutations([]), //<--store mutation 관리
-              ...mapActions('board', ['getBoardList', 'createBoardContent', 'showBoardDetail', 'updateFaq']), //<-- store Action 처리
+              ...mapActions('board', ['getBoardList', 'createBoardContent', 'showBoardDetail', 'updateBoardContent']), //<-- store Action 처리
               async getFaqListMethod(){
                      try {
                             this.isSuperUser = (Cookie.get('userGbCode') === 'CD002002');
@@ -228,7 +228,7 @@ export default {
                                    content: this.updateContent
                             };
 
-                            await this.updateFaq(param).then(() => {
+                            await this.updateBoardContent(param).then(() => {
                                    this.getFaqListMethod();
                                    this.closeFaq(2);
                             });

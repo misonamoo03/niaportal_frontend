@@ -47,33 +47,18 @@
                                                                <span class="txtL_length">
                                                                       {{list.title}}
                                                                </span>
+                                                               <span class="cnt" v-if="list.replyCnt != 0">({{list.replyCnt}})</span>
                                                         </a>
                                                  </td>
-                                                 <td class="answer">
-                                                        <a href="#" class="popOpenBtnCmmn" data-num="2">답변작성</a>
+                                                 <td class="answer" v-if="isSuperUser && list.replyCnt == 0">
+                                                        <a href="#" class="popOpenBtnCmmn" data-num="2" @click="showBoardDetailMethod(list.boardContentNo), createNewQna(2)">답변작성</a>
+                                                 </td>
+                                                 <td class="answer modify" v-else-if="isSuperUser">
+                                                        <a href="#" class="popOpenBtnCmmn" data-num="3" @click="showBoardGroupMethod(list.boardContentNo), createNewQna(3)">답변수정</a>
                                                  </td>
                                                  <td class="writer">{{list.userName}}</td>
                                                  <td class="date">{{list.regDate}}</td>
                                                  <td class="view">{{list.viewCnt}}</td>
-                                          </tr>
-                                          
-                                          <tr>
-                                                 <td class="no">8</td>
-                                                 <td class="txtL">
-                                                        <a href="inquiry_view.html">
-                                                               <span class="lock"></span>
-                                                               <span class="txtL_length">
-                                                                      데이터문의입니다. 데이터문의입니다.
-                                                               </span>  
-                                                               <span class="cnt">(1)</span>
-                                                        </a>
-                                                 </td>
-                                                 <td class="answer modify">
-                                                        <a href="#" class="popOpenBtnCmmn" data-num="3">답변수정</a>
-                                                 </td>
-                                                 <td class="writer">홍길동</td>
-                                                 <td class="date">2021.01.08</td>
-                                                 <td class="view">757</td>
                                           </tr>
                                    </tbody>
                             </table>
@@ -139,34 +124,29 @@
                                                  <tbody>
                                                         <tr>
                                                                <th>제목</th>
-                                                               <td>문의 작성자가 작성한 제목 출력	</td>
+                                                               <td>{{updateTitle}}</td>
                                                         </tr>
                                                         <tr>
                                                                <th>내용</th>
                                                                <td>
-                                                                      문의 작성자가 작성한 내용 출력<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 작성자가 작성한 내용 출력 문의 작성자가 작성한<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 작성자가 작성한 내용 출력<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 작성자가 작성한<br />
-                                                                      문의 작성자가 작성한 내용 출력<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 
+                                                                      {{updateContent}}
                                                                </td>
                                                         </tr>
                                                         <tr>
                                                                <th>답변</th>
-                                                               <td><textarea name="inquiry_comt" rows="6" cols="33" placeholder="답변을 입력해 주세요"></textarea></td>
+                                                               <td><textarea name="inquiry_comt" rows="6" cols="33" placeholder="답변을 입력해 주세요" v-model="reply"></textarea></td>
                                                         </tr>
                                                  </tbody>
                                           </table>
 
                                    </div>
                                    <div id="btncancel" data-num="2" class="popCloseBtnCmmn">
-                                          <button href="#" class="btn_layerClose" ></button>
+                                          <button href="#" class="btn_layerClose" @click="closeQna(2)"></button>
                                    </div>
                                    <div class="popFoot">
                                           <div class="btn_group">
-                                                 <button type="button" id="btncancel" class="btn_type btn_basic btn_cancel popCloseBtnCmmn" data-num="2"><span>취소</span></button>	
-                                   <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="2"><span>작성완료</span></button>	
+                                                 <button type="button" id="btncancel" class="btn_type btn_basic btn_cancel popCloseBtnCmmn" data-num="2" @click="closeQna(2)"><span>취소</span></button>	
+                                   <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="2" @click="replyMethod()"><span>작성완료</span></button>	
                             </div>
                                    </div>
                             </div>
@@ -187,34 +167,29 @@
                                                  <tbody>
                                                         <tr>
                                                                <th>제목</th>
-                                                               <td>문의 작성자가 작성한 제목 출력	</td>
+                                                               <td>{{this.updateTitle}}</td>
                                                         </tr>
                                                         <tr>
                                                                <th>내용</th>
                                                                <td>
-                                                                      문의 작성자가 작성한 내용 출력<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 작성자가 작성한 내용 출력 문의 작성자가 작성한<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 작성자가 작성한 내용 출력<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 작성자가 작성한<br />
-                                                                      문의 작성자가 작성한 내용 출력<br />
-                                                                      문의 작성자가 작성한 내용 출력 문의 
+                                                                      {{this.updateContent}}
                                                                </td>
                                                         </tr>
                                                         <tr>
                                                                <th>답변</th>
-                                                               <td><textarea name="inquiry_comt" rows="6" cols="33">작성한 답변 출력작성한 답변 출력작성한 답변 출력</textarea></td>
+                                                               <td><textarea name="inquiry_comt" rows="6" cols="33" v-model="reply"></textarea></td>
                                                         </tr>
                                                  </tbody>
                                           </table>
 
                                    </div>
                                    <div id="btncancel" data-num="3" class="popCloseBtnCmmn">
-                                          <button href="#" class="btn_layerClose" ></button>
+                                          <button href="#" class="btn_layerClose" @click="closeQna(3)"></button>
                                    </div>
                                    <div class="popFoot">
                                           <div class="btn_group">
-                                                 <button type="button" id="btncancel" class="btn_type btn_basic btn_cancel popCloseBtnCmmn" data-num="3"><span>취소</span></button>	
-                                   <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="3"><span>수정완료</span></button>	
+                                                 <button type="button" id="btncancel" class="btn_type btn_basic btn_cancel popCloseBtnCmmn" data-num="3" @click="closeQna(3)"><span>취소</span></button>	
+                                   <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary popCloseBtnCmmn" data-num="3" @click="updateReplyMethod"><span>수정완료</span></button>	
                             </div>
                                    </div>
                             </div>
@@ -243,12 +218,18 @@ export default {
        },
        data() {
               return {
+                     boardDetail: null,
+                     boardGroup: null,
                      qnaResult: '',
                      qnaList: [],
                      isSuperUser: false,
                      currentPage: '',
                      title: '',
                      content: '',
+                     orgBoardContentNo: '',
+                     updateTitle: '',
+                     updateContent: '',
+                     reply: '',
                      secYn: false
               }
        },
@@ -257,7 +238,7 @@ export default {
        },
        methods: {
               ...mapMutations([]), //<--store mutation 관리
-              ...mapActions('board', ['getBoardList', 'createBoardContent']),
+              ...mapActions('board', ['getBoardList', 'createBoardContent', 'showBoardDetail', 'showBoardGroup', 'updateBoardContent']),
               async getQnaListMethod() {
                      try {
                             this.isSuperUser = (Cookie.get('userGbCode') === 'CD002002');
@@ -341,6 +322,108 @@ export default {
                             this.returnMsg = e.message;
                      }
               },
+              async replyMethod() {
+                     try {
+                            var errorChk = true;
+                            await validate(this.reply, 'required',{
+                                   name: '답변'
+                            }).then(result => {
+                                   if (!result.valid) {
+                                          alert(result.errors[0]);
+                                          errorChk = false;
+                                   }
+                            });
+                            if(!errorChk){
+                                   return;
+                            }
+
+                            if(!window.confirm("답변 작성을 완료하시겠습니까?")) {
+                                   return;
+                            }
+
+                            let param = {
+                                   boardNo: 2,
+                                   orgBoardContentNo: this.orgBoardContentNo,
+                                   title: this.updateTitle,
+                                   content: this.reply
+                            };
+
+                            await this.createBoardContent(param).then(() => {
+                                   this.getQnaListMethod();
+                                   this.closeQna(2);
+                            });
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              },
+              async showBoardDetailMethod(boardContentNo) {
+                     try {  
+                            console.log(boardContentNo);
+                            let param = {
+                                   boardContentNo: boardContentNo
+                            };
+
+                            await this.showBoardDetail(param).then();
+                            this.boardDetail = this.getBoardDetail;
+                            this.updateTitle = this.boardDetail.title;
+                            this.updateContent = this.boardDetail.content;
+                            this.orgBoardContentNo = this.boardDetail.boardContentNo;
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              },
+              async showBoardGroupMethod(boardContentNo) {
+                     try {  
+                            let param = {
+                                   boardContentNo: boardContentNo
+                            };
+
+                            await this.showBoardGroup(param).then();
+                            this.boardGroup = this.getBoardGroup;
+                            console.log(this.boardGroup);
+                            this.updateTitle = this.boardGroup.title;
+                            this.updateContent = this.boardGroup.content;
+                            this.reply = this.boardGroup.replyList[0].content;
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              },
+              async updateReplyMethod() {
+                     try {
+                            var errorChk = true;
+                            await validate(this.reply, 'required',{
+                                   name: '답변'
+                            }).then(result => {
+                                   if (!result.valid) {
+                                          alert(result.errors[0]);
+                                          errorChk = false;
+                                   }
+                            });
+                            if(!errorChk){
+                                   return;
+                            }
+
+                            if(!window.confirm("답변을 수정하시겠습니까?")) {
+                                   return;
+                            }
+
+                            let param = {
+                                   boardContentNo: this.boardGroup.replyList[0].boardContentNo,
+                                   content: this.reply
+                            };
+
+                            await this.updateBoardContent(param).then(() => {
+                                   this.getQnaListMethod();
+                                   this.closeQna(3);
+                            });
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              },
               createNewQna(viewNum) {
                      document.getElementById("popUp_"+viewNum).style.display = 'block';
                      this.title = '';
@@ -349,10 +432,13 @@ export default {
               },
               closeQna(viewNum) {
                      document.getElementById("popUp_"+viewNum).style.display = 'none';
+                     this.updateTitle = '';
+                     this.updateContent = '';
+                     this.reply = '';
               },
        },
        computed: {
-              ...mapGetters('board', ['getSportsBoardList']), //<--store Getter 관리
+              ...mapGetters('board', ['getSportsBoardList', 'getBoardDetail', 'getBoardGroup']), //<--store Getter 관리
        }
 }
 </script>

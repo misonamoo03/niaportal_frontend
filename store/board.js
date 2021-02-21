@@ -6,7 +6,8 @@ export const state = () => ({
 	storeBoardList: [],
   	storeBoardInfo: [],
 	storeSearchList: [],
-	storeBoardDetail: []
+	storeBoardDetail: [],
+	storeBoardGroup: []
 });
 
 export const mutations = {
@@ -21,6 +22,9 @@ export const mutations = {
 	},
 	BOARDDETAIL: function(state, boardDetail) {
 		state.storeBoardDetail = boardDetail;
+	},
+	BOARDGROUP: function(state, boardGroup) {
+		state.storeBoardGroup = boardGroup;
 	}
 };
 
@@ -73,21 +77,29 @@ export const actions = {
 		commit('BOARDDETAIL', data.data.info);
 	},
 
-	async updateFaq({commit}, {boardContentNo, title, content}) {
-		const data = await BoardService.updateFaq({boardContentNo, title, content});
+	async updateBoardContent({commit}, {boardContentNo, title, content}) {
+		const data = await BoardService.updateBoardContent({boardContentNo, title, content});
 		console.log(data);
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
 	},
 
-	async createBoardContent({commit}, {boardNo, title, content, secYn}) {
-		const data = await BoardService.createBoardContent({boardNo, title, content, secYn});
+	async createBoardContent({commit}, {boardNo, title, content, secYn, orgBoardContentNo}) {
+		const data = await BoardService.createBoardContent({boardNo, title, content, secYn, orgBoardContentNo});
 		console.log(data);
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
 	},
+
+	async showBoardGroup({commit}, {boardContentNo}) {
+		const data = await BoardService.showBoardGroup({boardContentNo});
+		if (data.status != 200) {
+			throw new Error(data.message);
+		}
+		commit('BOARDGROUP', data.data.info);
+	}
 };
 
 export const getters = {
@@ -106,5 +118,9 @@ export const getters = {
 	getBoardDetail(state) {
 		const { storeBoardDetail } = state;
 		return storeBoardDetail;
+	},
+	getBoardGroup(state) {
+		const { storeBoardGroup } = state;
+		return storeBoardGroup;
 	}
 };
