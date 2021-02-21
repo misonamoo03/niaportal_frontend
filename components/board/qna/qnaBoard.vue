@@ -505,6 +505,9 @@ export default {
 
             if(to.query.currentPage!=null && to.query.currentPage != undefined && to.query.currentPage != ''){
               this.getQnaResult(to.query.currentPage);
+            }else{
+              this.currentPage = 1;
+              this.getQnaResult(this.currentPage);
             }
             
         },
