@@ -26,5 +26,14 @@ export default {
 	components: {
 		theMemberContents,
 	},
+  	beforeMount() {
+
+    const paramName = this.$route.params.name;
+
+    if(paramName != 'signIn' && paramName != 'signUp' &&paramName != 'findPass'){
+      this.$router.push('/404error')
+    }
+
+  }
 };
 </script>

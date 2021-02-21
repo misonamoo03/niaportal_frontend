@@ -56,6 +56,8 @@
                                                  <td class="answer modify" v-else-if="isSuperUser">
                                                         <a href="#" class="popOpenBtnCmmn" data-num="3" @click="showBoardGroupMethod(list.boardContentNo), createNewQna(3)">답변수정</a>
                                                  </td>
+                                                 <td  v-else>
+                                                 </td>
                                                  <td class="writer">{{list.userName}}</td>
                                                  <td class="date">{{list.regDate}}</td>
                                                  <td class="view">{{list.viewCnt}}</td>
