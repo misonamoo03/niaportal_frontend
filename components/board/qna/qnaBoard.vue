@@ -264,7 +264,8 @@ export default {
                      }
               },
               async getQnaResult(pageIndex) {   // 페이지 변경 시 호출되는 메서드
-                try {
+                try {       
+                     this.isSuperUser = Cookie.get('userGbCode' === 'CD002002');
                      this.currentPage = pageIndex;
 
                       let param = {
