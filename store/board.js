@@ -53,8 +53,6 @@ export const actions = {
 
 	async getBoardInfo({ commit }, { boardContentNo }) {
 		const data = await BoardService.getBoardInfo(boardContentNo);
-		console.log(data.data);
-		console.log(data.status);
 		if (data.status != 200) {
 		throw new Error(data.message);
 		}
@@ -79,7 +77,6 @@ export const actions = {
 
 	async updateBoardContent({commit}, {boardContentNo, title, content}) {
 		const data = await BoardService.updateBoardContent({boardContentNo, title, content});
-		console.log(data);
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
@@ -87,7 +84,6 @@ export const actions = {
 
 	async createBoardContent({commit}, {boardNo, title, content, secYn, orgBoardContentNo}) {
 		const data = await BoardService.createBoardContent({boardNo, title, content, secYn, orgBoardContentNo});
-		console.log(data);
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}

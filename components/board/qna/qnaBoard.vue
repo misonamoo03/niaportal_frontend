@@ -42,7 +42,7 @@
                                           <tr v-for="(list, index) in qnaList" v-bind:key="index">
                                                  <td class="no">{{list.boardContentNo}}</td>
                                                  <td class="txtL">
-                                                        <a style="cursor: pointer" @click="showBoardDetail(list)">
+                                                        <a style="cursor: pointer" @click="clickBoardDetail(list)">
                                                                <span class="lock" v-show="list.secYn == 'Y'"></span>
                                                                <span class="txtL_length">
                                                                       {{list.title}}
@@ -277,7 +277,6 @@ export default {
                       });
                       this.qnaResult = this.getSportsBoardList;
                       this.qnaList = this.qnaResult.list;
-                      console.log(this.qnaList);
                     
                 } catch (e) {
                     console.log(e);
@@ -368,13 +367,12 @@ export default {
               },
               async showBoardDetailMethod(boardContentNo) {
                      try {  
-                            console.log(boardContentNo);
                             let param = {
                                    boardContentNo: boardContentNo
                             };
 
                             await this.showBoardDetail(param).then();
-                            this.boardDetail = this.getBoardDetail;
+                            this.boardDetail = this.getBoardDetail;;
                             this.updateTitle = this.boardDetail.title;
                             this.updateContent = this.boardDetail.content;
                             this.orgBoardContentNo = this.boardDetail.boardContentNo;
@@ -391,7 +389,6 @@ export default {
 
                             await this.showBoardGroup(param).then();
                             this.boardGroup = this.getBoardGroup;
-                            console.log(this.boardGroup);
                             this.updateTitle = this.boardGroup.title;
                             this.updateContent = this.boardGroup.content;
                             this.reply = this.boardGroup.replyList[0].content;
@@ -453,7 +450,7 @@ export default {
                      this.updateContent = '';
                      this.reply = '';
               },
-              showBoardDetail(list) {
+              clickBoardDetail(list) {
                      const userNo = Cookie.get('userNo');
                      const userGbCode = Cookie.get('userGbCode');
                      
