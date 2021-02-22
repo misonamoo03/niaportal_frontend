@@ -101,7 +101,6 @@ export default {
                             this.replyCnt = this.boardGroup.replyCnt;
                             this.regDate = this.boardGroup.regDate;
                             this.replyList = this.boardGroup.replyList[0];
-                            console.log(this.boardGroup);
                             if (this.replyList != undefined) {
                                    this.replyContent = this.replyList.content;
                                    this.replyRegDate = this.replyList.regDate;

@@ -47,10 +47,10 @@ extend('checkPass', {
 });
 
 export default {
-    props: ["changePwdEmail"],
+    props: ["changePwdUserNo"],
     data() {
         return {
-            email: this.changePwdEmail,
+            userNo: this.changePwdUserNo,
             password: "",
             rePassword: ""
         };
@@ -76,10 +76,11 @@ export default {
             }
 
                 let userInfo = {
-                    email: this.email,
+                    userNo: this.userNo,
                     password: this.password,
                     rePassword: this.rePassword
                 };
+                console.log(userInfo);
                 await this.changePwd(userInfo).then(() => this.redirect());
                 alert('비밀번호가 정상적으로 변경되었습니다.')
             } catch(e) {

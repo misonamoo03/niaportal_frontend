@@ -27,10 +27,10 @@ extend('required', {
 })
 
 export default {
-    props: ["verifyEmail"],
+    props: ["verifyUserNo"],
     data() {
         return {
-            email: this.verifyEmail,
+            userNo: this.verifyUserNo,
             secCode: "",
         };
     },
@@ -52,7 +52,7 @@ export default {
                 return;
                 }
                 let userInfo = {
-                    email: this.email,
+                    userNo: this.userNo,
                     secCode: this.secCode
                 };
                 await this.verify(userInfo).then(() => this.changePwd());
@@ -62,7 +62,7 @@ export default {
             }
         },
         changePwd() {
-            this.$router.push("/member/changePwd/" + this.verifyEmail);
+            this.$router.push("/member/changePwd/" + this.verifyUserNo);
         }
     }
 }

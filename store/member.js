@@ -5,7 +5,8 @@ import MemberService from '~/service/member';
 export const state = () => ({
   sidebar: false,
   authUser: null,
-  info: ''
+  info: '',
+  findPwData: ''
 })
 
 export const mutations = {
@@ -27,6 +28,9 @@ export const mutations = {
   },
   USER_INFO: function (state, data) {
     state.info = data
+  },
+  FINDPW: function(state, data) {
+    state.findPwData = data
   }
 }
 
@@ -66,22 +70,23 @@ export const actions = {
     if (data.status != 200) {
       throw new Error(data.message)
     }
+    commit('FINDPW', data.data);
   },
   async logout({ commit }) {
     await axios.post('/apis/logout').then(() => commit('LOGOUT'))
   },
-  async verify({commit}, {email, secCode}) {
+  async verify({commit}, {userNo, secCode}) {
     const data = await MemberService.verify({
-      email, secCode
+      userNo, secCode
     })
 
     if (data.status != 200) {
       throw new Error(data.message)
     }
   },
-  async changePwd({commit}, {email, password, rePassword}) {
+  async changePwd({commit}, {userNo, password, rePassword}) {
     const data = await MemberService.changePwd({
-      email, password, rePassword
+      userNo, password, rePassword
     })
 
     if (data.status != 200) {
@@ -116,5 +121,10 @@ export const getters = {
     const { info } = state;
 
     return info
+  },
+
+  getFindPwData(state) {
+    const { findPwData } = state;
+    return findPwData
   }
 }
