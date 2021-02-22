@@ -154,13 +154,6 @@ export default {
                   }
             }
 
-            if(list.secYn === "Y") {
-                  if((userGbCode != 'CD002002') && (userNo != list.userNo)) {
-                          alert("해당 문의내용은 작성자와 운영자만 열람이 가능 합니다.");
-                          return;
-                  }
-            }
-
              this.$router.push('/board/qna/'+contentNo);
           }else{
             console.log("category = ", subTypeCode);
