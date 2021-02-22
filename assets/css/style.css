@@ -5,7 +5,7 @@
 #header {height: 120px; line-height: 120px;  border-bottom:1px solid rgba(255, 255, 255, .2);}
 #header .container, #header .container a{color:#fff;}
 #header .container{position: relative;}
-#header .container h1{float:left; line-height: 0; margin-top:35px;}
+#header .container h1{float:left; line-height: 0; margin-top:36px;}
 #header .container .gnb{float:right;}
 
 #header .container .util{float: right; font-size: 14px;}
@@ -20,9 +20,9 @@
 
 
 #banner {height: 260px;}
-#banner .container{color:#fff; font-size: 20px; text-align:center;}
-#banner .container h1{padding-top:35px;}
-#banner .container p{margin-top:10px;}
+#banner .container{color:#fff; font-size: 20px;  position: relative;}
+#banner .container h1{padding-top:35px; text-align:center;}
+#banner .container p{margin-top:10px; text-align:center;}
 
 #contents {height: 600px;}
 #contents .container .m_golf, .container .m_soccer, .m_basketball{width:400px; float:left; position: relative; }
@@ -443,8 +443,8 @@ ul, li {margin: 0; padding: 0; list-style: none;}
 #mail_wrap{width:800px; margin:0 auto; border:1px solid #ddd; font-size:15px; border-top:4px solid #000;}
 #mail_wrap h1{font-size:32px; }
 
-#mail_header{height:232px; background-image: url("../images/mail_topbg.jpg"); background-position: top center; background-repeat: no-repeat; border-bottom:1px solid #ddd; padding:60px 0 0 35px;}
-#mail_header img{margin-bottom:20px;}
+#mail_header{height:232px; background-image: url("../images/mail_topbg.jpg"); background-position: top center; background-repeat: no-repeat; border-bottom:1px solid #ddd; padding:70px 0 0 35px;}
+#mail_header img{margin-bottom:10px;}
 
 #mail_contents{background-color:#f1f2f7; padding: 50px 45px; text-align: center; line-height: 1.6;}
 #mail_contents .mail_numbox{width:100%; background-color: #fff; padding: 30px 0; margin-top:30px;}
@@ -473,6 +473,8 @@ ul, li {margin: 0; padding: 0; list-style: none;}
 .btn_group button{display: inline-block;}
 .btn_group button:first-child{margin-right:5px;}
 
+.btn_black{width: 600px; position: absolute; bottom:150px; line-height: 104px; background-color: #000; border-radius: 0; color:#fff; font-size: 35px; font-weight: 500;}
+.btn_competition{position: relative; height:100%;  margin:0 auto; width: 600px;}
 /*체크박스*/
 input[type="checkbox"]{position: absolute; width:1px; height: 1px; padding:0; margin:-1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;}
 input[type="checkbox"] + label{width: 100%; display: inline-block; position: relative; cursor: pointer; font-size: 15px; margin-top:10px; text-align: left;}
@@ -499,6 +501,32 @@ input[type="checkbox"]:checked + label::before{
 	height:20px; 
 	background-image: url("../images/check_btn_checked.svg");
 	background-size:20px;
+	vertical-align: middle;
+}
+
+
+
+.main_popup input[type="checkbox"] + label{width: auto; display: inline-block; position: relative; top:-2px; cursor: pointer; font-size: 15px; margin-top:0px; text-align: left;}
+.main_popup input[type="checkbox"] + label::before{
+	content:""; 
+	display: inline-block; 
+	padding-left:16px; 
+	height:16px; 
+	background-image: url("../images/check_btn2.svg");
+	background-size:16px;
+	vertical-align: middle;
+	margin-right: 8px;
+	position: relative;
+	top:-1px;
+}
+
+.main_popup input[type="checkbox"]:checked + label::before{
+	content:""; 
+	display: inline-block; 
+	padding-left:16px; 
+	height:16px; 
+	background-image: url("../images/check_btn_checked2.svg");
+	background-size:16px;
 	vertical-align: middle;
 }
 
@@ -698,7 +726,7 @@ input[type="checkbox"]:checked + label::before{
 	display: inline-block; 
 	width:18px;
 	height:23px; 
-	background-image: url("../images/faq_mark_a.png");
+	background-image: url("../images/faq_mark_A.png");
 	background-size:18px;
 	margin-right:8px;
 	position: absolute;
@@ -868,6 +896,68 @@ input[type="checkbox"]:checked + label::before{
 	background-color:#fff;
 }
 
+
+/*main pop*/
+
+
+.pull-right{float:right; font-size: 19px;}
+.main_popup{
+	position: absolute;
+	top:0;
+	right: 0;
+	/*top:50%; left:50%; transform:translate(-50%, -50%);*/
+	z-index:10000; 
+	width:400px; 
+	height:428px; 
+	background-color: white;
+}
+/*.main_popup a{text-decoration:none; color:white}*/
+/*.main_popup img{width:100%;height:100%;}*/
+.mpop_btn{position: relative; left:30px; top:304px; display: inline-block;}
+.popup_con{
+	background-image: url("../images/main_pop.jpg");
+	width:400px; 
+	height:380px;
+	position: relative;
+}
+.popup_bottom{
+	position: relative;
+	bottom:0;
+    background-color: #121212;
+    line-height: 48px;
+    padding: 0 30px;
+    width:100%;
+    font-size: 16px;
+}
+
+.popup_bottom a{color:#fff; color:rgba(255, 255, 255, .75);}
+
+.competition_wrap{
+	/*position: absolute; top:50%; left:50%; transform:translate(-50%, -50%);*/
+	/*text-align: center;*/
+	background-image: url("../images/competition.png"); 
+	height: 2000px; 
+	background-position: top center; 
+	background-repeat: no-repeat;
+}
+
+.error_wrap{
+	width: 590px;
+	position: absolute;
+	top:50%; 
+	left:50%;
+	transform:translate(-50%, -50%)
+}
+.error_img{
+	width: 590px;
+	height: 324px;
+	background-position: top center; 
+	background-repeat: no-repeat;
+}
+.error_btn{border-top:1px solid #e9e9e9;}
+.error_btn .btn_group{margin-top:40px;}
+/* .error_404 .error_img{background-image: url("../images/error_404.jpg");}
+.error_500 .error_img{background-image: url("../images/error_500.jpg");} */
 
 /*공통*/
 .warning{font-size: 15px; text-align: left; margin-top:10px;}

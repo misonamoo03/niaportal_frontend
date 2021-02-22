@@ -476,8 +476,8 @@ export default {
        computed: {
               ...mapGetters('board', ['getSportsBoardList', 'getBoardDetail', 'getBoardGroup']), //<--store Getter 관리
        },
-      created() {
-        var _init=true;
+       created() {
+       var _init=true;
         try{
           console.log("===========99999======",(new RegExp('[\?&]' + "currentPage" + '=([^&#]*)').exec($(location).attr('href')))[1]);
           var _currentPage = (new RegExp('[\?&]' + "currentPage" + '=([^&#]*)').exec($(location).attr('href')))[1];
