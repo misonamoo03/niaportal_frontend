@@ -277,6 +277,7 @@ export default {
                       });
                       this.qnaResult = this.getSportsBoardList;
                       this.qnaList = this.qnaResult.list;
+                      $('html,body').animate({scrollTop:$("#sub_contents").offset().top}, 500);
                     
                 } catch (e) {
                     console.log(e);
