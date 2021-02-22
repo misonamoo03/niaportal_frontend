@@ -52,7 +52,8 @@
 </template>
 
 <script>
-import Cookie, { remove } from 'js-cookie'
+import Cookie, { getJSON, remove } from 'js-cookie'
+import jsCookie from 'js-cookie';
 
 export default {
 	data() {
@@ -67,9 +68,10 @@ export default {
 	methods: {
 		logoutMethod() {
 			const cookie = Cookie.get();
+      jsCookie.do
 			for(let c in cookie) {
 				if(c != 'savedEmail'){
-					remove(c);	
+					remove(c,{domain:'sportsaihub.com'});	
 				}
 			}
 			this.checkLogin();
