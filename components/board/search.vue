@@ -52,6 +52,7 @@
 import thePagination from '~/components/board/pagination';
 import { mapActions, mapMutations, mapGetters, mapState } from 'vuex';
 import $ from "jquery";
+import Cookie from 'js-cookie';
 
 export default {
     components: {
@@ -72,13 +73,14 @@ export default {
         ...mapActions('board', ['search']), //<-- store Action 처리
         // 검색
         searchMethod() {  // 검색 시 호출되는 메서드
-           
-                let param = {
-                    query: this.query,
-                    type: this.type,
-                    currentPage: this.currentPage
-                }
-                this.$router.push({ path: '/board/search', query: param});
+
+
+          let param = {
+              query: this.query,
+              type: this.type,
+              currentPage: this.currentPage
+          }
+          this.$router.push({ path: '/board/search', query: param});
         },
         changePage(pageIndex) {   // 페이지 변경 시 호출되는 메서드
                 this.currentPage = pageIndex;
@@ -140,6 +142,25 @@ export default {
         },
         contentLinkPage(typeCode,subTypeCode,contentNo){
           if(typeCode == "CD006001" || typeCode == "CD006002"){
+
+            const userNo = Cookie.get('userNo');
+            const userGbCode = Cookie.get('userGbCode');
+            
+            if((userGbCode == null) || (userGbCode == undefined) || (userGbCode == '')) {
+                  if(window.confirm("로그인을 해야지 문의사항 조회가 가능합니다. 로그인 페이지로 이동하시겠습니까?")) {
+                          return this.$router.push("/member/signIn");
+                  } else {
+                          return;
+                  }
+            }
+
+            if(list.secYn === "Y") {
+                  if((userGbCode != 'CD002002') && (userNo != list.userNo)) {
+                          alert("해당 문의내용은 작성자와 운영자만 열람이 가능 합니다.");
+                          return;
+                  }
+            }
+
              this.$router.push('/board/qna/'+contentNo);
           }else{
             console.log("category = ", subTypeCode);
