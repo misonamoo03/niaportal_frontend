@@ -371,8 +371,10 @@ export default {
           };
         //store 호출
         await this.findPass(userInfo).then(() => this.redirect());
+        this.findPwData = this.getFindPwData;
+        
         alert('비밀번호 찾기 메일이 발송되었습니다.\n이메일을 통해 비밀번호를 재설정 한 후 이용해주세요.')
-        this.$router.push("/member/verification/" + this.findPassEmail);
+        this.$router.push("/member/verification/" + this.findPwData.userNo);
       } catch(e) {
         //에러처리
         alert(e.message);
@@ -391,6 +393,7 @@ export default {
   },
   computed: {
     ...mapGetters(["getCommonCodeList"]),//<--store Getter 관리
+    ...mapGetters("member", ["getFindPwData"]),//<--store Getter 관리
     ...mapState({ code: (state) => state.commonCodeList }),//<--store state 관리
   },
 };

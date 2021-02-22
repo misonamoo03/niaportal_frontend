@@ -45,7 +45,7 @@ const findPass = async (info) => {
 const verify = async (info) => {
   try {
     let params = new URLSearchParams();
-    params.append('email', info.email);
+    params.append('userNo', info.userNo);
     params.append('secCode', info.secCode);
     const req = await axios.post('http://sportsaihub.com:8080/User/validate', params, { withCredentials: true });
     return req.data;
@@ -59,7 +59,7 @@ const verify = async (info) => {
 const changePwd = async (info) => {
   try {
     let params = new URLSearchParams();
-    params.append('email', info.email);
+    params.append('userNo', info.userNo);
     params.append('password', info.password);
     params.append('rePassword', info.rePassword);
     const req = await axios.post('http://sportsaihub.com:8080/User/setPw', params, { withCredentials: true });
