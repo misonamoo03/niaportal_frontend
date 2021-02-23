@@ -10,7 +10,7 @@
 			<div id="main_popup" class="main_popup" v-if="!isNotToday">
 				<div class="popup_con">
 					<div class="mpop_btn">
-						<a href="competition.html" target="_blank"><img src="~assets/images/main_pop_btn.png"/></a>
+						<a href="/competition" target="_blank"><img src="~assets/images/main_pop_btn.png"/></a>
 					</div>
 				</div>
 				
@@ -20,8 +20,8 @@
 					<!-- <label for="myCheck">오늘 하루 보지 않기</label> -->
 					<input type="checkbox" id="myCheck">
 					<label for="myCheck">오늘 하루 보지 않기</label>
-				</a>
-					<a class="pull-right white" v-on:click="closeMainPopup()">닫기</a>
+					</a>
+					<a style="cursor: pointer" v-on:click="closeMainPopup()" class="pull-right white">닫기</a>
 				</div>
 			</div> 
 		</div>
