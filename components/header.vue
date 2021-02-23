@@ -70,7 +70,7 @@ export default {
 			const cookie = Cookie.get();
       jsCookie.do
 			for(let c in cookie) {
-				if(c != 'savedEmail'){
+				if(c != 'savedEmail' || c != 'notToday'){
 					remove(c,{domain:'sportsaihub.com'});	
 				}
 			}
