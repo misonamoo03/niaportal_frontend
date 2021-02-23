@@ -19,7 +19,7 @@
 					<li>
 						<a href="#">AI게시판</a>
 						<ul id="sub-menu">
-							<li><NuxtLink to="/board/qna/qna">고객문의</NuxtLink></li>
+							<li><NuxtLink to="/board/qna/qna">문의하기</NuxtLink></li>
 							<li><NuxtLink to="/board/faq/faq">FAQ</NuxtLink></li>
 						</ul>
 					</li>

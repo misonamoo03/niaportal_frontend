@@ -55,7 +55,7 @@
         <input type="text" name="join_aff" placeholder="소속기관명" v-model="agency"/>
         <form>
           <select name="join_organization" v-model="companyTypeCode">
-            <option value="CD001" selected disabled>기관분류</option>
+            <option value="" disabled>기관분류</option>
             <option value="CD001001">대기업</option>
             <option value="CD001002">중소기업</option>
             <option value="CD001003">대학교</option>

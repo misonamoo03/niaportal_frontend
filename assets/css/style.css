@@ -956,8 +956,8 @@ input[type="checkbox"]:checked + label::before{
 }
 .error_btn{border-top:1px solid #e9e9e9;}
 .error_btn .btn_group{margin-top:40px;}
-/* .error_404 .error_img{background-image: url("../images/error_404.jpg");}
-.error_500 .error_img{background-image: url("../images/error_500.jpg");} */
+.error_404 .error_img{background-image: url("../images/error_404.jpg");}
+.error_500 .error_img{background-image: url("../images/error_500.jpg");}
 
 /*공통*/
 .warning{font-size: 15px; text-align: left; margin-top:10px;}
