@@ -92,7 +92,7 @@ extend('checkPass', {
     if (value == checkVal) {
       return true;
     }
-    return '입력하신 비밀번호와 일치하지 않습니다.';
+    return '변경할 비밀번호와 일치하지 않습니다.';
   },
   params: ['checkVal']
 });
