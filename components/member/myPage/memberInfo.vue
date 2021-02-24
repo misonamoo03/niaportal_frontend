@@ -139,40 +139,31 @@ export default {
             async memberUpdateMethod() {
                 try {
                     var errorChk = true;
-                    await validate(this.password, 'required',{
-                    name: '비밀번호'
-                    }).then(result => {
-                    if (!result.valid) {
-                        alert(result.errors[0]);
-                        errorChk = false;
+                    if(this.password != '') {
+                        await validate(this.newPassword, 'required|min:8|checkPass:' + this.rePassword, {
+                        name: '새 비밀번호',
+                        values: {
+                        }
+                        }).then(result => {
+                        if (!result.valid) {
+                            alert(result.errors[0]);
+                            errorChk = false;
+                        }
+                        });
+                        if(!errorChk){
+                        return;
+                        }
+                        await validate(this.rePassword, 'min:8', {
+                        name: 'rePassword',
+                        values: {
+                        }
+                        }).then(result => {
+                        if (!result.valid) {
+                            alert(result.errors[0]);
+                            errorChk = false;
+                        }
+                        });
                     }
-                    });
-                    if(!errorChk){
-                    return;
-                    }
-                    await validate(this.newPassword, 'min:8|checkPass:' + this.rePassword, {
-                    name: '새 비밀번호',
-                    values: {
-                    }
-                    }).then(result => {
-                    if (!result.valid) {
-                        alert(result.errors[0]);
-                        errorChk = false;
-                    }
-                    });
-                    if(!errorChk){
-                    return;
-                    }
-                    await validate(this.rePassword, 'min:8', {
-                    name: 'rePassword',
-                    values: {
-                    }
-                    }).then(result => {
-                    if (!result.valid) {
-                        alert(result.errors[0]);
-                        errorChk = false;
-                    }
-                    });
                     await validate(this.tel, 'required',{
                     name: '전화번호'
                     }).then(result => {
