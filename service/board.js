@@ -115,6 +115,23 @@ const showBoardGroup = async (info) => {
   }
 };
 
+const boardDelete = async (info) => {
+  try {
+    const req = await axios.get(
+      'http://sportsaihub.com:8080/board/delete',
+      {
+        params: {
+          boardContentNo: info.boardContentNo,
+        },
+        withCredentials: true,
+      }
+    );
+    return req.data;
+  } catch (e) {
+    console.error(`server error : ${e.error}`);
+  }
+};
+
 export default {
   getBoardList,
   getBoardInfo,
@@ -122,5 +139,6 @@ export default {
   createBoardContent,
   showBoardDetail,
   updateBoardContent,
-  showBoardGroup
+  showBoardGroup,
+  boardDelete
 };

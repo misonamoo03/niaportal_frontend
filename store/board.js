@@ -95,6 +95,13 @@ export const actions = {
 			throw new Error(data.message);
 		}
 		commit('BOARDGROUP', data.data.info);
+	},
+
+	async boardDelete({commit}, {boardContentNo}) {
+		const data = await BoardService.boardDelete({boardContentNo});
+		if (data.status != 200) {
+			throw new Error(data.message);
+		}
 	}
 };
 

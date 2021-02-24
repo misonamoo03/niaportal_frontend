@@ -37,9 +37,12 @@
 
 
                      <div class="btn_area clear">
-                            <a>
-                                   <button type="button" id="btnJoin" class="btn_type btn_basic btn_primary" @click="$router.go(-1)"><span>이전 페이지 이동</span></button>
-                            </a>
+                            <div class="btn_group">
+                                   <button type="button" id="btncancel" class="btn_type btn_basic btn_cancel" @click="boardDeleteMethod" v-if="hasDeleteAuthority"><span>삭제</span></button>
+                                   <a>
+                                          <button type="button" id="btnJoin" class="btn_type btn_basic btn_primary" @click="$router.go(-1)"><span>이전 페이지 이동</span></button>
+                                   </a>
+                            </div>
                      </div>
 
                      <div class="comment_list" v-if="replyList != undefined">
@@ -63,6 +66,7 @@
 
 <script>
 import { mapActions, mapMutations, mapGetters, mapState } from 'vuex';
+import Cookie, { remove } from 'js-cookie'
 export default {
        props: ["boardContentNo"],
        data() {
@@ -77,7 +81,8 @@ export default {
                      regDate: '',
                      replyRegDate: '',
                      userName: '',
-                     replyUserName: ''
+                     replyUserName: '',
+                     hasDeleteAuthority: false
               }
        },
        created() {
@@ -85,11 +90,11 @@ export default {
        },
        methods: {
               ...mapMutations([]), //<--store mutation 관리
-              ...mapActions('board', ['showBoardGroup']),
+              ...mapActions('board', ['showBoardGroup', 'boardDelete']),
               async showBoardGroupMethod() {
                      try {  
                             let param = {
-                                   boardContentNo: this.boardContentNo
+                                   boardContentNo: this.boardContentNo,
                             };
 
                             await this.showBoardGroup(param).then();
@@ -101,11 +106,32 @@ export default {
                             this.replyCnt = this.boardGroup.replyCnt;
                             this.regDate = this.boardGroup.regDate;
                             this.replyList = this.boardGroup.replyList[0];
+                            if(Cookie.get('userGbCode') == 'CD002002' || Cookie.get('userNo') == this.boardGroup.userNo) {
+                                   this.hasDeleteAuthority = true;
+                            }
                             if (this.replyList != undefined) {
                                    this.replyContent = this.replyList.content;
                                    this.replyRegDate = this.replyList.regDate;
                                    this.replyUserName = this.replyList.userName;
                             }
+                     } catch (e) {
+                            console.log(e);
+                            this.returnMsg = e.message;
+                     }
+              },
+              async boardDeleteMethod() {
+                     try {
+                            if(!window.confirm("해당 게시글을 삭제하시겠습니까?")) {
+                                   return;
+                            }
+
+                            let param = {
+                                   boardContentNo: this.boardContentNo
+                            };
+
+                            await this.boardDelete(param).then(() => {
+                                   this.$router.push('/board/qna/qna');
+                            });
                      } catch (e) {
                             console.log(e);
                             this.returnMsg = e.message;
