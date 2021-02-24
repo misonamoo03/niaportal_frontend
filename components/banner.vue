@@ -7,7 +7,7 @@
 				골프, 농구, 축구 AI학습에 필요한 데이터를 확인해보세요.
 			</p>
 
-			<div id="main_popup" class="main_popup" v-if="!isNotToday">
+			<div id="main_popup" class="main_popup" v-show="!isNotToday">
 				<div class="popup_con">
 					<div class="mpop_btn">
 						<a href="/competition" target="_blank"><img src="~assets/images/main_pop_btn.png"/></a>
@@ -34,10 +34,13 @@ import Cookie, { remove } from 'js-cookie'
 export default {
 	data() {
 		return {
-			isNotToday: (Cookie.get('notToday') == 'Y')
+			isNotToday: ''
 		}
 	},
-	methods: {
+	created() {
+		this.isNotToday = (Cookie.get('notToday') == 'Y');
+	},
+	methods: {	
 		closeMainPopup() {
 			$("#main_popup").hide();
 		},
