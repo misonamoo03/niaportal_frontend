@@ -7,7 +7,8 @@
 				골프, 농구, 축구 AI학습에 필요한 데이터를 확인해보세요.
 			</p>
 
-			<div id="main_popup" class="main_popup" v-show="!isNotToday">
+			<!-- <div id="main_popup" class="main_popup" v-show="!isNotToday"> -->
+			<div id="main_popup" class="main_popup" v-show="false">	
 				<div class="popup_con">
 					<div class="mpop_btn">
 						<a href="/competition" target="_blank"><img src="~assets/images/main_pop_btn.png"/></a>
