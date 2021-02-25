@@ -297,7 +297,7 @@ export default {
         };
         await this.signUp({ userInfo: userInfo }).then(() => this.redirect());
       } catch (e) {
-        console.log(e.message);
+        alert(e.message);
         this.returnMsg = e.message;
       }
     },
