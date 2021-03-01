@@ -341,6 +341,7 @@ export default {
           } else {
             Cookie.remove('savedEmail');
           }
+          alert("로그인 되었습니다.")
           this.redirect()
         });
         //정상처리
