@@ -86,7 +86,11 @@ export default {
               }
        },
        created() {
-              this.showBoardGroupMethod();
+              if((Cookie.get('email') == null) || (Cookie.get('email') == undefined) || (Cookie.get('email') == '')) {
+                     return this.$router.push("/member/signIn");
+              } else {
+                     this.showBoardGroupMethod();
+              }
        },
        methods: {
               ...mapMutations([]), //<--store mutation 관리

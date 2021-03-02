@@ -114,6 +114,11 @@ export default {
     beforeMount() {
 		this.memberInquiryMethod();
 	},
+    created() {
+        if((Cookie.get('email') == null) || (Cookie.get('email') == undefined) || (Cookie.get('email') == '')) {
+            return this.$router.push("/member/signIn");
+        }
+    },
     methods: {
             ...mapMutations([]), //<--store mutation 관
             ...mapActions("member", ["memberInquiry", "memberUpdate"]),//<--store member의 Action 관리
