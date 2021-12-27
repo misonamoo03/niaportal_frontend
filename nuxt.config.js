@@ -5,16 +5,23 @@ export default {
 		title: 'sports AI Hub',
 		meta: [
 			{ charset: 'utf-8' },
-			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { 'http-equiv': 'x-ua-compatible', content: 'ie=edge' },
+			{ name: 'viewport', content: 'width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no' },
 			{ hid: 'description', name: 'description', content: '' },
+      { hid: 'format-detection', content: 'telephone=no, address=no, email=no' },
 		],
 		link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
 	},
 
 	// Global CSS (https://go.nuxtjs.dev/config-css)
-	css: ['~/assets/css/default.css', '~/assets/css/style.css'],
+	css: ['~/assets/css/swiper.css','~/assets/css/slick.css','~/assets/css/slick-theme.css','~/assets/css/style.css'],
 	// Global CSS (https://go.nuxtjs.dev/config-js)
-	javascript: ['~/assets/js/custom.js'],
+	//javascript: ['~/assets/js/main.js','~/assets/js/vendor/jquery.min.js','~/assets/js/vendor/bootstrap.min.js'],
+  script:[
+    {type:"text/javascript", src:"'~/assets/js/main.js",  body: true , ssr: false},
+    {type:"text/javascript", src:"https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"},
+      {type:"text/javascript", src:"https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"}
+  ],
 
 	// Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
 	plugins: [],

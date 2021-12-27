@@ -1,19 +1,27 @@
 <template>
-    <div class="container">
-        <h1><NuxtLink to="/"><img src="~assets/images/m_logo.png" alt="logo"></NuxtLink></h1>
 
-        <div class="findpwd_wrap">
-            <div class="member_form_wrap">
-                <h2>비밀번호 재설정</h2>
-                <input type="password" name="changepwd" placeholder="재설정할 비밀번호" v-model="password">
-                <input type="password" name="changepwd" placeholder="비밀번호 확인" v-model="rePassword">
-                <p class="warning">재설정할 새로운 비밀번호를 입력해 주세요.</p>
-                <div class="btn_area">
-                    <button type="button" id="btnlogin" class="btn_type btn_primary" @click="changePwdMethod"><span>비밀번호 재설정 요청</span></button>
-                </div>
-            </div>
-        </div>
-	</div> 
+  <div class="form login-form">
+      <h1><NuxtLink to="/"><img src="~assets/img/logo.png" alt=""></NuxtLink></h1>
+      <h2>비밀번호 재설정</h2>
+      <input  type="password" 
+        name="changepwd" 
+        placeholder="재설정할 비밀번호" 
+        v-model="password"
+        class="form-control"
+        />
+        <input  type="password" 
+          name="changepwd" 
+          placeholder="비밀번호 확인" 
+          v-model="rePassword"
+          class="form-control"
+        />
+      <p class="help-block text-center">재설정할 새로운 비밀번호를 입력해 주세요.</p>
+      <div class="btn-box">
+          <button type="button" class="btn dark btn-block" @click="changePwdMethod">비밀번호 재설정 요청</button>
+      </div>
+  </div><!-- /.form -->
+
+    
 </template>
 
 <script>
@@ -52,7 +60,8 @@ export default {
         return {
             userNo: this.changePwdUserNo,
             password: "",
-            rePassword: ""
+            rePassword: "",
+            errorChk: true
         };
     },
     methods: {
@@ -60,7 +69,7 @@ export default {
         ...mapActions("member", ["changePwd"]),//<--store member의 Action 관리
         async changePwdMethod() {
             try{
-                const errorChk = true;
+              this.errorChk = true;
                 await validate(this.password, 'required|min:8|checkPass:'+this.rePassword, {
                 name: '비밀번호',
                 values: {
@@ -68,10 +77,10 @@ export default {
             }).then(result => {
                 if (!result.valid) {
                     alert(result.errors[0]);
-                    errorChk = false;
+                     this.errorChk = false;
                 }
             });
-            if(!errorChk){
+            if(!this.errorChk){
                 return;
             }
 

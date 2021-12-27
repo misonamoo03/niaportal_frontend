@@ -1,19 +1,14 @@
 import axios from 'axios';
 
 // 게시글 조회
-const getBoardList = async (boardNo, pagePerRow, currentPage) => {
+const getBoardList = async (info) => {
   try {
-    const req = await axios.get(
-      'http://sportsaihub.com:8080/board/list',
-      {
-        params: {
-          boardNo: boardNo,
-          pagePerRow: pagePerRow,
-          currentPage: currentPage
-        },
-      },
-      { withCredentials: true },
-    );
+    const req = await axios.post(
+      'http://sportsaihub.com:8080/board/list',JSON.stringify(info), {
+        headers: {
+          "Content-Type": 'application/json',
+        }, withCredentials: true 
+      });
     return req.data;
   } catch (e) {
     console.error(`server error : ${e.error}`);

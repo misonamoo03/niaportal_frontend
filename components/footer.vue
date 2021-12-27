@@ -1,26 +1,42 @@
 <template>
-	<div id="footer">
-		<div class="container">
-			<address>
-				<p>
-					<span class="addr">
-						서울특별시 강남구 테헤란로10길 15 ㈜아이온커뮤니케이션즈
-					</span>
-					<span><b>이메일</b> support@flexer.co.kr</span>
-				</p>
-			</address>
-			<p class="copy">
-				Copyright © 2021 I-ON Comunications. All rights reserved.
-			</p>
-			<span class="logo">
-				<img src="~assets/images/footer_logo.png" alt="footer_logo"/>
-			</span>
-
-			<span class="rlogo">
-				<a href="https://www.nia.or.kr/site/nia_kor/main.do" target="_blank">
-					<img src="~assets/images/footer_logo2.png" alt="footer_logo">
-				</a>
-			</span>
-		</div>
-	</div>
+	<footer>
+            <div class="container">
+                <h1><img src="~assets/img/logo_foot.png" alt=""></h1>
+                <nav>
+                    <span class="logo"><img src="~assets/img/logo-nia.png" alt=""></span>
+                    <ul>
+                        <li><a href="#">서비스 이용약관</a></li>
+                        <li><a href="#">개인정보처리방침</a></li>
+                    </ul>
+                </nav>
+                <address>서울특별시 강남구 테헤란로10길 15 ㈜아이온커뮤니케이션즈 <br>&copy; 2021 I-ON Communications. All rights reserved.</address>
+                <span class="scroll-top" @click="scrollTop()"><i class="la la-angle-up" aria-hidden="true"><span class="sr-only">맨위로</span></i></span>
+            </div>
+        </footer><!-- /footer -->
 </template>
+<script>
+
+export default {
+   head: {
+    script: [
+      {type:"text/javascript", src:"//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"},
+      {type:"text/javascript", src:"https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"}
+    ]
+  },
+	data() {
+		return {
+			
+		};
+	},
+	methods: {
+		scrollTop() {
+				jQuery('html, body').animate({scrollTop:0}, '2000', function() {
+            $('.scroll-top').removeClass('is-showing');
+        });
+        return false;
+		},
+    
+	},
+
+}
+</script>

@@ -1,12 +1,18 @@
 <template>
-	<div>
-		<theBanner :code="code"/>
-		<theSportsList :code="code" :category="category"/>
-	</div>
+
+  <div id="content" class="data">
+    <div class="sub-content">
+      <div class="container">
+        <theSportsDataSet :code="code"/>
+        <theSportsQna :code="code" :category="category"/>
+      </div><!-- /#content -->
+    </div>
+  </div>
 </template>
 <script>
-import theSportsList from '~/components/sports/sportsList';
-import theBanner from '~/components/sports/sportsBanner';
+import theSportsQna from '~/components/sports/sportsQna';
+import theSportsDataSet from '~/components/sports/sportsDataSet';
+
 
 export default {
 	// middleware: 'authenticated',
@@ -16,10 +22,10 @@ export default {
       category:''
 		};
 	},
-	layout: 'sports',
+	layout: 'main',
 	components: {
-		theSportsList,
-		theBanner
+		theSportsQna,
+		theSportsDataSet
 	},
 	beforeMount() {
 		this.$nuxt.$emit('sport', this.code);

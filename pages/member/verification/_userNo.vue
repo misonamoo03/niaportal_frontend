@@ -8,6 +8,7 @@
 import theVerificationCode from '~/components/member/verificationCode';
 
 export default {
+  layout: 'blank',
     head() {
     return {
         bodyAttrs: {
@@ -22,8 +23,6 @@ export default {
             userNo: params.userNo 
         }; 
     },  
-    
-    layout: 'member',
     components: {
         theVerificationCode
     },

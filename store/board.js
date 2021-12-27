@@ -36,14 +36,14 @@ export const actions = {
 		//}
 	},
 	//commonCode 조회
-	async getBoardList({ commit }, { boardNo, pagePerRow, currentPage }) {
-		const data = await BoardService.getBoardList(boardNo, pagePerRow, currentPage);
+	async getBoardList({ commit }, { boardNo, pagePerRow, currentPage,boardTypeCode,sportsTypeCode,myContentYn,replyYn,searchText }) {
+		const data = await BoardService.getBoardList({boardNo, pagePerRow, currentPage,boardTypeCode,sportsTypeCode,myContentYn,replyYn,searchText});
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
 		if(boardNo === 1) {
 			data.data.list.forEach((item) => {
-				item.title = item.title.replace(/(\n)/g, '<br />');
+				//item.title = item.title.replace(/(\n)/g, '<br />');
 				item.content = item.content.replace(/(\n)/g, '<br />');
 			});
 		}
@@ -75,15 +75,15 @@ export const actions = {
 		commit('BOARDDETAIL', data.data.info);
 	},
 
-	async updateBoardContent({commit}, {boardContentNo, title, content}) {
-		const data = await BoardService.updateBoardContent({boardContentNo, title, content});
+	async updateBoardContent({commit}, {boardContentNo, title, content,boardTypeCode,sportsTypeCode}) {
+		const data = await BoardService.updateBoardContent({boardContentNo, title, content,boardTypeCode,sportsTypeCode});
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
 	},
 
-	async createBoardContent({commit}, {boardNo, title, content, secYn, orgBoardContentNo}) {
-		const data = await BoardService.createBoardContent({boardNo, title, content, secYn, orgBoardContentNo});
+	async createBoardContent({commit}, {boardNo, title, content, secYn, orgBoardContentNo,boardTypeCode,sportsTypeCode}) {
+		const data = await BoardService.createBoardContent({boardNo, title, content, secYn, orgBoardContentNo,boardTypeCode,sportsTypeCode});
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
@@ -94,6 +94,8 @@ export const actions = {
 		if (data.status != 200) {
 			throw new Error(data.message);
 		}
+    data.data.info.content =  data.data.info.content.replace(/(\n)/g, '<br />');
+
 		commit('BOARDGROUP', data.data.info);
 	},
 

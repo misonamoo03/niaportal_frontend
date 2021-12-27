@@ -1,6 +1,5 @@
 <template>
-  <div>
-      <theBanner/>
+  <div id="content" class="mypage">
       <theMemberInfo/>
   </div> 
 </template>
@@ -10,7 +9,7 @@ import theMemberInfo from '~/components/member/myPage/memberInfo';
 import theBanner from '~/components/member/myPage/banner';
 
 export default {
-    layout: 'memberUpdate',
+    layout: 'main',
     components: {
         theMemberInfo,
         theBanner

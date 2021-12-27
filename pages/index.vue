@@ -1,20 +1,24 @@
 <template>
-	<div>
-		<theBanner />
-		<div id="contents">
-			<theMainIntro />
-		</div>
-	</div>
+		<div id="content" class="index">
+      <theMainIntro />
+      <theMainFaq /> 
+            
+    </div><!-- /#content -->
+
 </template>
 <script>
 import theMainIntro from '~/components/mainIntro';
-import theBanner from '~/components/banner';
+import theMainFaq from '~/components/mainFaq';
 
 export default {
   layout: 'main',
 	components: {
 		theMainIntro,
-		theBanner,
+		theMainFaq,
 	},
+  mounted() {
+    document.getElementsByTagName("body")[0].setAttribute( 'class', 'body-index' );
+  },
+ 
 };
 </script>

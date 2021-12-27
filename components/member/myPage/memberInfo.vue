@@ -1,50 +1,36 @@
 <template>
-    <div id="sub_contents"> 
-        <div class="container">
-            <ol class="location">
-                <li class="home"><img src="~assets/images/location_home.png" alt="location_home"></li>
-                <li>마이페이지</li>
-            </ol>
-
-            <h2>정보수정</h2>
-
-            <table class="tb_write">
-                <colgroup>
-                    <col width="15%">						
-                    <col width="">
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <th>ID(이메일)</th>
-                        <td>{{email}}</td>
-                    </tr>
-                    <tr>
-                        <th>이름</th>
-                        <td>{{userName}}</td>
-                    </tr>
-                    <tr>
-                        <th  rowspan="3">비밀번호변경</th>
-                        <td><input type="password" name="modify_password1" placeholder="현재 비밀번호를 입력해 주세요." v-model="password"></td>	
-                    </tr>
-                    <tr>
-                        <td><input type="password" name="modify_password2" placeholder="새로운 비밀번호를 입력해 주세요." v-model="newPassword"></td>	
-                    </tr>
-                    <tr>
-                        <td><input type="password" name="modify_password3" placeholder="새로운 비밀번호를 한번 더 입력해 주세요." v-model="rePassword"></td>	
-                    </tr>
-                    <tr>
-                        <th>전화번호</th>
-                        <td><input type="tel" name="modify_tel" v-model="tel"></td>
-                    </tr>
-                    <tr>
-                        <th>소속기관명</th>
-                        <td><input type="text" name="modify_aff" v-model="agency"></td>
-                    </tr>
-                    <tr>
-                        <th>소속기관분류</th>
-                        <td>
-                            <form>
-                                <select name="join_organization" v-model="companyTypeCode">
+    <div class="sub-content">
+                <div class="container">
+                    <h3>내 정보</h3>
+                    <div class="form">
+                        <div class="form-row">
+                            <div class="col-4 col-md-3"><label>ID(이메일)</label></div>
+                            <div class="col">{{email}}</div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-4 col-md-3"><label>이름</label></div>
+                            <div class="col">{{userName}}</div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-4 col-md-3"><label>비밀번호 변경</label></div>
+                            <div class="col">
+                                <input type="password" class="form-control" placeholder="현재 비밀번호 입력" v-model="password">
+                                <input type="password" class="form-control" placeholder="신규 비밀번호 입력" v-model="newPassword">
+                                <input type="password" class="form-control" placeholder="신규 비밀번호 재입력" v-model="rePassword">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-4 col-md-3"><label>전화번호</label></div>
+                            <div class="col"><input type="text" class="form-control" value="01011111111" placeholder="전화번호" v-model="tel"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-4 col-md-3"><label>소속기관명</label></div>
+                            <div class="col"><input type="text" class="form-control" value="아이온커뮤니케이션즈" placeholder="소속기관명"  v-model="agency"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-4 col-md-3"><label>소속기관분류</label></div>
+                            <div class="col">
+                                <select name="" id="" class="form-control" v-model="companyTypeCode">
                                     <option value="CD001001">대기업</option>
                                     <option value="CD001002">중소기업</option>
                                     <option value="CD001003">대학교</option>
@@ -53,17 +39,18 @@
                                     <option value="CD001006">개인사용자</option>
                                     <option value="CD001007">기타</option>
                                 </select>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="btn_area clear">
-                <button type="button" id="btnJoin" class="btn_type btn_w480 btn_primary" @click="memberUpdateMethod"><span>수정완료</span></button>
-            </div>
-        </div> 
-    </div> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-4 col-md-3"><label>사업자등록번호</label></div>
+                            <div class="col"><input type="text" class="form-control" value="1234145333" placeholder="사업자등록번호" v-model="companyNo"></div>
+                        </div>
+                    </div>
+                    <div class="btn-box line">
+                        <button type="button" class="btn dark" @click="memberUpdateMethod">수정하기</button>
+                    </div>
+                </div>
+            </div><!-- /.sub-content -->   
 </template>
 
 <script>
@@ -108,7 +95,8 @@ export default {
             rePassword: '',
             tel: '',
             agency: '',
-            companyTypeCode: ''
+            companyTypeCode: '',
+            companyNo:''
         };
     },
     beforeMount() {
@@ -134,7 +122,8 @@ export default {
                     this.info = this.getInfo;
                     this.tel = this.info.tel;
                     this.agency = this.info.agency;
-                    this.companyTypeCode = this.info.companyTypeCode 
+                    this.companyTypeCode = this.info.companyTypeCode;
+                    this.companyNo = this.info.companyNo 
                 } catch (e) {
                     console.log(e.message);
                     this.returnMsg = e.message;
@@ -191,6 +180,17 @@ export default {
                     if(!errorChk){
                     return;
                     }
+                     await validate(this.companyNo, 'required',{
+                    name: ' 사업자등록번호'
+                    }).then(result => {
+                    if (!result.valid) {
+                        alert(result.errors[0]);
+                        errorChk = false;
+                    }
+                    });
+                    if(!errorChk){
+                    return;
+                    }
 
                     let userInfo = {
                         email: this.email,
@@ -199,7 +199,8 @@ export default {
                         newPassword: this.newPassword,
                         tel: this.tel,
                         agency: this.agency,
-                        companyTypeCode: this.companyTypeCode
+                        companyTypeCode: this.companyTypeCode,
+                        companyNo: this.companyNo
                     };
                     await this.memberUpdate({userInfo}).then(() => {   
                         this.password = '';

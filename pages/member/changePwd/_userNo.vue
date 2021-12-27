@@ -23,7 +23,7 @@ export default {
         }; 
     },  
     
-    layout: 'member',
+    layout: 'blank',
     components: {
         theChangePwdContent
     }
