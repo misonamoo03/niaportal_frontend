@@ -12,9 +12,11 @@
           </div>
           <dl class="faq-list use-faq" v-if="faqListSize>0">
             <div v-for="(list, index) in faqList" v-bind:key="index">
-              <dt v-bind:class="{'active':selFaqIdx==index}"><a :id="'q_'+index" v-on:click="toggleAnswer(index)"  v-html="list.title"></a>
-              <button type="button" class="btn line gray" data-toggle="modal" data-target="#faq-modify"  @click="showBoardDetailMethod(list.boardContentNo)"  v-show="isSuperUser">수정</button></dt>
-              <dd :id="'a_'+index" v-show="selFaqIdx==index" v-html="list.content"></dd>
+              <div v-on:click="toggleAnswer(index)" >
+                <dt v-bind:class="{'active':selFaqIdx==index}"><a :id="'q_'+index" v-html="list.title"></a>
+                <button type="button" class="btn line gray" data-toggle="modal" data-target="#faq-modify"  @click="showBoardDetailMethod(list.boardContentNo)"  v-show="isSuperUser">수정</button></dt>
+                <dd :id="'a_'+index" v-show="selFaqIdx==index" v-html="list.content"></dd>
+              </div>
             </div>
           </dl>
           <dl class="faq-list use-faq" v-else>
