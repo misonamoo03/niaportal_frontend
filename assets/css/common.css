@@ -156,7 +156,7 @@ label {cursor: pointer}
 
 /* LIST */
 ul.bullet {margin: 1rem 0; color: #dbdbdb;}
-ul.bullet li {padding-left:1.25rem;background:url('../img/bul_grayx4.gif') no-repeat 0 48%;line-height: 2}
+ul.bullet li {padding-left:1.25rem;background:url('../img/bul_grayx4.png') no-repeat 0 48%;line-height: 2}
 ul.bar li {padding-left:10px;}
 ul.bar li:before {content:"-";margin-left:-10px;display:inline-block;width:10px;}
 
