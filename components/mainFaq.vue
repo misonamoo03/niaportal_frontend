@@ -35,7 +35,7 @@
                   </button>
               </div>
               <div class="modal-body">
-                  <textarea name="" id="" cols="30" rows="3" class="form-control" placeholder="FAQ에 올라갈 질문을 입력해 주세요" v-model="title"></textarea>
+                  <textarea name="" id="" cols="30" rows="3" class="form-control" placeholder="FAQ에 올라갈 질문을 입력해 주세요" @keyup="titleCheck" v-model="title"></textarea>
                   <textarea name="" id="" cols="30" rows="6" class="form-control" placeholder="질문에 대한 답변을 입력해 주세요" v-model="content"></textarea>
                   <div class="btn-box">
                       <button type="button" class="btn gray" data-dismiss="modal" >취소</button>
@@ -232,6 +232,20 @@ export default {
                      }
 
                    
+              },
+              titleCheck(){
+
+                if(this.title.length>100) {
+                    alert("제목은 최대 100자까지만 등록가능합니다.");
+                    this.title = this.title.substr(0,100);
+                }
+              },
+              contentCheck(){
+
+                if(this.content.length>320) {
+                    alert("제목은 최대 320자까지만 등록가능합니다.");
+                    this.title = this.content.substr(0,320);
+                }
               },
               createNewFaq() {
                 //$("#faq-write").modal("show");

@@ -221,7 +221,8 @@ export default {
                         sportsTypeCode: this.code,
                         currentPage: this.currentPage,
                         myContentYn:this.isMyData?'Y':'N',
-                        replyYn:this.replyYn
+                        replyYn:this.replyYn,
+                        pagePerRow: 5
                       };
 
                       await this.getBoardList(param).then(() => {
@@ -436,7 +437,9 @@ export default {
               },
               closeQna(viewType) {
                 jQuery('#qna-'+viewType).modal("hide");
+                 jQuery('.modal-backdrop').modal("hide");
                      //document.getElementById("popUp_"+viewNum).style.display = 'none';
+                     
                      this.updateTitle = '';
                      this.updateContent = '';
                      this.reply = '';
