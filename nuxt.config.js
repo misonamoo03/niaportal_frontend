@@ -10,7 +10,9 @@ export default {
 			{ hid: 'description', name: 'description', content: '' },
       { hid: 'format-detection', content: 'telephone=no, address=no, email=no' },
 		],
-		link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+		link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: '~/assets/css/line-awesome.css' }],
 	},
 
 	// Global CSS (https://go.nuxtjs.dev/config-css)

@@ -108,18 +108,16 @@ h3+.sub-category li.active {background: #1f4bff;border-color: transparent;}
 .data .service-model .row .text p {margin-bottom: 2em;}
 .data .service-model .row .text a {line-height: 1}
 .qna {position: relative}
-.qna h4 {}
 .qna .btns {position: absolute;right: 0;top: 0;white-space: nowrap}
 .qna .btns .btn {font-size: .875rem;height: 2rem;padding-top: 0;padding-bottom: 0;}
-.qna .btns .btn+.btn {margin-left: 5px;} {font-size: .875rem;height: 2rem;padding-top: 0;padding-bottom: 0;margin-right: 5px;}
+.qna .btns .btn+.btn {margin-left: 5px;} /*{font-size: .875rem;height: 2rem;padding-top: 0;padding-bottom: 0;margin-right: 5px;}*/
 .qna .btns .form-control {font-size: .875rem;height: 2rem;display: inline-block;vertical-align: top;min-width: inherit;width: auto;margin-left: 5px;}
 
 .board-content {background: #f5f5f5;padding: 1rem;max-height: 12rem;overflow-y: auto;}
 
-ul.list {}
 ul.list li {border-bottom: 1px solid #3a3a3f;padding: 1.5rem 0;padding-right: 6rem;position: relative; cursor: pointer}
 ul.list strong {display: block;font-weight: normal;margin-bottom: .5em;}
-ul.list li div.security {}
+
 ul.list li div.security strong {color: #999}
 ul.list li div.security strong:after {content: "";display: inline-block;vertical-align: middle;;margin-left: 10px;background: url(../img/icon-security.png) no-repeat 50% / .937rem; width: .937rem;height: 1rem}
 ul.list span.state {color: #fff;}
