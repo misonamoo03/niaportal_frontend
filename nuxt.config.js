@@ -11,17 +11,10 @@ export default {
       { hid: 'format-detection', content: 'telephone=no, address=no, email=no' },
 		],
 
-    link: [
-      {
-        rel: 'stylesheet',
-        type: 'text/css',
-        href:
-          'https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css'
-      }
-    ],
-
 		link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', ref: 'https://use.fontawesome.com/releases/v5.2.0/css/all.css' }
+    ],
 	},
 
 	// Global CSS (https://go.nuxtjs.dev/config-css)
@@ -60,6 +53,8 @@ export default {
 	build: {
 		transpile: [
 			"vee-validate/dist/rules"	// nuxt JS의 vee-validate 기본 설정
-		  ]
+		  ],
+      extractCSS:true
 	},
+  
 };
