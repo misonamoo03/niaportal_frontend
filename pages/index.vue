@@ -1,5 +1,5 @@
 <template>
-		<div id="content" class="index">
+		<div id="content" class="index" style="padding-top: 60px;">
       <theMainIntro />
       <theMainFaq /> 
             

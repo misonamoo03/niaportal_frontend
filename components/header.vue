@@ -1,7 +1,7 @@
 <template>
 	<header>
         <div class="container-fluid">
-            <h1><NuxtLink to="/"><img src="~assets/img/logo.png" alt=""></NuxtLink></h1>
+            <h1  @click="closeMenu()"><NuxtLink to="/"><img src="~assets/img/logo.png" alt=""></NuxtLink></h1>
             <nav v-bind:class="{'active':isMenuOpen}">
                 <ul>
                     <li><a href="#">스포츠 AI 데이터</a>
@@ -15,11 +15,11 @@
                     </li>
                     <li><a href="https://aihub.or.kr/" target="_new">데이터 신청 바로가기</a></li>
                     <!-- <li><a href="#">로그인</a></li> -->
-                    <li  v-if="isNotLogin">
+                    <li  v-if="isNotLogin" @click="closeMenu()">
                       <NuxtLink to="/member/signIn">로그인</NuxtLink>
                     </li>
-                    <li  v-else> 
-                      <span>내 정보</span> <a href="#">{{email}} <i class="bi bi-caret-down-fill"></i></a>
+                    <li  v-else  @click="closeMenu()"> 
+                      <span>내 정보</span> <NuxtLink to="/member/myPage">{{email}} <i class="bi bi-caret-down-fill"></i></NuxtLink>
                         <ul>
                             <li><NuxtLink to="/member/myPage">내 정보</NuxtLink></li>
                             <li @click="logoutMethod"><NuxtLink to="/">로그아웃</NuxtLink></li>

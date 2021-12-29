@@ -1,6 +1,6 @@
 <template>
 
-  <div id="content" class="data">
+  <div id="content" class="data" style="padding-top: 60px;">
     <div class="sub-content">
       <div class="container">
         <theSportsDataSet :code="code"/>
