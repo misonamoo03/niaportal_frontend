@@ -1,19 +1,28 @@
 <template>
-  <div class="error_wrap">
-       <div class="error_404">
-              <div class="error_img"></div> 
-              <div class="error_btn">
-              <div class="btn_group">
-                     <button type="button" id="btncancel" class="btn_type btn_basic btn_cancel" @click="$router.go(-1)"><span>이전</span></button>    
-                     <button type="button" id="btnfinish" class="btn_type btn_basic btn_primary" @click="goMain"><span>홈으로</span></button> 
-              </div>
-              </div> 
-       </div>
-</div>
+  <div class="form login-form">
+     <h1><NuxtLink to="/"><img src="~assets/img/logo.png" alt=""></NuxtLink></h1>
+      <h2> </h2>
+      <div class="text-center">
+
+
+        <h1><img src="~assets/images/error_404.jpg" alt=""></h1>
+        <hr>
+        <div class="btn-box">
+            <button type="button" class="btn gray"  @click="$router.go(-1)">이전</button>
+            <button type="button" class="btn dark"   @click="goMain">홈으로</button>
+        </div>
+          
+      </div>
+  </div><!-- /.for m -->
+  
+
+       
+
 </template>
 
 <script>
-export default {    
+export default {  
+    layout: 'blank',
        methods: {
               goMain() {
                      this.$router.push("/");
