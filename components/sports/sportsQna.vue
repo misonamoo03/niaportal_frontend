@@ -77,7 +77,7 @@
                       </button>
                   </div>
                   <div class="modal-body">
-                    <div class="board-content"><strong>{{updateTitle}}</strong></div>
+                    <h6>{{updateTitle}}</h6>
                       <div class="board-content" v-html="updateContent"></div>
                       <h6>관리자 답변</h6>
                       <textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="답변을 입력하세요" v-model="reply"></textarea>
@@ -101,7 +101,7 @@
                       </button>
                   </div>
                   <div class="modal-body">
-                    <div class="board-content"><strong>{{this.updateTitle}}</strong></div>
+                    <h6>{{this.updateTitle}}</h6>
                       <div class="board-content" v-html="updateContent"></div>
                       <h6>관리자 답변</h6>
                       <textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="" v-model="reply">관리자 답변입니다.</textarea>
@@ -125,7 +125,7 @@
                       </button>
                   </div>
                   <div class="modal-body">
-                      <div class="board-content"><strong>{{this.updateTitle}}</strong></div>
+                      <h6>{{this.updateTitle}}</h6>
                       <div class="board-content" v-html="updateContent"></div>
                       <h6>관리자 답변</h6>
                       <div class="board-content" v-html="reply"></div>
