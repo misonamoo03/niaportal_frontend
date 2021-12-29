@@ -215,10 +215,9 @@ export default {
                 try {       
                      this.isSuperUser = Cookie.get('userGbCode') === 'CD002002';
                      this.isLogin = !((Cookie.get('userGbCode') == null) || (Cookie.get('userGbCode') == undefined) || (Cookie.get('userGbCode') == ''));
-                     console.log(">>>>>>>>>>>>>>>>>>",Cookie.get('userNo'));
+                 
                      if(this.isLogin ){
                        this.userNo = Cookie.get('userNo');
-                       console.log(">>>>>>>>>>>>>>>>>>",this.userNo);
                      }
                      
                      this.currentPage = pageIndex;
