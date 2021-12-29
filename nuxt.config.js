@@ -10,9 +10,18 @@ export default {
 			{ hid: 'description', name: 'description', content: '' },
       { hid: 'format-detection', content: 'telephone=no, address=no, email=no' },
 		],
+
+    link: [
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href:
+          'https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css'
+      }
+    ],
+
 		link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: '~/assets/css/line-awesome.css' }],
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
 	},
 
 	// Global CSS (https://go.nuxtjs.dev/config-css)
