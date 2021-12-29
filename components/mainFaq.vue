@@ -10,7 +10,7 @@
                   <button type="button" class="btn icon" @click="getFaqListMethod"><img src="~assets/img/icon-search.png" alt=""></button>
               </div>
           </div>
-          <dl class="faq-list use-faq" v-if="faqListSize>0">
+          <dl class="la-angle-up faq-list use-faq" v-if="faqListSize>0">
             <div v-for="(list, index) in faqList" v-bind:key="index">
               <dt v-bind:class="{'active':selFaqIdx==index}"><a :id="'q_'+index" v-on:click="toggleAnswer(index)"  v-html="list.title"></a>
               <button type="button" class="btn line gray" data-toggle="modal" data-target="#faq-modify"  @click="showBoardDetailMethod(list.boardContentNo)"  v-show="isSuperUser">수정</button></dt>
