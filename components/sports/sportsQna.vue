@@ -3,7 +3,8 @@
     <div class="qna" id="sportsQna" >
       <h4>Q&amp;A</h4>
       <div class="btns">
-          <button type="button" class="btn dark" data-toggle="modal" data-target="#qna-write"  @click="createNewQna('write')">Q&amp;A 작성</button>
+          <button type="button" class="btn dark" data-toggle="modal" data-target="#qna-write"  @click="createNewQna('write')" v-show="isLogin">Q&amp;A 작성</button>
+          <button type="button" class="btn dark" data-toggle="modal" @click="createNewQna('write')" v-show="!isLogin">Q&amp;A 작성</button>
           <button type="button" :class="{'btn':true, 'line':!isMyData, 'gray':!isMyData, 'dark':isMyData}" @click="toggleMyData()">내 Q&A 보기</button>
           <select name="" id="" class="form-control"  v-model="replyYn" @change="changeReplyYn()">
               <option value="">답변상태</option>
@@ -420,6 +421,7 @@ export default {
               createNewQna(viewType) {
                      if((Cookie.get('userGbCode') == null) || (Cookie.get('userGbCode') == undefined) || (Cookie.get('userGbCode') == '')) {
                             if(window.confirm("로그인을 해야지 글쓰기가 가능합니다. 로그인 페이지로 이동하시겠습니까?")) {
+                              jQuery('#qna-'+viewType).modal("hide");
                                    return this.$router.push("/member/signIn");
                             } else {
                                    return;
