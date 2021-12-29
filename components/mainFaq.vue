@@ -85,6 +85,7 @@ extend('required', {
 
 export default {
   head: {
+    css: ['~/assets/css/style.css'],
     script: [
       {type:"text/javascript", src:"//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"},
       {type:"text/javascript", src:"https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"}
