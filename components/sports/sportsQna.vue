@@ -3,8 +3,8 @@
     <div class="qna" id="sportsQna" >
       <h4>Q&amp;A</h4>
       <div class="btns">
-          <button type="button" class="btn dark" data-toggle="modal" data-target="#qna-write"  @click="createNewQna('write')" v-show="isLogin">Q&amp;A 작성</button>
-          <button type="button" class="btn dark" data-toggle="modal" @click="createNewQna('write')" v-show="!isLogin">Q&amp;A 작성</button>
+          <button type="button" class="btn dark" @click="createNewQna('write')" v-if="isLogin">Q&amp;A 작성</button>
+          <button type="button" class="btn dark" @click="createNewQna('write')" v-else>Q&amp;A 작성</button>
           <button type="button" :class="{'btn':true, 'line':!isMyData, 'gray':!isMyData, 'dark':isMyData}" @click="toggleMyData()">내 Q&A 보기</button>
           <select name="" id="" class="form-control"  v-model="replyYn" @change="changeReplyYn()">
               <option value="">답변상태</option>
@@ -39,7 +39,7 @@
             </div>
         </li>
       </ul>
-      <thePagination @update="changePage" v-bind:totalListItemCount="qnaResult.totalCnt" v-bind:listRowCount="qnaResult.pagePerRow" v-bind:currentPage="qnaResult.currentPage" v-bind:pageLinkCount="10"/>       
+      <thePagination @update="changePage" v-bind:totalListItemCount="qnaResult.totalCnt" v-bind:listRowCount="qnaResult.pagePerRow" v-bind:currentPage="qnaResult.currentPage" v-bind:pageLinkCount="5"/>       
   </div><!-- /.qna -->   
 
 
@@ -378,10 +378,12 @@ export default {
                             this.boardGroup = this.getBoardGroup;
                             this.updateTitle = this.boardGroup.title;
                             this.updateContent = this.boardGroup.content;
-                            if(viewType == 'detail'){
-                              this.reply = this.boardGroup.replyList[0].content.replace(/(\n)/g, '<br />');
-                            }else{
-                              this.reply = this.boardGroup.replyList[0].content;
+                            if(this.boardGroup.replyList !=null && this.boardGroup.replyList.length>0){
+                              if(viewType == 'detail'){
+                                this.reply = this.boardGroup.replyList[0].content.replace(/(\n)/g, '<br />');
+                              }else{
+                                this.reply = this.boardGroup.replyList[0].content;
+                              }
                             }
                             
                             
@@ -426,7 +428,7 @@ export default {
                      }
               },
               createNewQna(viewType) {
-                     if((Cookie.get('userGbCode') == null) || (Cookie.get('userGbCode') == undefined) || (Cookie.get('userGbCode') == '')) {
+                      if((Cookie.get('userGbCode') == null) || (Cookie.get('userGbCode') == undefined) || (Cookie.get('userGbCode') == '')) {
                             if(window.confirm("로그인을 해야지 글쓰기가 가능합니다. 로그인 페이지로 이동하시겠습니까?")) {
                               jQuery('#qna-'+viewType).modal("hide");
                                    return this.$router.push("/member/signIn");
@@ -436,14 +438,13 @@ export default {
                      }
                      
                       jQuery('#qna-'+viewType).modal("show");
-                     //document.getElementById("popUp_"+viewNum).style.display = 'block';
                      this.title = '';
                      this.content = '';
                      this.secYn = false;
               },
               closeQna(viewType) {
                 jQuery('#qna-'+viewType).modal("hide");
-                 jQuery('.modal-backdrop').modal("hide");
+                 jQuery('.modal-backdrop').hide();
                      //document.getElementById("popUp_"+viewNum).style.display = 'none';
                      
                      this.updateTitle = '';
