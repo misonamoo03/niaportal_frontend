@@ -16,8 +16,8 @@
           <!-- 비밀글 -->
           <li v-for="(list, index) in qnaList" v-bind:key="index">
             <div  :class="{'security':list.secYn=='Y'  && !isSuperUser}">
-              <strong v-if="list.secYn =='Y' && !isSuperUser"><a href="#">비밀글입니다.</a></strong>
-              <strong v-else-if="list.secYn !='Y' || isSuperUser"><a @click="showBoardGroupMethod(list.boardContentNo,'detail'), createNewQna('detail')">{{list.title}}</a></strong>
+              <strong v-if="list.secYn =='Y' && !isSuperUser && list.userNo !=userNo">비밀글입니다.</strong>
+              <strong v-else><a @click="showBoardGroupMethod(list.boardContentNo,'detail'), createNewQna('detail')">{{list.title}}</a></strong>
               <span class="state" v-if="list.replyCnt == 0">미답변</span>
               <span class="state" v-else-if="list.replyCnt > 0">답변완료</span>
               <span>{{list.userName}}</span>
@@ -116,10 +116,10 @@
       
       <!-- 게시글보기 - 관리자답변 포함 -->
       <div class="modal fade" id="qna-detail" tabindex="-1">
-          <div class="modal-dialog">
+           <div class="modal-dialog">
               <div class="modal-content">
                   <div class="modal-header">
-                      <h5 class="modal-title">게시글 보기</h5>
+                      <h6 class="modal-title">게시글 보기</h6>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true"><i class="la la-times"></i></span>
                       </button>
@@ -179,7 +179,8 @@ export default {
                      secYn: false,
                      boardContentNo:null,
                      isMyData:false,
-                     replyYn:''
+                     replyYn:'',
+                     userNo:'1'
               }
        },
        methods: {
@@ -214,6 +215,12 @@ export default {
                 try {       
                      this.isSuperUser = Cookie.get('userGbCode') === 'CD002002';
                      this.isLogin = !((Cookie.get('userGbCode') == null) || (Cookie.get('userGbCode') == undefined) || (Cookie.get('userGbCode') == ''));
+                     console.log(">>>>>>>>>>>>>>>>>>",Cookie.get('userNo'));
+                     if(this.isLogin ){
+                       this.userNo = Cookie.get('userNo');
+                       console.log(">>>>>>>>>>>>>>>>>>",this.userNo);
+                     }
+                     
                      this.currentPage = pageIndex;
 
                       let param = {
