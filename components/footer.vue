@@ -3,7 +3,7 @@
             <div class="container">
                 <h1><img src="~assets/img/logo_foot.png" alt=""></h1>
                 <nav>
-                    <span class="logo"><img src="~assets/img/logo-nia.png" alt=""></span>
+                    <span class="logo"><a href="https://www.nia.or.kr/site/nia_kor/main.do" target="_nia"><img src="~assets/img/logo-nia.png" alt=""></a></span>
                     <ul>
                         <li><a href="#">서비스 이용약관</a></li>
                         <li><a href="#">개인정보처리방침</a></li>

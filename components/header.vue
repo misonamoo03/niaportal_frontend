@@ -13,7 +13,7 @@
                             <li @click="closeMenu()"><NuxtLink to="/sports/CD020">골프</NuxtLink></li>
                         </ul>
                     </li>
-                    <li><a href="#">데이터 신청 바로가기</a></li>
+                    <li><a href="https://aihub.or.kr/" target="_new">데이터 신청 바로가기</a></li>
                     <!-- <li><a href="#">로그인</a></li> -->
                     <li  v-if="isNotLogin">
                       <NuxtLink to="/member/signIn">로그인</NuxtLink>
