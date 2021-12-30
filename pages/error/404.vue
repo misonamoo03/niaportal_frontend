@@ -5,7 +5,7 @@
       <div class="text-center">
 
 
-        <h1><img src="~assets/images/error_404.jpg" alt=""></h1>
+        <h1><img src="~assets/img/img-404-mobile.png" alt=""></h1>
         <hr>
         <div class="btn-box">
             <button type="button" class="btn gray"  @click="$router.go(-1)">이전</button>
