@@ -1,5 +1,5 @@
 <template>
-  <div id="content" class="mypage">
+  <div id="content" class="mypage"  style="padding-top: 60px;">
       <theMemberInfo/>
   </div> 
 </template>

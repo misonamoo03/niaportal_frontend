@@ -2,8 +2,8 @@
   <div class="pagination">
     <a style="cursor: pointer" class="first" v-if="first" @click="changeLink(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
     <a style="cursor: pointer" class="prev" v-if="prev" @click="changeLink(startPageIndex - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-      <span v-for="index in endPageIndex-startPageIndex + 1" :key="index">
-            <a style="cursor: pointer" :class="{'active': (startPageIndex + index - 1) == currentPage}"  @click="changePage(index)">{{ startPageIndex + index - 1 }}</a>
+      <span v-for="index in endPageIndex-startPageIndex + 1" :key="index" style="cursor: pointer" >
+            <a :class="{'active': (startPageIndex + index - 1) == currentPage}"  @click="changePage(index)">{{ startPageIndex + index - 1 }}</a>
       </span>
     <a style="cursor: pointer" class="next" v-if="next" @click="changeLink(endPageIndex + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
     <a style="cursor: pointer" class="end" v-if="end" @click="changeLink(pageCount)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
