@@ -35,7 +35,12 @@
             <option value="CD001006">개인사용자</option>
             <option value="CD001007">기타</option>
           </select>
-    <input type="text" class="form-control" name="company_no" placeholder="사업자등록번호" v-model="companyNo">
+    <input type="text" 
+      class="form-control" 
+      name="company_no" 
+      placeholder="사업자등록번호" 
+      v-model="companyNo" 
+      v-if="companyTypeCode=='CD001001'  || companyTypeCode=='CD001002' ">
     <div class="btn-box">
         <button type="button" class="btn dark btn-block" @click="signUpMethod">회원가입하기</button>
     </div>
@@ -228,17 +233,20 @@ export default {
         if(!errorChk){
           return;
         }
-        await validate(this.companyNo, 'required', {
-          name: '사업자등록번호',
-        }).then(result => {
-          if (!result.valid) {
-            alert(result.errors[0]);
-            errorChk = false;
+        if(this.companyTypeCode=='CD001001'  || this.companyTypeCode=='CD001002'  ){
+          await validate(this.companyNo, 'required', {
+            name: '사업자등록번호',
+          }).then(result => {
+            if (!result.valid) {
+              alert(result.errors[0]);
+              errorChk = false;
+            }
+          })
+          if(!errorChk){
+            return;
           }
-        })
-        if(!errorChk){
-          return;
         }
+        
 
         let userInfo = {
           email: this.email,
@@ -257,7 +265,7 @@ export default {
       }
     },
     redirect() {
-      this.$router.push("/");
+      this.$router.push("/member/signIn");
     },
   },
   computed: {

@@ -41,7 +41,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-row">
+                        <div class="form-row" v-if="companyTypeCode=='CD001001'  || companyTypeCode=='CD001002' ">
                             <div class="col-4 col-md-3"><label>사업자등록번호</label></div>
                             <div class="col"><input type="text" class="form-control" value="1234145333" placeholder="사업자등록번호" v-model="companyNo"></div>
                         </div>

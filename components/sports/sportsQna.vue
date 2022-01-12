@@ -17,7 +17,7 @@
           <li v-for="(list, index) in qnaList" v-bind:key="index">
             <div  :class="{'security':list.secYn=='Y'  && !isSuperUser}">
               <strong v-if="list.secYn =='Y' && !isSuperUser && list.userNo !=userNo">비밀글입니다.</strong>
-              <strong v-else><a @click="showBoardGroupMethod(list.boardContentNo,'detail'), createNewQna('detail')">{{list.title}}</a></strong>
+              <strong v-else><a @click="showBoardGroupMethod(list.boardContentNo,'detail'), createNewQna('detail')">{{list.content}}</a></strong>
               <span class="state" v-if="list.replyCnt == 0">미답변</span>
               <span class="state" v-else-if="list.replyCnt > 0">답변완료</span>
               <span>{{list.userName}}</span>
@@ -54,7 +54,6 @@
                       </button>
                   </div>
                   <div class="modal-body">
-                      <textarea name="" id="" cols="30" rows="1" class="form-control" placeholder="제목을입력하세요"  v-model="title"></textarea>
                       <textarea name="" id="" cols="30" rows="8" class="form-control" placeholder="문의사항을 입력하세요" v-model="content"></textarea>
                       <span class="checkbox"><input type="checkbox" name="" id="chk" v-model="secYn"><label for="chk">작성한 글을 비공개합니다</label></span>
                       <div class="btn-box">
@@ -77,7 +76,6 @@
                       </button>
                   </div>
                   <div class="modal-body">
-                    <h6>{{updateTitle}}</h6>
                       <div class="board-content" v-html="updateContent"></div>
                       <h6>관리자 답변</h6>
                       <textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="답변을 입력하세요" v-model="reply"></textarea>
@@ -101,7 +99,6 @@
                       </button>
                   </div>
                   <div class="modal-body">
-                    <h6>{{this.updateTitle}}</h6>
                       <div class="board-content" v-html="updateContent"></div>
                       <h6>관리자 답변</h6>
                       <textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="" v-model="reply">관리자 답변입니다.</textarea>
@@ -125,12 +122,11 @@
                       </button>
                   </div>
                   <div class="modal-body">
-                      <h6>{{this.updateTitle}}</h6>
                       <div class="board-content" v-html="updateContent"></div>
                       <h6>관리자 답변</h6>
                       <div class="board-content" v-html="reply"></div>
                       <div class="btn-box">
-                          <button type="button" class="btn gray" @click="deleteMethod(boardContentNo)">삭제</button>
+                          <button type="button" class="btn gray" @click="deleteMethod(boardContentNo)" v-if="isSuperUser || updateUserNo == userNo">삭제</button>
                           <button type="button" class="btn dark" @click="closeQna('detail')">확인</button>
                       </div>
                   </div>
@@ -170,10 +166,11 @@ export default {
                      isSuperUser: false,
                      isLogin:false,
                      currentPage: 1,
-                     title: '',
+                     title: 'QnA',
                      content: '',
                      orgBoardContentNo: '',
                      updateTitle: '',
+                     updateUserNo:'',
                      updateContent: '',
                      reply: '',
                      secYn: false,
@@ -358,6 +355,7 @@ export default {
 
                             await this.showBoardDetail(param).then();
                             this.boardDetail = this.getBoardDetail;;
+                            this.updateUserNo = this.boardDetail.userNo;
                             this.updateTitle = this.boardDetail.title;
                             this.updateContent = this.boardDetail.content;
                             this.orgBoardContentNo = this.boardDetail.boardContentNo;
@@ -429,7 +427,7 @@ export default {
               },
               createNewQna(viewType) {
                       if((Cookie.get('userGbCode') == null) || (Cookie.get('userGbCode') == undefined) || (Cookie.get('userGbCode') == '')) {
-                            if(window.confirm("로그인을 해야지 글쓰기가 가능합니다. 로그인 페이지로 이동하시겠습니까?")) {
+                            if(window.confirm("로그인 후 글쓰기가 가능합니다. 로그인 페이지로 이동하시겠습니까?")) {
                               jQuery('#qna-'+viewType).modal("hide");
                                    return this.$router.push("/member/signIn");
                             } else {
@@ -438,7 +436,7 @@ export default {
                      }
                      
                       jQuery('#qna-'+viewType).modal("show");
-                     this.title = '';
+                     //this.title = '';
                      this.content = '';
                      this.secYn = false;
               },
@@ -447,7 +445,7 @@ export default {
                  jQuery('.modal-backdrop').hide();
                      //document.getElementById("popUp_"+viewNum).style.display = 'none';
                      
-                     this.updateTitle = '';
+                     //this.updateTitle = '';
                      this.updateContent = '';
                      this.reply = '';
               },
@@ -456,7 +454,7 @@ export default {
                      const userGbCode = Cookie.get('userGbCode');
                      
                      if((userGbCode == null) || (userGbCode == undefined) || (userGbCode == '')) {
-                            if(window.confirm("로그인을 해야지 문의사항 조회가 가능합니다. 로그인 페이지로 이동하시겠습니까?")) {
+                            if(window.confirm("로그인 후 문의사항 조회가 가능합니다. 로그인 페이지로 이동하시겠습니까?")) {
                                    return this.$router.push("/member/signIn");
                             } else {
                                    return;
@@ -477,7 +475,7 @@ export default {
               },
               toggleMyData(){
                 if((Cookie.get('userGbCode') == null) || (Cookie.get('userGbCode') == undefined) || (Cookie.get('userGbCode') == '')) {
-                    if(window.confirm("로그인을 해야지 내 Q&A 보기가 가능합니다.. 로그인 페이지로 이동하시겠습니까?")) {
+                    if(window.confirm("로그인 후 내 Q&A 보기가 가능합니다.. 로그인 페이지로 이동하시겠습니까?")) {
                             return this.$router.push("/member/signIn");
                     } else {
                             return;

@@ -433,7 +433,7 @@ export default {
               },
               createNewQna(viewNum) {
                      if((Cookie.get('userGbCode') == null) || (Cookie.get('userGbCode') == undefined) || (Cookie.get('userGbCode') == '')) {
-                            if(window.confirm("로그인을 해야지 글쓰기가 가능합니다. 로그인 페이지로 이동하시겠습니까?")) {
+                            if(window.confirm("로그인 후 글쓰기가 가능합니다. 로그인 페이지로 이동하시겠습니까?")) {
                                    return this.$router.push("/member/signIn");
                             } else {
                                    return;
@@ -456,7 +456,7 @@ export default {
                      const userGbCode = Cookie.get('userGbCode');
                      
                      if((userGbCode == null) || (userGbCode == undefined) || (userGbCode == '')) {
-                            if(window.confirm("로그인을 해야지 문의사항 조회가 가능합니다. 로그인 페이지로 이동하시겠습니까?")) {
+                            if(window.confirm("로그인 후 문의사항 조회가 가능합니다. 로그인 페이지로 이동하시겠습니까?")) {
                                    return this.$router.push("/member/signIn");
                             } else {
                                    return;

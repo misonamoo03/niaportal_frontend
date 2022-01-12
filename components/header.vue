@@ -18,13 +18,12 @@
                     <li  v-if="isNotLogin" @click="closeMenu()">
                       <NuxtLink to="/member/signIn">로그인</NuxtLink>
                     </li>
-                    <li  v-else  @click="closeMenu()"> 
-                      <span>내 정보</span> <NuxtLink to="/member/myPage">{{email}} <i class="bi bi-caret-down-fill"></i></NuxtLink>
+                      <li  v-else  @click="closeMenu()"><NuxtLink to="/member/myPage"><span>내 정보</span>{{email}} <i class="bi bi-caret-down-fill"></i></NuxtLink>
                         <ul>
                             <li><NuxtLink to="/member/myPage">내 정보</NuxtLink></li>
                             <li @click="logoutMethod"><NuxtLink to="/">로그아웃</NuxtLink></li>
                         </ul>
-                    </li>
+                      </li>
                 </ul>
                 <button type="button" id="toggle-close" class="btn"  v-on:click="closeMenu()"><i class="bi bi-x" aria-hidden="true"></i><span class="sr-only">메뉴닫기</span></button>
             </nav>
