@@ -354,7 +354,7 @@ export default {
                             };
 
                             await this.showBoardDetail(param).then();
-                            this.boardDetail = this.getBoardDetail;;
+                            this.boardDetail = this.getBoardDetail;
                             this.updateUserNo = this.boardDetail.userNo;
                             this.updateTitle = this.boardDetail.title;
                             this.updateContent = this.boardDetail.content;
@@ -375,6 +375,7 @@ export default {
                             await this.showBoardGroup(param).then();
                             this.boardGroup = this.getBoardGroup;
                             this.updateTitle = this.boardGroup.title;
+                            this.updateUserNo = this.boardGroup.userNo;
                             this.updateContent = this.boardGroup.content;
                             if(this.boardGroup.replyList !=null && this.boardGroup.replyList.length>0){
                               if(viewType == 'detail'){
