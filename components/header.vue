@@ -1,4 +1,5 @@
 <template>
+<client-only>
 	<header>
         <div class="container-fluid">
             <h1  @click="closeMenu()"><NuxtLink to="/"><img src="~assets/img/logo.png" alt=""></NuxtLink></h1>
@@ -30,6 +31,7 @@
             <button type="button" id="toggle-open" class="btn" v-on:click="openMenu()"><i class="bi bi-list"></i><span class="sr-only">메뉴열기</span></button>
         </div>
     </header><!-- /header -->
+</client-only>
 </template>
 
 <script>
