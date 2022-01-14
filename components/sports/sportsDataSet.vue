@@ -28,10 +28,12 @@
           <h5>데이터 샘플 (예시) </h5>
           <p>데이터 신청은 AI Hub(aihub.or.kr)에서 가능합니다. <a href="https://aihub.or.kr/aidata/34117">데이터 신청 바로가기 <i class="bi bi-caret-right-fill"></i></a></p>
           <div class="img row">
-              <div class="col-sm-6"><img src="/data_img/CD020/sample_1.png" alt=""></div>
-              <div class="col-sm-6"><img src="/data_img/CD020/sample_2.png" alt=""></div>
-              <div class="col-sm-6"><img src="/data_img/CD020/sample_3.png" alt=""></div>
-              <div class="col-sm-6"><img src="/data_img/CD020/sample_4.png" alt=""></div>
+              <div class="col-sm-6"><img src="/data_img/CD020/sample_1.jpeg" alt=""></div>
+              <div class="col-sm-6"><img src="/data_img/CD020/sample_2.jpeg" alt=""></div>
+              <div class="col-sm-6"><img src="/data_img/CD020/sample_3.jpeg" alt=""></div>
+              <div class="col-sm-6"><img src="/data_img/CD020/sample_4.jpeg" alt=""></div>
+              <div class="col-sm-6"><img src="/data_img/CD020/sample_5.jpeg" alt=""></div>
+              <div class="col-sm-6"><img src="/data_img/CD020/sample_6.jpeg" alt=""></div>
           </div>
     </div> 
 
@@ -150,7 +152,7 @@
                     <div class="col-sm-6"><img src="/data_img/CD023/application_service.png" alt=""></div>
                     <div class="col-sm-6 text">
                         <p>본 응용서비스를 통해 사회인 야구에서는 그동안 확인하기 어려웠던 데이터를 제공할 수 있으며, 향후 기록 시스템과 연계하여 문자 중계로 확대할 예정입니다.</p>
-                        <a href="https://dev.flexer.co.kr/video/baseballPlayer" class="btn line gray">응용 서비스 모델 보러가기 <i class="bi bi-caret-right-fill"></i></a>
+                        <a href="https://dev.flexer.co.kr/channel/1H2BSRIMGYK/video" class="btn line gray">응용 서비스 모델 보러가기 <i class="bi bi-caret-right-fill"></i></a>
                     </div>
                 </div>
             </div><!-- /.service-model -->
@@ -197,7 +199,7 @@
                     <div class="col-sm-6"><img src="/data_img/CD024/application_service.png" alt=""></div>
                     <div class="col-sm-6 text">
                         <p>실제 데이터 분석관들이 경기 후 자신이 입력한 데이터와 상황이 일치하는지 확인하기 위해 경기를 복기하는 업무량을 줄여줄 수 있을 뿐만 아니라, 하이라이트 영상 제작 및 선수별 비대면 코칭 시스템 구축을 위한 기반 기술을 마련할 수 있습니다.</p>
-                        <a href="https://dev.flexer.co.kr/video/volleyballGame" class="btn line gray">응용 서비스 모델 보러가기 <i class="bi bi-caret-right-fill"></i></a>
+                        <a href="https://dev.flexer.co.kr/channel/ULXASEDEX7/video" class="btn line gray">응용 서비스 모델 보러가기 <i class="bi bi-caret-right-fill"></i></a>
                     </div>
                 </div>
             </div><!-- /.service-model -->

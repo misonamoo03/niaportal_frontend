@@ -32,13 +32,11 @@
           </li>
           
       </ul>
-      <ul class="list" v-else>
-        <li>
-            <div>
-              등록된 Q&A가 없습니다. 
-            </div>
-        </li>
-      </ul>
+      
+      <dl class="faq-list use-faq" v-else>
+        <dt class="no-list"> 검색된 Q&A가 없습니다. </dt>
+      </dl>
+       
       <thePagination @update="changePage" v-bind:totalListItemCount="qnaResult.totalCnt" v-bind:listRowCount="qnaResult.pagePerRow" v-bind:currentPage="qnaResult.currentPage" v-bind:pageLinkCount="5"/>       
   </div><!-- /.qna -->   
 
@@ -123,7 +121,7 @@
                   </div>
                   <div class="modal-body">
                       <div class="board-content" v-html="updateContent"></div>
-                      <h6>관리자 답변</h6>
+                      <h6 v-if="reply != ''">관리자 답변</h6>
                       <div class="board-content" v-html="reply"></div>
                       <div class="btn-box">
                           <button type="button" class="btn gray" @click="deleteMethod(boardContentNo)" v-if="isSuperUser || updateUserNo == userNo">삭제</button>

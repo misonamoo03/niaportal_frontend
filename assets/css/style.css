@@ -224,12 +224,12 @@ ul.list li.no-list {text-align: center;padding: 3rem 0;}
 /* 220112추가 */
 .faq-list dl {}
 .faq-list dt {padding-right: 10rem;}
-.faq-list dt.no-list {background: #1f1f24;text-align: center;padding-right: 1rem;}
+.faq-list dt.no-list {background: #1f1f24;text-align: center;padding-right: 1rem;padding-top: 3rem;}
 .faq-list dt.no-list:after {display: none}
 .not-found {text-align: center;}
 .not-found h1 {margin-bottom: 1.5em}
 ul.list strong {overflow: hidden; text-overflow: ellipsis; display: -webkit-box;-webkit-line-clamp: 2; /* 라인수 */	-webkit-box-orient: vertical; word-wrap:break-word;}
-
+.search input:focus { color:#fff}
 @media (max-width: 768px) {
     header nav>ul>li:nth-child(3)>a {display: block}
     header nav>ul>li:nth-child(3) span {color: #fff}
